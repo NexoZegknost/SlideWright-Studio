@@ -59,7 +59,7 @@ SAO_RONG = re.compile(r"^\s*(?:(?:hai|ba|bốn|năm|sáu|bảy|tám|chín|mườ
                       r"|.*\b(?:đáng chú ý|nổi bật|quan trọng nhất|cần biết|bạn nên biết|trong lộ trình|cốt lõi)\s*$)", re.I)
 TEN_PHU = re.compile(r"^(source|info|contact|kicker|hint|by|lockup|brandmark|hchon|sec|!!sec|given|cap\d+|sn\d+|dn\d+|xl|yl|note|role)$")
 TEN_TIEU_DE = re.compile(r"^(title|statement|question|big)$")
-TEN_TRANG_TRI = re.compile(r"^(bignum|!!sec|word|mark|eq.*|sym\d+|v\d+|value|mk\d+|an\d+|num\d+|herotxt)$")
+TEN_TRANG_TRI = re.compile(r"^(!!.*|bignum|!!sec|word|mark|eq.*|sym\d+|v\d+|value|mk\d+|an\d+|num\d+|herotxt)$")
 
 _font_cache = {}
 def font_for(face, bold, italic, size):

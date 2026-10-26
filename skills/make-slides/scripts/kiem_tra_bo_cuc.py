@@ -25,7 +25,7 @@ FONT_DIR = os.path.join(ROOT, "assets", "fonts")
 FILES = json.load(open(os.path.join(FONT_DIR, "files.json"), encoding="utf-8"))
 FALLBACK = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 PT = 72.0
-TEN_NEN = re.compile(r"^(nen|den\d*|hat\d+|vong\d*|sang\d*|texture|bg|motif\w*|mesh|word|img\d*|shade|panel|frame|bignum|!!sec|sec|eq\w*|sym\d+)$")
+TEN_NEN = re.compile(r"^(!!.*|nen|den\d*|hat\d+|vong\d*|sang\d*|texture|bg|motif\w*|mesh|word|img\d*|shade|panel|frame|bignum|!!sec|sec|eq\w*|sym\d+)$")
 
 # ---------------------------------------------------------------- phông: tên trong PDF → tệp
 _FONT_BY_PS = {}
@@ -110,7 +110,14 @@ def xml_shapes(z, n):
         if nv is None or x is None or x.find("a:off", NS) is None: continue
         o, e = x.find("a:off", NS), x.find("a:ext", NS)
         has_text = el.find(".//a:t", NS) is not None
-        out.append({"name": nv.get("name", ""), "kind": tag, "text": has_text, "x": int(o.get("x")) / 914400, "y": int(o.get("y")) / 914400, "w": int(e.get("cx")) / 914400, "h": int(e.get("cy")) / 914400})
+        X, Y, Wd, Hd = int(o.get("x")) / 914400, int(o.get("y")) / 914400, int(e.get("cx")) / 914400, int(e.get("cy")) / 914400
+        rot = int(x.get("rot", "0")) / 60000
+        if rot % 180:   # hình xoay: khung bao sau khi xoay quanh tâm
+            import math
+            c, s_ = abs(math.cos(math.radians(rot))), abs(math.sin(math.radians(rot)))
+            nw, nh = Wd * c + Hd * s_, Wd * s_ + Hd * c
+            X, Y, Wd, Hd = X + Wd / 2 - nw / 2, Y + Hd / 2 - nh / 2, nw, nh
+        out.append({"name": nv.get("name", ""), "kind": tag, "text": has_text, "x": X, "y": Y, "w": Wd, "h": Hd})
     return out
 
 def kiem(path, anh=None):
@@ -129,6 +136,13 @@ def kiem(path, anh=None):
     for idx, page in enumerate(doc, 1):
         spans, lines, blocks, imgs, W, H = page_items(page)
         live = [s for s in spans if not s["ghost"]]
+        # bỏ khối trang trí (cảnh morph "!!…", hạt sáng, nền…): khớp hình trong PDF với hình cùng khung trong XML
+        if idx <= len(slides):
+            deco = [(s["x"] * PT, s["y"] * PT, (s["x"] + s["w"]) * PT, (s["y"] + s["h"]) * PT) for s in xml_shapes(z, slides[idx - 1]) if TEN_NEN.match(s["name"])]
+            near = lambda b, d: all(abs(u - v) < 4 for u, v in zip(b, d))
+            clip = lambda d: (max(d[0], 0), max(d[1], 0), min(d[2], W), min(d[3], H))
+            blocks = [b for b in blocks if not any(near(b["box"], d) or near(b["box"], clip(d)) for d in deco)]
+            lines = [l for l in lines if not any(near(l["box"], d) or near(l["box"], clip(d)) for d in deco)]
         mg = 0.25 * PT
         for s in live:
             ink, t = s["ink"], s["text"][:30]
