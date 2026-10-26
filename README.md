@@ -2,7 +2,7 @@
 
 Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Plugin có tên kỹ thuật là `make-slides` (makeSlides).
 
-Phiên bản hiện tại: **0.14.0-beta.1** (thử nghiệm) · bản ổn định: **0.13.0** · Lịch sử thay đổi: [CHANGELOG.md](CHANGELOG.md)
+Phiên bản hiện tại: **0.14.0-beta.2** (thử nghiệm) · bản ổn định: **0.13.0** · Lịch sử thay đổi: [CHANGELOG.md](CHANGELOG.md)
 
 ## Tính năng
 

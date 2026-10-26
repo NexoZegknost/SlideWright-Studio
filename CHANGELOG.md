@@ -2,7 +2,7 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
-## Chưa phát hành
+## 0.14.0-beta.2
 - Quy trình: thêm bước dựng file trước tự kiểm tra, thứ tự chạy các script kiểm tra, vai slide và cảnh morph trong dàn ý, xem trước Morph khi gửi bản duyệt, lời nhắc khi bàn giao.
 - Cảnh morph theo mức hiệu ứng của bối cảnh; bổ sung phụ thuộc Python cho các script kiểm tra.
 
