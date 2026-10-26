@@ -1,4 +1,11 @@
-# SlideWright - Studio
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/branding/logo-dark.png">
+    <img src="assets/branding/logo.png" alt="Logo SlideWright - Studio" width="128" height="128">
+  </picture>
+</p>
+
+<h1 align="center">SlideWright - Studio</h1>
 
 Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Gói plugin có tên kỹ thuật `slidewright-studio` (trước bản 0.14.0 là `make-slides`) và chứa skill **makeSlides** (`make-slides`).
 
