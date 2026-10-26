@@ -1,4 +1,4 @@
-// Mẫu minh hoạ đủ bốn nhóm hiệu ứng (mở đầu, nhấn mạnh, chờ, kết thúc): "Hiệu ứng ánh đèn sân khấu" — tâm lý học xã hội
+// Mẫu minh hoạ đủ bốn nhóm hiệu ứng (mở đầu, nhấn mạnh, chờ, kết thúc) và bộ chuyển trang Morph: "Hiệu ứng ánh đèn sân khấu" — tâm lý học xã hội
 // Chạy (trong thư mục làm việc, đã npm install như quy-trinh-pptx.md):
 //   node illus.js && node deck.js      (illus.js vẽ tranh minh hoạ SVG → PNG vào ./anh)
 const LIB = require("path").join(__dirname, "..", "..", "scripts") + "/";
@@ -6,6 +6,7 @@ const { L, setScale, setCurrent, W, H, M, CW } = require(LIB + "layouts.js");
 const DH = require(LIB + "dinh_huong.js");
 const HU = require(LIB + "hieu_ung.js");
 const MS = require(LIB + "makeslides.js");
+const CT = require(LIB + "chuyen_trang.js");
 const pptxgen = require("pptxgenjs");
 const A = process.cwd() + "/anh/";   // tranh do illus.js vẽ
 
@@ -17,15 +18,18 @@ const A = process.cwd() + "/anh/";   // tranh do illus.js vẽ
   const tex = DH.taoTexture(pa, process.cwd() + "/tex");
   const den = await HU.anhSang(A + "den-chum.png", { mau: S.c.accentOnDark, hinh: "chum", manh: 0.42, w: 900, h: 1100 });
   const C = S.c;
+  // cảnh morph xuyên suốt: ba vầng sáng trôi như đèn sân khấu đổi vị trí + thanh tiến độ trườn dài; đèn rọi "!!den" và chiếc áo "!!ao"
+  // là hai đối tượng kể chuyện: đèn từ sân khấu thu về góc câu hỏi, chiếc áo từ tranh lớn thu thành biểu tượng bên con số
+  const canh = CT.canh(S, { motif: ["quyDao", "chuNen", "tienDo"], tong: 9, chu: "ánh đèn" });
 
   const pres = new pptxgen(); pres.layout = "LAYOUT_16x9"; pres.title = "Hiệu ứng ánh đèn sân khấu";
   const PLAN = {}; let n = 0;
-  const add = (r, extra = {}) => { PLAN[++n] = { transition: "fade", steps: r.steps, autoFirst: r.autoFirst, idle: r.idle, ket: r.ket, ...extra }; return r; };
+  const add = (r, extra = {}) => { PLAN[++n] = { transition: CT.MORPH, steps: r.steps, autoFirst: r.autoFirst, idle: r.idle, ket: r.ket, ...extra }; return r; };
   // lớp sân khấu dùng chung cho bìa và kết: tranh sân khấu + đèn rọi quét chậm + bụi sáng lơ lửng trong luồng đèn
   const sanKhau = (sl, seed) => {
     sl.addImage({ path: A + "san-khau.png", x: 0, y: 0, w: W, h: H, objectName: "nen", altText: "hoa-tiet:san-khau (tranh nền tối, chữ đặt trên mảng tường trơn)" });
     return [
-      HU.denSanKhau(sl, den, { x: 1.7, y: -0.15, w: 3.6, h: 4.4, dx: 2.9, period: 18000 }),
+      HU.denSanKhau(sl, den, { name: "!!den", x: 1.7, y: -0.15, w: 3.6, h: 4.4, dx: 2.9, period: 18000 }),
       ...HU.hatBui(sl, { so: 14, mau: C.accentOnDark, vung: { x: 2.0, y: 0.6, w: 6.0, h: 3.4 }, co: [0.04, 0.1], trong: [40, 70], seed }),
     ];
   };
@@ -34,6 +38,7 @@ const A = process.cwd() + "/anh/";   // tranh do illus.js vẽ
   {
     const sl = pres.addSlide(); sl.background = { color: C.dark };
     const cho = sanKhau(sl, 3);
+    canh.dat(sl, "bia", { i: 1 });
     sl.addText("TÂM LÝ HỌC XÃ HỘI", { objectName: "kicker", x: M, y: 1.0, w: CW, h: 0.4, fontFace: S.body, bold: true, fontSize: 16, charSpacing: 3, color: C.accentOnDark, align: "center", margin: 0 });
     sl.addText("Hiệu ứng\nánh đèn sân khấu", { objectName: "title", x: 1.2, y: 1.45, w: W - 2.4, h: 1.9, fontFace: S.head, bold: true, fontSize: 50, color: "FFFFFF", align: "center", valign: "middle", margin: 0, lineSpacingMultiple: 0.95 });
     sl.addText("Vì sao ta tưởng cả phòng đang nhìn mình", { objectName: "sub", x: 1.2, y: 3.45, w: W - 2.4, h: 0.5, fontFace: S.body, fontSize: 24, color: C.accentOnDark, align: "center", margin: 0 });
@@ -45,6 +50,7 @@ const A = process.cwd() + "/anh/";   // tranh do illus.js vẽ
   {
     const r = L.hoiDap(pres, S, { kicker: "Thử nhớ lại", question: "Lần trước có bạn vấp ngã,\nbạn còn nhớ đó là ai không?",
       answer: "Người vấp ngã thì nhớ rất lâu.", nen: DH.nen(tex, "nhan-manh", 0), nenDong: { le: 0.35, period: 26000 },
+      truoc: (sl) => { canh.dat(sl, "nhan-manh", { i: 2, toi: true }); sl.addImage({ path: den, x: 7.6, y: -0.55, w: 2.1, h: 2.6, objectName: "!!den", altText: "hoa-tiet:anh-sang" }); return [{ n: "!!den", eff: "tho", ti: 106, period: 9000 }]; },
       notes: "Để lớp trả lời vài giây rồi mới nhấp hiện lời đáp." }, { dark: true });
     r.steps = [[{ n: "kicker", eff: "fade" }, { n: "question", eff: "riseWords", start: "after", dur: 600 }], ...r.steps];
     r.autoFirst = true;
@@ -55,7 +61,7 @@ const A = process.cwd() + "/anh/";   // tranh do illus.js vẽ
   // ---- 3. Định nghĩa
   {
     const r = L.tuyenBo(pres, S, { statement: "Ta luôn nghĩ người khác\nđể ý mình nhiều hơn thực tế", highlight: "để ý mình nhiều hơn thực tế",
-      by: "Gilovich, Medvec & Savitsky, 2000", nen: DH.nen(tex, "noi-dung", 1) });
+      by: "Gilovich, Medvec & Savitsky, 2000", nen: DH.nen(tex, "noi-dung", 1), truoc: (sl) => canh.dat(sl, "noi-dung", { i: 3 }) });
     r.steps = [[{ n: "statement", eff: "expand", dur: 900 }, { n: "by", eff: "fade", start: "after" }]];
     r.idle = [{ n: "statement", eff: "gachChan", period: 11000, dur: 1800 }];
     add(r);
@@ -63,19 +69,21 @@ const A = process.cwd() + "/anh/";   // tranh do illus.js vẽ
 
   // ---- 4. Thí nghiệm
   {
-    const r = L.anhChu(pres, S, { img: A + "chiec-ao.png", kicker: "Thí nghiệm, 2000", title: "Chiếc áo\ngây bối rối",
+    const r = L.anhChu(pres, S, { img: CT.anh(A + "chiec-ao.png", "ao"), truoc: (sl) => canh.dat(sl, "noi-dung", { i: 4 }), kicker: "Thí nghiệm, 2000", title: "Chiếc áo\ngây bối rối",
       bullets: ["Mặc áo in hình ca sĩ lỗi thời", "Vào phòng, đoán số người để ý"],
       nen: DH.nen(tex, "noi-dung", 2), notes: "Thí nghiệm của Gilovich và cộng sự ở Đại học Cornell; chiếc áo được chọn vì đa số sinh viên thấy ngại khi mặc." });
-    r.steps = [[{ n: "img", eff: "fade", dur: 900 }, { n: "kicker", eff: "fade", start: "after" }, { n: "title", eff: "floatUp", start: "with" }], [{ n: "body", eff: "floatUp", byPara: true }]];
+    r.steps = [[{ n: "kicker", eff: "fade" }, { n: "title", eff: "floatUp", start: "with" }], [{ n: "body", eff: "floatUp", byPara: true }]];   // ảnh "!!ao" đến bằng morph, không gắn hiệu ứng mở đầu
     r.autoFirst = true;
-    r.idle = [{ n: "img", eff: "tho", batDau: 0, ti: 103, period: 14000 }];
+    r.idle = [{ n: "!!ao", eff: "tho", batDau: 0, ti: 103, period: 14000 }];
     add(r);
   }
 
   // ---- 5. Kết quả — đoán trước, thực tế sau; cú nhấp cuối làm nhạt con số đoán (nhấn mạnh)
   {
     const r = L.thangSo(pres, S, { title: "Người mặc đoán gấp đôi thực tế",
-      items: [{ value: "23%", label: "thật sự nhớ ra chiếc áo" }, { value: "46%", label: "người mặc tự đoán" }], nen: DH.nen(tex, "chia-phan", 0) }, { dark: true });
+      items: [{ value: "23%", label: "thật sự nhớ ra chiếc áo" }, { value: "46%", label: "người mặc tự đoán" }], nen: DH.nen(tex, "chia-phan", 0),
+      truoc: (sl) => canh.dat(sl, "nhan-manh", { i: 5, toi: true }) }, { dark: true });
+    r.slide.addImage({ path: A + "chiec-ao-trong.png", x: 8.35, y: 0.3, w: 1.05, h: 1.28, objectName: "!!ao" });   // chiếc áo thu về góc
     r.slide.addText("Nguồn: Gilovich, Medvec & Savitsky (2000)", { objectName: "source", x: M, y: 5.05, w: CW, h: 0.35, fontFace: S.body, fontSize: 16, color: "D9C6BE", margin: 0 });
     r.steps = [
       [{ n: "v1", eff: "fade" }, { n: "b1", eff: "wipe", dir: "left" }, { n: "l1", eff: "fade", start: "after", dur: 300 }],
@@ -88,7 +96,7 @@ const A = process.cwd() + "/anh/";   // tranh do illus.js vẽ
 
   // ---- 6. Cơ chế
   {
-    const r = L.baThe(pres, S, { title: "Ánh đèn bật lên từ bên trong", highlight: 0, nen: DH.nen(tex, "noi-dung", 1), cards: [
+    const r = L.baThe(pres, S, { title: "Ánh đèn bật lên từ bên trong", highlight: 0, nen: DH.nen(tex, "noi-dung", 1), truoc: (sl) => canh.dat(sl, "noi-dung", { i: 6 }), cards: [
       { mark: "Neo", head: "Tự soi mình", text: "Lấy cảm giác của ta làm mốc" },
       { mark: "Bận", head: "Ai cũng bận", text: "Họ đang mải lo chuyện mình" },
       { mark: "Lộ", head: "Tưởng bị lộ", text: "Nỗi lo ít hiện ra hơn ta nghĩ" }] });
@@ -98,14 +106,14 @@ const A = process.cwd() + "/anh/";   // tranh do illus.js vẽ
   // ---- 7. Góc nhìn khán giả
   {
     const r = L.anhLopKhoi(pres, S, { img: A + "khan-gia.png", kicker: "Ở hàng ghế khán giả", title: "Mỗi người\nmột ngọn đèn",
-      text: "Họ còn đang bận lo phần mình", nen: DH.nen(tex, "noi-dung", 2) });
+      text: "Họ còn đang bận lo phần mình", nen: DH.nen(tex, "noi-dung", 2), truoc: (sl) => canh.dat(sl, "noi-dung", { i: 7 }) });
     r.idle = [{ n: "img", eff: "tho", ti: 103, period: 16000, batDau: "vao" }];
-    add(r, { transition: ["push", "u"] });
+    add(r);
   }
 
   // ---- 8. Hạ bớt ánh đèn — mỗi bước mới hiện thì bước trước nhạt đi
   {
-    const r = L.buocDoc(pres, S, { title: "Hạ bớt\nánh đèn", steps: [
+    const r = L.buocDoc(pres, S, { title: "Hạ bớt\nánh đèn", truoc: (sl) => canh.dat(sl, "noi-dung", { i: 8 }), steps: [
       { head: "Ai đang nhìn?", text: "Đếm người, đừng đoán" },
       { head: "Đổi chỗ ngồi", text: "Nhớ lúc mình ngồi xem" },
       { head: "Chờ một nhịp", text: "Ngượng sẽ nhạt dần" },
@@ -117,11 +125,11 @@ const A = process.cwd() + "/anh/";   // tranh do illus.js vẽ
 
   // ---- 9. Kết — sân khấu, đèn quét, sóng chữ; cú nhấp cuối hạ màn (hiệu ứng kết thúc)
   {
-    const r = L.ketThuc(pres, S, { big: "Không ai soi bạn\nkỹ bằng chính bạn", sub: "Hẹn gặp ở phần thảo luận", truoc: (sl) => sanKhau(sl, 9) });
+    const r = L.ketThuc(pres, S, { big: "Không ai soi bạn\nkỹ bằng chính bạn", sub: "Hẹn gặp ở phần thảo luận", truoc: (sl) => { const c = sanKhau(sl, 9); canh.dat(sl, "ket", { i: 9 }); return c; } });
     r.idle = r.idle.filter((e) => e.n !== "big");
     r.idle.push({ n: "big", eff: "songChu", period: 7000 });
-    r.ket = [{ n: "big", eff: "sinkOut", dur: 900 }, { n: "sub", eff: "fadeOut", start: "with" }, { n: "den", eff: "fadeOut", start: "with", dur: 1500 }];
-    add(r, { transition: "fadeBlack" });
+    r.ket = [{ n: "big", eff: "sinkOut", dur: 900 }, { n: "sub", eff: "fadeOut", start: "with" }, { n: "!!den", eff: "fadeOut", start: "with", dur: 1500 }];
+    add(r);
   }
 
   let buf = await pres.write({ outputType: "nodebuffer" });

@@ -35,7 +35,7 @@ function stage(W = 2400, H = 1350) {
     ${curtain(0, W * 0.2, H, false)}${curtain(W * 0.8, W * 0.2, H, true)}
     ${swags}<rect x="0" y="0" width="${W}" height="26" fill="#B97341" opacity="0.8"/></svg>`;
 }
-function tshirt(W = 1227, H = 1500) {
+function tshirt(W = 1227, H = 1500, nen = true) {
   const cx = W / 2, top = H * 0.2, sw = W * 0.62;
   const shirt = `M ${cx - sw * 0.22} ${top} Q ${cx} ${top + 90} ${cx + sw * 0.22} ${top}
     L ${cx + sw * 0.5} ${top + 60} L ${cx + sw * 0.72} ${top + 330} L ${cx + sw * 0.48} ${top + 420} L ${cx + sw * 0.4} ${top + 300}
@@ -49,8 +49,8 @@ function tshirt(W = 1227, H = 1500) {
     <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3DFA6"/><stop offset="1" stop-color="#E2C27E"/></linearGradient>
     <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="22"/></filter>
     <clipPath id="cp"><circle cx="${cx}" cy="${py}" r="${r}"/></clipPath></defs>
-    <rect width="${W}" height="${H}" fill="url(#bg)"/>
-    <path d="${shirt}" fill="#6D5352" opacity="0.35" filter="url(#sh)" transform="translate(18 34)"/>
+    ${nen ? `<rect width="${W}" height="${H}" fill="url(#bg)"/>
+    <path d="${shirt}" fill="#6D5352" opacity="0.35" filter="url(#sh)" transform="translate(18 34)"/>` : ""}
     <path d="${shirt}" fill="url(#cloth)"/>
     <path d="M ${cx - sw * 0.22} ${top} Q ${cx} ${top + 90} ${cx + sw * 0.22} ${top}" fill="none" stroke="#C9A35E" stroke-width="16"/>
     <line x1="${cx - sw * 0.4}" y1="${top + 300}" x2="${cx - sw * 0.4}" y2="${top + 380}" stroke="#C9A35E" stroke-width="5"/>
@@ -102,6 +102,7 @@ function audience(W = 2240, H = 1592) {
 (async () => {
   await sharp(Buffer.from(stage())).png().toFile(OUT + "san-khau.png");
   await sharp(Buffer.from(tshirt())).png().toFile(OUT + "chiec-ao.png");
+  await sharp(Buffer.from(tshirt(1227, 1500, false))).png().toFile(OUT + "chiec-ao-trong.png");   // nền trong suốt: biểu tượng cho morph
   await sharp(Buffer.from(audience())).png().toFile(OUT + "khan-gia.png");
   console.log("ok");
 })();
