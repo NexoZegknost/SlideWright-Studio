@@ -3,7 +3,7 @@
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
 ## 0.14.0-beta.3
-- Đổi tên plugin thành **SlideWright - Studio** (tên kỹ thuật `slidewright-studio`, trước đây `make-slides` / makeSlides) ở manifest, marketplace, skill, tài liệu và thông báo của script. Tên tệp script (`makeslides.js`…) và API giữ nguyên.
+- Đổi tên gói plugin thành **SlideWright - Studio** (tên kỹ thuật `slidewright-studio`, trước đây `make-slides`) ở manifest, marketplace và README. Skill bên trong giữ nguyên tên **makeSlides** (`make-slides`), cách gọi và script không đổi.
 - **Cần cài lại**: gỡ plugin `make-slides` cũ rồi cài `slidewright-studio`; lệnh cài mới: `/plugin install slidewright-studio@slidewright-studio`.
 
 ## 0.14.0-beta.2

@@ -1,4 +1,4 @@
-// layouts.js — thư viện 32 bố cục slide của SlideWright - Studio (khổ 16:9, 10" × 5.625")
+// layouts.js — thư viện 32 bố cục slide của makeSlides (khổ 16:9, 10" × 5.625")
 // Không đặt biểu tượng/emoji trước đoạn văn hay tiêu đề thẻ (dấu hiệu slide do AI làm) — xem references/dau-hieu-ai.md
 // Mỗi hàm: L.<ten>(pres, S, c, o) → { slide, steps }
 //   S = một phong cách trong assets/styles.json (đã qua L.style(key))
@@ -28,7 +28,7 @@ function style(key, { headIndex = 0 } = {}) {
   s.c = s.colors;
   CUR = s;
   const w = checkPalette(s);
-  if (w.length) console.warn(`[SlideWright] Bảng màu "${key}" cần xem lại:\n  - ` + w.join("\n  - "));
+  if (w.length) console.warn(`[makeSlides] Bảng màu "${key}" cần xem lại:\n  - ` + w.join("\n  - "));
   return s;
 }
 
@@ -687,7 +687,7 @@ function brand(ten, { base } = {}) {
   s.brand = { ten, dir, data: B, logo: (f) => path.join(dir, "logo", f), hoaTiet: (f) => path.join(dir, "hoa-tiet", f.endsWith(".png") ? f : f + ".png") };
   CUR = s;
   const w = checkPalette(s);
-  if (w.length) console.warn(`[SlideWright] Bảng màu thương hiệu "${ten}" cần xem lại:\n  - ` + w.join("\n  - "));
+  if (w.length) console.warn(`[makeSlides] Bảng màu thương hiệu "${ten}" cần xem lại:\n  - ` + w.join("\n  - "));
   return s;
 }
 // Đặt logo đúng phiên bản theo nền: o = {kieu: "don"|"ngang", lang: "vi"|"en", dark, x, y, h, w, align: "left"|"center"|"right", name}

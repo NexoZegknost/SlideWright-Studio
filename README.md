@@ -1,6 +1,6 @@
 # SlideWright - Studio
 
-Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Tên kỹ thuật của plugin là `slidewright-studio` (trước bản 0.14.0-beta.3 là `make-slides` / makeSlides).
+Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Gói plugin có tên kỹ thuật `slidewright-studio` (trước bản 0.14.0-beta.3 là `make-slides`) và chứa skill **makeSlides** (`make-slides`).
 
 Phiên bản hiện tại: **0.14.0-beta.3** (thử nghiệm) · bản ổn định: **0.13.0** · Lịch sử thay đổi: [CHANGELOG.md](CHANGELOG.md)
 
@@ -41,11 +41,11 @@ Sau khi cài, mở một phiên trò chuyện mới để plugin được nạp.
 | LibreOffice | Xuất ảnh xem trước và kiểm tra bố cục |
 | Kết nối Gamma, Canva (tuỳ chọn) | Chỉ khi chọn đầu ra Canva hoặc Gamma; đăng nhập bằng tài khoản của bạn lần đầu, không cần khoá API |
 
-Danh sách lệnh cài thư viện nằm trong `skills/slidewright-studio/references/quy-trinh-pptx.md`.
+Danh sách lệnh cài thư viện nằm trong `skills/make-slides/references/quy-trinh-pptx.md`.
 
 ## Cách dùng
 
-Chỉ cần nói với Claude bằng ngôn ngữ tự nhiên; skill tự chạy khi bạn nhắc đến "tạo slide", "làm bài thuyết trình", "làm PowerPoint", "SlideWright", "nâng cấp slide", "chuyển PDF sang PowerPoint"… Muốn chọn công cụ thì nói thêm "bằng Canva", "trên Gamma" hoặc "bằng PowerPoint".
+Chỉ cần nói với Claude bằng ngôn ngữ tự nhiên; skill tự chạy khi bạn nhắc đến "tạo slide", "làm bài thuyết trình", "làm PowerPoint", "makeSlides", "nâng cấp slide", "chuyển PDF sang PowerPoint"… Muốn chọn công cụ thì nói thêm "bằng Canva", "trên Gamma" hoặc "bằng PowerPoint".
 
 ### Ví dụ
 

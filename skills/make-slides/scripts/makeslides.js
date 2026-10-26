@@ -7,7 +7,7 @@
 //   →  npm install fonteditor-core jszip mathjax-full@3 mathml2omml sharp
 //
 // Dùng:
-//   const MS = require("<plugin>/skills/slidewright-studio/scripts/makeslides.js");
+//   const MS = require("<plugin>/skills/make-slides/scripts/makeslides.js");
 //   let buf = await pres.write({ outputType: "nodebuffer" });
 //   buf = await MS.applyEffects(buf, PLAN);              // PLAN: xem cuối file
 //   buf = await MS.embedFonts(buf, ["Playfair Display", "Montserrat"]);
