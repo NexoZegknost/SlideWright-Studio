@@ -1,0 +1,78 @@
+{
+  "ten": "Trường Đại học Bách khoa – ĐHQG-HCM",
+  "ten_tat": "BK TP.HCM / HCMUT",
+  "nguon": "Bộ nhận diện thương hiệu Trường ĐH Bách khoa – ĐHQG-HCM, tháng 04/2021 (người dùng cung cấp)",
+  "khi_nao_dung": "CHỈ khi người dùng yêu cầu dùng tài nguyên/nhận diện Bách khoa (ví dụ: 'báo cáo ở Bách khoa', 'có logo BK'). Không tự dùng vì đề tài, trường của người trình bày hay nơi trình bày.",
+  "mau": {
+    "xanh_dam": "032B91",
+    "xanh_tuoi": "1488DB",
+    "xanh_giua": "1D8BBE",
+    "do_cam": "EF3F36",
+    "vang": "FBDD0F",
+    "ghi_chu": "Màu chính theo RGB của tài liệu: xanh đậm R3 G43 B145 = #032B91 (tài liệu in nhầm mã #030391), xanh tươi R20 G136 B219 = #1488DB. Đỏ cam và vàng là màu nhấn dùng trong mẫu banner/standee: đỏ cam cho tiêu đề trên nền sáng, vàng cho tiêu đề trên nền xanh."
+  },
+  "phong": {
+    "logo": "Arial Bold (chữ trong logo, không gõ lại — dùng tệp ảnh logo)",
+    "an_pham": "Myriad Pro (bản quyền Adobe, không có trong gói, không nhúng được)",
+    "thay_the": {
+      "head": "Montserrat",
+      "body": "Lexend"
+    },
+    "ghi_chu": "Khi dựng slide dùng Montserrat (tiêu đề) + Lexend (nội dung) thay Myriad Pro; giữ chữ trong logo bằng tệp ảnh."
+  },
+  "logo": {
+    "bk-logo.png": "Logo chuẩn, dùng trên nền trắng/nền sáng",
+    "bk-logo-vien-trang.png": "Logo có viền ngoài màu trắng, dùng trên nền màu tối",
+    "bk-ngang-vi.png": "Logo + tên trường tiếng Việt (ĐHQG TP.HCM / Trường ĐH Bách khoa), nền sáng",
+    "bk-ngang-en.png": "Logo + tên trường tiếng Anh, nền sáng",
+    "bk-ngang-vi-nen-toi.png": "Logo viền trắng + tên tiếng Việt chữ trắng, nền tối (theo trang 5)",
+    "bk-ngang-en-nen-toi.png": "Logo viền trắng + tên tiếng Anh chữ trắng, nền tối (theo trang 5)"
+  },
+  "quy_tac_logo": [
+    "Chỉ hai phiên bản logo: bản chuẩn trên nền trắng và bản viền trắng trên nền tối. Không đổi màu, không đơn sắc hoá, không kéo méo, không xoay, không thêm bóng đổ/hiệu ứng, không đặt lên ảnh rối.",
+    "Giữ tỉ lệ; khoảng trống quanh logo tối thiểu bằng 1/4 chiều cao logo.",
+    "Logo ngang (logo + tên trường) đặt ở đầu trang/góc trên trái, cao 0,35–0,5\" trên slide 16:9; logo đơn đặt giữa phía trên tiêu đề ở bìa (cao 0,6–0,9\").",
+    "Không gõ lại tên trường bằng phông khác cạnh logo — dùng tệp logo ngang."
+  ],
+  "hoa_tiet": {
+    "nguyen_tac": "Motif mắt lưới tam giác ghép thành lục giác, đồng nhất với hình tổ ong của logo. Biến thể: lưới nét xanh trên nền trắng, lưới nét trắng trên nền xanh, lưới đa giác nhiều màu; luôn mờ dần để không ảnh hưởng chữ. Đầu trang/chân trang dùng dải xiên hoặc dải cong xanh đậm + xanh tươi.",
+    "goc": [
+      "goc-luoi-tam-giac-nen-toi.png",
+      "goc-luoi-tam-giac-nen-trang.png",
+      "goc-luoi-da-giac-nhieu-mau.png",
+      "goc-dai-xien-bia-tren.png",
+      "goc-dai-xien-bia-duoi.png",
+      "goc-dai-cong-chan-trang.png"
+    ],
+    "tu_sinh": "scripts/hoa_tiet_tam_giac.py --thuong-hieu bk-hcmut --bo-mac-dinh (đã sinh sẵn các tệp không có tiền tố goc-)"
+  },
+  "style": {
+    "ten": "Bách khoa – ĐHQG-HCM",
+    "muc": "chinh-quy",
+    "fonts": {
+      "head": "Montserrat",
+      "body": "Lexend",
+      "accent": null
+    },
+    "colors": {
+      "dark": "032B91",
+      "light": "FFFFFF",
+      "soft": "EEF4FB",
+      "accent": "1488DB",
+      "accent2": "1FB5C9",
+      "surfaceDark": "0A3AA8",
+      "text": "0B1F5C",
+      "muted": "4A5568",
+      "accentOnDark": "FBDD0F",
+      "accentText": "0B5CAD"
+    }
+  },
+  "tep_logo": {
+    "don": "bk-logo.png",
+    "don_nen_toi": "bk-logo-vien-trang.png",
+    "ngang_vi": "bk-ngang-vi.png",
+    "ngang_en": "bk-ngang-en.png",
+    "ngang_vi_nen_toi": "bk-ngang-vi-nen-toi.png",
+    "ngang_en_nen_toi": "bk-ngang-en-nen-toi.png"
+  }
+}

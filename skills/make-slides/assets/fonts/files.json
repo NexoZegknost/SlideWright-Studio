@@ -1,0 +1,82 @@
+{
+ "Allura": {
+  "regular": "Allura/Allura-Regular.ttf"
+ },
+ "Baloo 2": {
+  "bold": "Baloo2/Baloo2-Bold.ttf",
+  "regular": "Baloo2/Baloo2-Regular.ttf"
+ },
+ "Beau Rivage": {
+  "regular": "BeauRivage/BeauRivage-Regular.ttf"
+ },
+ "Bricolage Grotesque": {
+  "bold": "BricolageGrotesque/BricolageGrotesque-Bold.ttf",
+  "regular": "BricolageGrotesque/BricolageGrotesque-Regular.ttf"
+ },
+ "Dancing Script": {
+  "bold": "DancingScript/DancingScript-Bold.ttf",
+  "regular": "DancingScript/DancingScript-Regular.ttf"
+ },
+ "Great Vibes": {
+  "regular": "GreatVibes/GreatVibes-Regular.ttf"
+ },
+ "Lexend": {
+  "bold": "Lexend/Lexend-Bold.ttf",
+  "regular": "Lexend/Lexend-Regular.ttf"
+ },
+ "Lora": {
+  "bold": "Lora/Lora-Bold.ttf",
+  "boldItalic": "Lora/Lora-BoldItalic.ttf",
+  "italic": "Lora/Lora-Italic.ttf",
+  "regular": "Lora/Lora-Regular.ttf"
+ },
+ "Montserrat": {
+  "bold": "Montserrat/Montserrat-Bold.ttf",
+  "boldItalic": "Montserrat/Montserrat-BoldItalic.ttf",
+  "italic": "Montserrat/Montserrat-Italic.ttf",
+  "regular": "Montserrat/Montserrat-Regular.ttf"
+ },
+ "Montserrat Alternates": {
+  "bold": "MontserratAlternates/MontserratAlternates-Bold.ttf",
+  "italic": "MontserratAlternates/MontserratAlternates-Italic.ttf",
+  "regular": "MontserratAlternates/MontserratAlternates-Regular.ttf"
+ },
+ "Noto Serif": {
+  "bold": "NotoSerif/NotoSerif-Bold.ttf",
+  "regular": "NotoSerif/NotoSerif-Regular.ttf"
+ },
+ "Noto Serif Display": {
+  "bold": "NotoSerifDisplay/NotoSerifDisplay-Bold.ttf",
+  "boldItalic": "NotoSerifDisplay/NotoSerifDisplay-BoldItalic.ttf",
+  "italic": "NotoSerifDisplay/NotoSerifDisplay-Italic.ttf",
+  "regular": "NotoSerifDisplay/NotoSerifDisplay-Regular.ttf"
+ },
+ "Nunito": {
+  "bold": "Nunito/Nunito-Bold.ttf",
+  "regular": "Nunito/Nunito-Regular.ttf"
+ },
+ "Pangolin": {
+  "regular": "Pangolin/Pangolin-Regular.ttf"
+ },
+ "Playfair Display": {
+  "bold": "PlayfairDisplay/PlayfairDisplay-Bold.ttf",
+  "boldItalic": "PlayfairDisplay/PlayfairDisplay-BoldItalic.ttf",
+  "italic": "PlayfairDisplay/PlayfairDisplay-Italic.ttf",
+  "regular": "PlayfairDisplay/PlayfairDisplay-Regular.ttf"
+ },
+ "Rowdies": {
+  "bold": "Rowdies/Rowdies-Bold.ttf",
+  "regular": "Rowdies/Rowdies-Regular.ttf"
+ },
+ "Space Mono": {
+  "bold": "SpaceMono/SpaceMono-Bold.ttf",
+  "italic": "SpaceMono/SpaceMono-Italic.ttf",
+  "regular": "SpaceMono/SpaceMono-Regular.ttf"
+ },
+ "Style Script": {
+  "regular": "StyleScript/StyleScript-Regular.ttf"
+ },
+ "WindSong": {
+  "regular": "WindSong/WindSong-Regular.ttf"
+ }
+}

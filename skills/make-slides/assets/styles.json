@@ -1,0 +1,220 @@
+{
+  "sang-trong": {
+    "ten": "Sang trọng – Thanh lịch",
+    "muc": "chinh-quy",
+    "fonts": {
+      "head": "Noto Serif Display",
+      "body": "Montserrat",
+      "accent": null
+    },
+    "colors": {
+      "dark": "14213D",
+      "light": "FFFFFF",
+      "soft": "F3F4F7",
+      "accent": "C9A227",
+      "text": "14213D",
+      "muted": "5A6275",
+      "accentOnDark": "E6CF94",
+      "accentText": "846B19"
+    }
+  },
+  "hoc-thuat": {
+    "ten": "Nghiêm túc – Học thuật",
+    "muc": "chinh-quy",
+    "fonts": {
+      "head": "Lora",
+      "body": "Noto Serif",
+      "accent": null,
+      "quote": "Lora (nghiêng)"
+    },
+    "colors": {
+      "dark": "1F1F1F",
+      "light": "FFFFFF",
+      "soft": "F2F2F0",
+      "accent": "7B1E2B",
+      "text": "1F1F1F",
+      "muted": "555555",
+      "accentOnDark": "D9B38C",
+      "accentText": "7B1E2B"
+    }
+  },
+  "hanh-chinh": {
+    "ten": "Trang trọng – Hành chính",
+    "muc": "chinh-quy",
+    "fonts": {
+      "head": "Noto Serif",
+      "body": "Montserrat",
+      "accent": null
+    },
+    "colors": {
+      "dark": "0B3C7D",
+      "light": "FFFFFF",
+      "soft": "EAF1FA",
+      "accent": "C8102E",
+      "text": "0B3C7D",
+      "muted": "4A5568",
+      "accentOnDark": "FFD54F",
+      "accentText": "C8102E"
+    }
+  },
+  "truyen-thong": {
+    "ten": "Truyền thống – Văn hoá",
+    "muc": "chinh-quy",
+    "fonts": {
+      "head": "Noto Serif Display",
+      "body": "Lora",
+      "accent": null
+    },
+    "colors": {
+      "dark": "5B2C1A",
+      "light": "FFFFFF",
+      "soft": "F3ECE4",
+      "accent": "B23A28",
+      "accent2": "A9782F",
+      "text": "3E2010",
+      "muted": "6E5848",
+      "accentOnDark": "F5E6C8",
+      "accentText": "B23A28"
+    }
+  },
+  "su-pham": {
+    "ten": "Rõ ràng – Sư phạm",
+    "muc": "chinh-quy",
+    "fonts": {
+      "head": "Playfair Display | Bricolage Grotesque",
+      "body": "Lexend",
+      "accent": null
+    },
+    "ghi_chu_font": "Playfair Display cho Ngữ văn, Lịch sử, GDCD và các môn KHXH; Bricolage Grotesque cho Toán, KHTN, Tin, Công nghệ",
+    "colors": {
+      "dark": "064E57",
+      "light": "FFFFFF",
+      "soft": "E6F4F1",
+      "accent": "F2C14E",
+      "text": "0B3B40",
+      "muted": "4F6466",
+      "accentOnDark": "FFDF9A",
+      "accentText": "896701"
+    }
+  },
+  "hien-dai": {
+    "ten": "Hiện đại – Tối giản",
+    "muc": "chinh-quy",
+    "fonts": {
+      "head": "Bricolage Grotesque",
+      "body": "Montserrat",
+      "accent": null
+    },
+    "colors": {
+      "dark": "22252B",
+      "light": "FFFFFF",
+      "soft": "F1F3F5",
+      "accent": "FF6B35",
+      "text": "22252B",
+      "muted": "5F6670",
+      "accentOnDark": "FE9673",
+      "accentText": "C93600"
+    }
+  },
+  "cong-nghe": {
+    "ten": "Công nghệ – Số",
+    "muc": "chinh-quy",
+    "fonts": {
+      "head": "Bricolage Grotesque",
+      "body": "Lexend",
+      "accent": "Space Mono"
+    },
+    "colors": {
+      "dark": "0A1931",
+      "light": "FFFFFF",
+      "soft": "EAF1F8",
+      "accent": "00D1FF",
+      "accent2": "7CFFB2",
+      "text": "0A1931",
+      "muted": "5B6B82",
+      "accentOnDark": "7CFFB2",
+      "accentText": "00758F",
+      "surfaceDark": "13294B"
+    }
+  },
+  "sinh-dong": {
+    "ten": "Sinh động – Trẻ trung",
+    "muc": "ban-chinh-quy",
+    "fonts": {
+      "head": "Rowdies",
+      "body": "Montserrat Alternates",
+      "accent": "Dancing Script"
+    },
+    "colors": {
+      "dark": "2F3C7E",
+      "light": "FFFFFF",
+      "soft": "FFF0F0",
+      "accent": "F96167",
+      "accent2": "B8A1FF",
+      "text": "2F3C7E",
+      "muted": "5B6178",
+      "accentOnDark": "FECDD5",
+      "accentText": "C8324A"
+    }
+  },
+  "thieu-nhi": {
+    "ten": "Thân thiện – Thiếu nhi",
+    "muc": "ban-chinh-quy",
+    "fonts": {
+      "head": "Baloo 2",
+      "body": "Nunito",
+      "accent": "Pangolin"
+    },
+    "colors": {
+      "dark": "2D3A8C",
+      "light": "FFFFFF",
+      "soft": "EEF2FF",
+      "accent": "FF6F91",
+      "accent2": "4FC3F7",
+      "accent3": "B39DFF",
+      "text": "2D3A8C",
+      "muted": "5B6178",
+      "accentOnDark": "FECDD9",
+      "accentText": "C3375F"
+    }
+  },
+  "le-ky-niem": {
+    "ten": "Lễ kỷ niệm – Tri ân",
+    "muc": "kieu-cach",
+    "fonts": {
+      "head": "Playfair Display",
+      "body": "Montserrat",
+      "accent": "Great Vibes | Style Script"
+    },
+    "colors": {
+      "dark": "8B0000",
+      "light": "FFFFFF",
+      "soft": "FBF3E4",
+      "accent": "D4A017",
+      "text": "5C0A0A",
+      "muted": "6B4E4E",
+      "accentOnDark": "FFD780",
+      "accentText": "8B680F"
+    }
+  },
+  "nghe-thuat": {
+    "ten": "Kiểu cách – Nghệ thuật",
+    "muc": "kieu-cach",
+    "fonts": {
+      "head": "Playfair Display (nghiêng)",
+      "body": "Lora",
+      "accent": "Allura | Beau Rivage | WindSong"
+    },
+    "colors": {
+      "dark": "3B1E54",
+      "light": "FFFFFF",
+      "soft": "F5EEF8",
+      "accent": "D9467A",
+      "accent2": "E8B4B8",
+      "text": "3B1E54",
+      "muted": "6B5A75",
+      "accentOnDark": "E8B4B8",
+      "accentText": "C92961"
+    }
+  }
+}

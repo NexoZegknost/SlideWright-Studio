@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "Gamma": {
+      "type": "http",
+      "url": "https://mcp.gamma.app/mcp"
+    },
+    "Canva": {
+      "type": "http",
+      "url": "https://mcp.canva.com/mcp"
+    }
+  },
+  "recommendedCategories": [
+    "design-graphics",
+    "documents"
+  ]
+}

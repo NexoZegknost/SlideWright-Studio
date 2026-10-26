@@ -1,0 +1,2464 @@
+{
+  "_ghi_chu": "Bảng tri thức cho scripts/dinh_huong.js. hue = góc OKLCH của màu chủ đạo (đỏ≈25, cam≈55, vàng≈95, lục≈145, lục lam≈185, lam nhạt≈220, lam≈258, chàm≈275, tím≈305, mận≈340). lechNhan/lechPhu: độ lệch sắc của màu nhấn/màu phụ so với màu chủ đạo — luôn trong vùng tương đồng (|lệch| ≤ 90°), không bao giờ đối nhau. bo_texture: mỗi vai (bia | chia-phan | noi-dung | nhan-manh) có một hoặc nhiều BIẾN THỂ; mỗi biến thể là danh sách LỚP chồng nhau (scripts/hoa_tiet.py ket_hop). Các slide cùng vai luân phiên biến thể → bài đa dạng nhưng chung bảng màu, độ dày nét, mật độ. mau của lớp: toi-nhan (accentOnDark) | toi-trang | toi-phu (accent) trên nền đậm; sang-nhan (accent) | sang-phu (accent2) | sang-mo (muted) trên nền sáng. Biến thể rỗng [] = slide không texture (để thở). lop_thuong_hieu: lớp motif của đơn vị chồng thêm khi có thương hiệu. chuNhanToi: màu chữ nhấn trên nền đậm — nga (ngà ấm) | trang | tuong-dong (sắc tương đồng sáng, đạt 7:1, không tím).",
+  "cong-nghe": {
+    "ten": "Công nghệ – Kỹ thuật – Dữ liệu",
+    "tu_khoa": [
+      "cong nghe",
+      "ky thuat",
+      "dien tu",
+      "mach",
+      "transistor",
+      "bjt",
+      "mosfet",
+      "vi dieu khien",
+      "arduino",
+      "iot",
+      "robot",
+      "tu dong",
+      "lap trinh",
+      "phan mem",
+      "thuat toan",
+      "du lieu",
+      "ai",
+      "tri tue nhan tao",
+      "may hoc",
+      "hoc sau",
+      "mang may tinh",
+      "an toan thong tin",
+      "bao mat",
+      "chuyen doi so",
+      "so hoa",
+      "stem",
+      "co khi",
+      "dien",
+      "nang luong",
+      "blockchain",
+      "dien toan dam may",
+      "cloud",
+      "he thong nhung",
+      "vi mach",
+      "tin hoc",
+      "cong nghe thong tin",
+      "khoa hoc may tinh",
+      "ky thuat dien",
+      "dieu khien",
+      "cam bien",
+      "xu ly anh",
+      "computer",
+      "software",
+      "data",
+      "machine learning",
+      "chatgpt",
+      "llm"
+    ],
+    "phong_cach_goc": [
+      "cong-nghe",
+      "hien-dai"
+    ],
+    "mau": {
+      "hue": 258,
+      "chroma": 0.13,
+      "kieu": "tuong-dong",
+      "lechNhan": -45,
+      "lechPhu": 40,
+      "nen": "lanh",
+      "cNhan": 0.15,
+      "chuNhanToi": "tuong-dong"
+    },
+    "mau_bien_the": {
+      "kieu": "tuong-dong",
+      "lechNhan": 45,
+      "lechPhu": -35,
+      "nen": "trung-tinh",
+      "cNhan": 0.14,
+      "ghi_chu": "biến thể chàm – tím, nền trung tính",
+      "chuNhanToi": "tuong-dong"
+    },
+    "phong": {
+      "head": "Bricolage Grotesque",
+      "body": "Lexend",
+      "accent": "Space Mono"
+    },
+    "bo_cuc_uu_tien": [
+      "hinhChuThich",
+      "congThuc",
+      "buocDoc",
+      "thangSo",
+      "bento",
+      "luoiThuySy",
+      "bieuDo",
+      "soSanh",
+      "chuKhongLo"
+    ],
+    "bo_cuc_han_che": [
+      "baoChi",
+      "trichDan"
+    ],
+    "trinh_bay": "Nhịp tối – sáng: bìa, chia phần nền đậm; nội dung nền sáng. Sơ đồ, mạch, ảnh chụp màn hình thật thay cho minh hoạ. Ký hiệu, mã, số kỹ thuật bằng phông đơn cách. Công thức bằng khối Equation.",
+    "ty_le_nen_toi": 0.35,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "morph",
+        "push",
+        "fadeBlack"
+      ],
+      "xuat_hien": [
+        "wipe",
+        "zoom",
+        "fade",
+        "floatUp"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": -50,
+        "lechPhu": 35,
+        "ghi_chu": "Giữ xanh đậm Bách khoa làm màu chủ đạo; nhấn lục lam/bạc hà tương đồng; motif tam giác của trường vẽ bằng màu nhấn ở bìa, mạch điện ở chia phần.",
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-cum",
+              "mau": "toi-nhan",
+              "dam_ve": "tr",
+              "do_duc": 0.75,
+              "buoc": 90
+            }
+          ],
+          "chia-phan": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.18,
+              "buoc": 90
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tr",
+            "do_duc": 0.8
+          },
+          {
+            "kieu": "luoi-phoi-canh",
+            "mau": "toi-nhan",
+            "dam_ve": "phai",
+            "do_duc": 0.55,
+            "buoc": 44
+          },
+          {
+            "kieu": "hat",
+            "mau": "toi-trang",
+            "dam_ve": "tr",
+            "do_duc": 0.7
+          }
+        ],
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "br",
+            "do_duc": 0.7
+          },
+          {
+            "kieu": "mach",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.6,
+            "buoc": 70
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tr",
+            "do_duc": 0.6
+          },
+          {
+            "kieu": "luc-giac",
+            "mau": "toi-nhan",
+            "dam_ve": "tr",
+            "do_duc": 0.4,
+            "buoc": 70
+          },
+          {
+            "kieu": "mach",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.35,
+            "buoc": 70
+          }
+        ],
+        [
+          {
+            "kieu": "chu-thap",
+            "mau": "toi-trang",
+            "dam_ve": "br",
+            "do_duc": 0.5,
+            "buoc": 44
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "bl",
+            "do_duc": 0.5
+          }
+        ]
+      ],
+      "noi-dung": [
+        [
+          {
+            "kieu": "cham",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.45,
+            "buoc": 46
+          }
+        ],
+        [
+          {
+            "kieu": "mach",
+            "mau": "sang-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.25,
+            "buoc": 70
+          }
+        ],
+        [
+          {
+            "kieu": "chu-thap",
+            "mau": "sang-mo",
+            "dam_ve": "tr",
+            "do_duc": 0.35,
+            "buoc": 52
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "giua",
+            "do_duc": 0.6
+          },
+          {
+            "kieu": "vong-dong-tam",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.4,
+            "buoc": 46
+          }
+        ]
+      ]
+    },
+    "bo_texture_bien_the": {
+      "bia": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "bl",
+            "do_duc": 0.7
+          },
+          {
+            "kieu": "luc-giac",
+            "mau": "toi-nhan",
+            "dam_ve": "tr",
+            "do_duc": 0.5,
+            "buoc": 80
+          },
+          {
+            "kieu": "hat",
+            "mau": "toi-trang",
+            "dam_ve": "tl",
+            "do_duc": 0.6
+          }
+        ]
+      ],
+      "noi-dung": [
+        [
+          {
+            "kieu": "ke-o",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.3,
+            "buoc": 40
+          }
+        ],
+        [
+          {
+            "kieu": "cham",
+            "mau": "sang-mo",
+            "dam_ve": "tr",
+            "do_duc": 0.4,
+            "buoc": 46
+          }
+        ]
+      ]
+    }
+  },
+  "khoa-hoc-tu-nhien": {
+    "ten": "Khoa học tự nhiên – Toán",
+    "tu_khoa": [
+      "toan",
+      "giai tich",
+      "dai so",
+      "hinh hoc",
+      "xac suat",
+      "thong ke",
+      "vat ly",
+      "co hoc",
+      "quang hoc",
+      "nhiet hoc",
+      "dien hoc",
+      "luong tu",
+      "hoa hoc",
+      "phan ung",
+      "nguyen to",
+      "phan tu",
+      "sinh hoc",
+      "te bao",
+      "di truyen",
+      "gen",
+      "thien van",
+      "vu tru",
+      "dia chat",
+      "khoa hoc tu nhien",
+      "khtn",
+      "phuong trinh",
+      "dinh ly",
+      "thi nghiem"
+    ],
+    "phong_cach_goc": [
+      "su-pham",
+      "cong-nghe"
+    ],
+    "mau": {
+      "hue": 215,
+      "chroma": 0.11,
+      "kieu": "tuong-dong",
+      "lechNhan": -45,
+      "lechPhu": 35,
+      "nen": "lanh",
+      "cNhan": 0.14,
+      "chuNhanToi": "tuong-dong"
+    },
+    "mau_bien_the": {
+      "kieu": "don-sac",
+      "nen": "trung-tinh",
+      "cNhan": 0.13,
+      "chuNhanToi": "tuong-dong"
+    },
+    "phong": {
+      "head": "Bricolage Grotesque",
+      "body": "Lexend",
+      "accent": null
+    },
+    "bo_cuc_uu_tien": [
+      "congThuc",
+      "hinhChuThich",
+      "bieuDo",
+      "hoiDap",
+      "buocDoc",
+      "thangSo",
+      "baThe"
+    ],
+    "bo_cuc_han_che": [
+      "baoChi"
+    ],
+    "trinh_bay": "Nền sáng sạch, nhiều khoảng trắng; mỗi slide một công thức hoặc một hình; câu hỏi gợi mở trước, lời giải sau cú nhấp.",
+    "ty_le_nen_toi": 0.25,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "push",
+        "fade",
+        "morph"
+      ],
+      "xuat_hien": [
+        "fade",
+        "wipe",
+        "appear"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": -60,
+        "lechPhu": 30,
+        "ghi_chu": "Xanh đậm Bách khoa + lục lam; lưới tam giác của trường ở bìa.",
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-cum",
+              "mau": "toi-nhan",
+              "dam_ve": "tr",
+              "do_duc": 0.6,
+              "buoc": 90
+            }
+          ],
+          "chia-phan": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.15,
+              "buoc": 90
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tr",
+            "do_duc": 0.6
+          },
+          {
+            "kieu": "luc-giac",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.45,
+            "buoc": 80
+          },
+          {
+            "kieu": "chu-thap",
+            "mau": "toi-trang",
+            "dam_ve": "tl",
+            "do_duc": 0.35,
+            "buoc": 48
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "vong-dong-tam",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.45,
+            "buoc": 42
+          },
+          {
+            "kieu": "hat",
+            "mau": "toi-trang",
+            "dam_ve": "tr",
+            "do_duc": 0.5
+          }
+        ],
+        [
+          {
+            "kieu": "song",
+            "mau": "toi-nhan",
+            "dam_ve": "duoi",
+            "do_duc": 0.45,
+            "buoc": 46
+          }
+        ]
+      ],
+      "noi-dung": [
+        [
+          {
+            "kieu": "ke-o",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.35,
+            "buoc": 36
+          }
+        ],
+        [
+          {
+            "kieu": "cham",
+            "mau": "sang-mo",
+            "dam_ve": "tr",
+            "do_duc": 0.4,
+            "buoc": 44
+          }
+        ],
+        [
+          {
+            "kieu": "luc-giac",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.25,
+            "buoc": 60
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "giua",
+            "do_duc": 0.5
+          },
+          {
+            "kieu": "chu-thap",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.3,
+            "buoc": 52
+          }
+        ]
+      ]
+    }
+  },
+  "khoa-hoc-xa-hoi": {
+    "ten": "Khoa học xã hội",
+    "tu_khoa": [
+      "xa hoi",
+      "xa hoi hoc",
+      "tam ly",
+      "tam ly hoc",
+      "hanh vi",
+      "giao duc hoc",
+      "phap luat",
+      "luat",
+      "chinh tri",
+      "chinh sach",
+      "truyen thong",
+      "bao chi",
+      "van hoa hoc",
+      "nhan hoc",
+      "dan so",
+      "gioi",
+      "binh dang",
+      "do thi hoa",
+      "lao dong",
+      "viec lam",
+      "mang xa hoi",
+      "gia dinh",
+      "cong dong",
+      "dao duc",
+      "ky nang song",
+      "giao duc cong dan",
+      "gdcd",
+      "kinh te chinh tri",
+      "quan he quoc te",
+      "khao sat",
+      "phong van",
+      "dinh tinh"
+    ],
+    "phong_cach_goc": [
+      "hoc-thuat",
+      "sang-trong"
+    ],
+    "mau": {
+      "hue": 22,
+      "chroma": 0.1,
+      "kieu": "tuong-dong",
+      "lechNhan": 32,
+      "lechPhu": -28,
+      "nen": "am",
+      "cNhan": 0.11,
+      "dDark": 0.3,
+      "chuNhanToi": "nga"
+    },
+    "mau_bien_the": {
+      "hue": 285,
+      "chroma": 0.09,
+      "kieu": "tuong-dong",
+      "lechNhan": 40,
+      "lechPhu": -30,
+      "nen": "am",
+      "cNhan": 0.1,
+      "ghi_chu": "biến thể chàm – mận trên nền giấy",
+      "chuNhanToi": "nga"
+    },
+    "phong": {
+      "head": "Lora",
+      "body": "Montserrat",
+      "accent": null
+    },
+    "bo_cuc_uu_tien": [
+      "baoChi",
+      "trichDan",
+      "tuyenBo",
+      "soSanh",
+      "dongThoiGian",
+      "thangSo",
+      "hoiDap",
+      "anhLopKhoi",
+      "luoiThuySy"
+    ],
+    "bo_cuc_han_che": [
+      "hinhChuThich",
+      "congThuc",
+      "bento"
+    ],
+    "trinh_bay": "Nền giấy ngà ấm, chữ có chân cho tiêu đề; trích dẫn nguồn và số liệu khảo sát rõ ràng; dàn trang kiểu tạp chí; màu trầm, ít màu; ảnh tư liệu, ảnh con người thật.",
+    "ty_le_nen_toi": 0.2,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "fade",
+        "push"
+      ],
+      "xuat_hien": [
+        "fade",
+        "floatUp",
+        "wipe"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": 45,
+        "lechPhu": -25,
+        "cNhan": 0.1,
+        "nen": "am",
+        "ghi_chu": "Giữ sắc xanh Bách khoa nhưng hạ về xanh mực trầm cho nền đậm (logo vẫn đúng màu gốc), màu nhấn chàm – mận trầm, nền giấy ngà; lưới tam giác của trường rất mờ ở bìa, vân giấy ở nội dung — trầm và học thuật hơn bài công nghệ.",
+        "darkL": 0.25,
+        "darkCmax": 0.08,
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.14,
+              "buoc": 96
+            }
+          ],
+          "nhan-manh": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "trai",
+              "do_duc": 0.1,
+              "buoc": 96
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "dong-muc",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.4
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-trang",
+            "dam_ve": "tl",
+            "do_duc": 0.25
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.8
+          },
+          {
+            "kieu": "gach-cheo",
+            "mau": "toi-nhan",
+            "dam_ve": "tr",
+            "do_duc": 0.35,
+            "buoc": 22
+          }
+        ],
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.8
+          },
+          {
+            "kieu": "vong-dong-tam",
+            "mau": "toi-nhan",
+            "dam_ve": "bl",
+            "do_duc": 0.3,
+            "buoc": 40
+          }
+        ]
+      ],
+      "noi-dung": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "sang-mo",
+            "dam_ve": "khong",
+            "do_duc": 1.0
+          }
+        ],
+        [
+          {
+            "kieu": "giay",
+            "mau": "sang-mo",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "duong-ke-le",
+            "mau": "sang-phu",
+            "dam_ve": "khong",
+            "do_duc": 0.6,
+            "buoc": 64
+          }
+        ],
+        [
+          {
+            "kieu": "giay",
+            "mau": "sang-mo",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "dong-muc",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.25
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.8
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-trang",
+            "dam_ve": "giua",
+            "do_duc": 0.25
+          },
+          {
+            "kieu": "song",
+            "mau": "toi-nhan",
+            "dam_ve": "duoi",
+            "do_duc": 0.3,
+            "buoc": 34
+          }
+        ]
+      ]
+    },
+    "bo_texture_bien_the": {
+      "bia": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "vong-dong-tam",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.35,
+            "buoc": 40
+          }
+        ]
+      ],
+      "noi-dung": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "sang-mo",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          }
+        ],
+        [
+          {
+            "kieu": "giay",
+            "mau": "sang-mo",
+            "dam_ve": "khong",
+            "do_duc": 0.8
+          },
+          {
+            "kieu": "gach-cheo",
+            "mau": "sang-mo",
+            "dam_ve": "tr",
+            "do_duc": 0.15,
+            "buoc": 20
+          }
+        ]
+      ]
+    }
+  },
+  "nhan-van": {
+    "ten": "Nhân văn – Văn học – Ngôn ngữ – Triết học",
+    "tu_khoa": [
+      "van hoc",
+      "ngu van",
+      "tho",
+      "truyen",
+      "tieu thuyet",
+      "tac pham",
+      "tac gia",
+      "ngon ngu",
+      "tieng viet",
+      "ngu phap",
+      "triet hoc",
+      "my hoc",
+      "nghe thuat",
+      "phe binh",
+      "doc hieu",
+      "nghi luan",
+      "van ban",
+      "thi phap",
+      "ngu am",
+      "dich thuat",
+      "bien chung",
+      "duy vat",
+      "ly luan",
+      "tu tuong",
+      "chu nghia",
+      "nhan sinh quan",
+      "the gioi quan",
+      "ton giao",
+      "dao duc hoc"
+    ],
+    "phong_cach_goc": [
+      "hoc-thuat",
+      "nghe-thuat"
+    ],
+    "mau": {
+      "hue": 340,
+      "chroma": 0.09,
+      "kieu": "tuong-dong",
+      "lechNhan": 40,
+      "lechPhu": -35,
+      "nen": "am",
+      "cNhan": 0.1,
+      "dDark": 0.29,
+      "chuNhanToi": "nga"
+    },
+    "mau_bien_the": {
+      "hue": 50,
+      "chroma": 0.07,
+      "kieu": "don-sac",
+      "nen": "am",
+      "cNhan": 0.1,
+      "ghi_chu": "đơn sắc nâu mực – sepia",
+      "chuNhanToi": "nga"
+    },
+    "phong": {
+      "head": "Playfair Display",
+      "body": "Lora",
+      "accent": null
+    },
+    "bo_cuc_uu_tien": [
+      "trichDan",
+      "baoChi",
+      "tuyenBo",
+      "anhLopKhoi",
+      "hoiDap",
+      "chuKhongLo",
+      "dongThoiGian"
+    ],
+    "bo_cuc_han_che": [
+      "bento",
+      "congThuc",
+      "hinhChuThich",
+      "thangSo"
+    ],
+    "trinh_bay": "Ít màu, nhấn bằng chữ có chân cỡ lớn; trích dẫn nguyên văn có nguồn; khoảng trắng rộng; nhịp chậm.",
+    "ty_le_nen_toi": 0.25,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "fade"
+      ],
+      "xuat_hien": [
+        "fade",
+        "split",
+        "floatUp"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": 50,
+        "lechPhu": -20,
+        "cNhan": 0.09,
+        "nen": "am",
+        "ghi_chu": "Xanh đậm Bách khoa + mận trầm, nền ngà.",
+        "darkL": 0.25,
+        "darkCmax": 0.07,
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.14,
+              "buoc": 96
+            }
+          ],
+          "nhan-manh": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "trai",
+              "do_duc": 0.1,
+              "buoc": 96
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 1.0
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-trang",
+            "dam_ve": "tr",
+            "do_duc": 0.25
+          },
+          {
+            "kieu": "song",
+            "mau": "toi-nhan",
+            "dam_ve": "duoi",
+            "do_duc": 0.3,
+            "buoc": 30
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "vong-dong-tam",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.3,
+            "buoc": 36
+          }
+        ]
+      ],
+      "noi-dung": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "sang-mo",
+            "dam_ve": "khong",
+            "do_duc": 1.0
+          }
+        ],
+        [
+          {
+            "kieu": "giay",
+            "mau": "sang-mo",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "duong-ke-le",
+            "mau": "sang-phu",
+            "dam_ve": "khong",
+            "do_duc": 0.6,
+            "buoc": 64
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-trang",
+            "dam_ve": "giua",
+            "do_duc": 0.3
+          }
+        ]
+      ]
+    }
+  },
+  "lich-su-van-hoa": {
+    "ten": "Lịch sử – Văn hoá – Di sản – Địa phương",
+    "tu_khoa": [
+      "lich su",
+      "di san",
+      "van hoa",
+      "le hoi",
+      "phong tuc",
+      "dan toc",
+      "khang chien",
+      "trieu dai",
+      "danh nhan",
+      "dia phuong",
+      "giao duc dia phuong",
+      "lang nghe",
+      "nghe truyen thong",
+      "di tich",
+      "bao tang",
+      "truyen thong dan toc",
+      "don ca tai tu",
+      "khmer",
+      "nam bo"
+    ],
+    "phong_cach_goc": [
+      "truyen-thong",
+      "le-ky-niem"
+    ],
+    "mau": {
+      "hue": 45,
+      "chroma": 0.08,
+      "kieu": "tuong-dong",
+      "lechNhan": -20,
+      "lechPhu": 35,
+      "nen": "am",
+      "cNhan": 0.13,
+      "dDark": 0.3,
+      "chuNhanToi": "nga"
+    },
+    "mau_bien_the": {
+      "hue": 25,
+      "chroma": 0.1,
+      "kieu": "tuong-dong",
+      "lechNhan": 40,
+      "nen": "am",
+      "cNhan": 0.12,
+      "chuNhanToi": "nga"
+    },
+    "phong": {
+      "head": "Noto Serif Display",
+      "body": "Lora",
+      "accent": null
+    },
+    "bo_cuc_uu_tien": [
+      "anhLopKhoi",
+      "dongThoiGian",
+      "trichDan",
+      "luoiAnh",
+      "baoChi",
+      "biaAnhTran"
+    ],
+    "bo_cuc_han_che": [
+      "congThuc",
+      "bento"
+    ],
+    "trinh_bay": "Ảnh tư liệu lớn có nguồn; dòng thời gian; hoạ tiết dân gian rất nhẹ (scripts/hoa_tiet_trong_dong.py) ở slide chia phần.",
+    "ty_le_nen_toi": 0.3,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "fade",
+        "wipe",
+        "morph"
+      ],
+      "xuat_hien": [
+        "fade",
+        "wipe",
+        "floatUp"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": 60,
+        "lechPhu": 30,
+        "cNhan": 0.08,
+        "nen": "am",
+        "ghi_chu": "Xanh đậm Bách khoa với trung tính ấm (nâu, ngà) hạ sắc — không dùng cam/vàng tươi cạnh xanh.",
+        "darkL": 0.26,
+        "darkCmax": 0.08,
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.14,
+              "buoc": 96
+            }
+          ],
+          "nhan-manh": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "trai",
+              "do_duc": 0.1,
+              "buoc": 96
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 1.0
+          },
+          {
+            "kieu": "vong-dong-tam",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.35,
+            "buoc": 40
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-trang",
+            "dam_ve": "tl",
+            "do_duc": 0.2
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "gach-cheo",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.3,
+            "buoc": 18
+          }
+        ],
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "dong-muc",
+            "mau": "toi-nhan",
+            "dam_ve": "tr",
+            "do_duc": 0.35
+          }
+        ]
+      ],
+      "noi-dung": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "sang-mo",
+            "dam_ve": "khong",
+            "do_duc": 1.0
+          }
+        ],
+        [
+          {
+            "kieu": "giay",
+            "mau": "sang-mo",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "dong-muc",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.2
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.9
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-trang",
+            "dam_ve": "giua",
+            "do_duc": 0.3
+          }
+        ]
+      ]
+    }
+  },
+  "kinh-te-quan-ly": {
+    "ten": "Kinh tế – Quản lý – Tài chính",
+    "tu_khoa": [
+      "kinh te",
+      "tai chinh",
+      "ngan hang",
+      "dau tu",
+      "thi truong",
+      "doanh nghiep",
+      "khoi nghiep",
+      "marketing",
+      "quan tri",
+      "quan ly",
+      "chien luoc",
+      "ke hoach",
+      "ngan sach",
+      "doanh thu",
+      "loi nhuan",
+      "chuoi cung ung",
+      "logistics",
+      "ke toan",
+      "kiem toan",
+      "bao cao tai chinh",
+      "kpi"
+    ],
+    "phong_cach_goc": [
+      "sang-trong",
+      "hien-dai"
+    ],
+    "mau": {
+      "hue": 250,
+      "chroma": 0.08,
+      "kieu": "tuong-dong",
+      "lechNhan": -65,
+      "lechPhu": 30,
+      "nen": "trung-tinh",
+      "cNhan": 0.12,
+      "chuNhanToi": "tuong-dong"
+    },
+    "mau_bien_the": {
+      "kieu": "don-sac",
+      "nen": "trung-tinh",
+      "cNhan": 0.12,
+      "chuNhanToi": "tuong-dong"
+    },
+    "phong": {
+      "head": "Montserrat",
+      "body": "Lexend",
+      "accent": null
+    },
+    "bo_cuc_uu_tien": [
+      "thangSo",
+      "bieuDo",
+      "bento",
+      "luoiThuySy",
+      "maTran",
+      "bang",
+      "soLon",
+      "soSanh"
+    ],
+    "bo_cuc_han_che": [
+      "trichDan"
+    ],
+    "trinh_bay": "Tiêu đề kết luận; một biểu đồ một kết luận; một màu nhấn duy nhất cho số liệu chính; lưới chặt.",
+    "ty_le_nen_toi": 0.25,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "push",
+        "fade"
+      ],
+      "xuat_hien": [
+        "wipe",
+        "fade",
+        "zoom"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": -55,
+        "lechPhu": 25,
+        "ghi_chu": "Xanh đậm Bách khoa + lục lam số liệu.",
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-cum",
+              "mau": "toi-nhan",
+              "dam_ve": "tr",
+              "do_duc": 0.6,
+              "buoc": 90
+            }
+          ],
+          "chia-phan": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.15,
+              "buoc": 90
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "khoi-hinh-hoc",
+            "mau": "toi-phu",
+            "dam_ve": "br",
+            "do_duc": 0.9,
+            "buoc": 60
+          },
+          {
+            "kieu": "cham",
+            "mau": "toi-trang",
+            "dam_ve": "tl",
+            "do_duc": 0.35,
+            "buoc": 40
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "gach-cheo",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.3,
+            "buoc": 18
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tr",
+            "do_duc": 0.5
+          }
+        ],
+        [
+          {
+            "kieu": "khoi-hinh-hoc",
+            "mau": "toi-phu",
+            "dam_ve": "tl",
+            "do_duc": 0.8,
+            "buoc": 60
+          }
+        ]
+      ],
+      "noi-dung": [
+        [],
+        [
+          {
+            "kieu": "cham",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.35,
+            "buoc": 44
+          }
+        ],
+        [
+          {
+            "kieu": "gach-cheo",
+            "mau": "sang-mo",
+            "dam_ve": "tr",
+            "do_duc": 0.25,
+            "buoc": 18
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "khoi-hinh-hoc",
+            "mau": "toi-phu",
+            "dam_ve": "bl",
+            "do_duc": 0.8,
+            "buoc": 60
+          }
+        ]
+      ]
+    }
+  },
+  "y-sinh": {
+    "ten": "Y sinh – Sức khoẻ – Dinh dưỡng",
+    "tu_khoa": [
+      "y hoc",
+      "y te",
+      "suc khoe",
+      "benh",
+      "dich te",
+      "vac xin",
+      "dinh duong",
+      "duoc",
+      "sinh ly",
+      "giai phau",
+      "tam than",
+      "cham soc",
+      "dieu duong",
+      "phong benh",
+      "ve sinh",
+      "the duc",
+      "the thao"
+    ],
+    "phong_cach_goc": [
+      "su-pham",
+      "hien-dai"
+    ],
+    "mau": {
+      "hue": 190,
+      "chroma": 0.1,
+      "kieu": "tuong-dong",
+      "lechNhan": -35,
+      "lechPhu": 35,
+      "nen": "lanh",
+      "cNhan": 0.13,
+      "chuNhanToi": "tuong-dong"
+    },
+    "mau_bien_the": {
+      "kieu": "don-sac",
+      "nen": "lanh",
+      "cNhan": 0.12,
+      "chuNhanToi": "tuong-dong"
+    },
+    "phong": {
+      "head": "Montserrat",
+      "body": "Lexend",
+      "accent": null
+    },
+    "bo_cuc_uu_tien": [
+      "hinhChuThich",
+      "bieuDo",
+      "buocDoc",
+      "thangSo",
+      "soSanh",
+      "baThe"
+    ],
+    "bo_cuc_han_che": [
+      "chuKhongLo"
+    ],
+    "trinh_bay": "Nền trắng sạch, màu dịu; không dùng đỏ tươi diện rộng; hình giải phẫu/sơ đồ có chú thích.",
+    "ty_le_nen_toi": 0.25,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "fade",
+        "push"
+      ],
+      "xuat_hien": [
+        "fade",
+        "wipe"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": -70,
+        "lechPhu": 25,
+        "ghi_chu": "Xanh đậm Bách khoa + lục ngọc.",
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-cum",
+              "mau": "toi-nhan",
+              "dam_ve": "tr",
+              "do_duc": 0.6,
+              "buoc": 90
+            }
+          ],
+          "chia-phan": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.15,
+              "buoc": 90
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tr",
+            "do_duc": 0.6
+          },
+          {
+            "kieu": "luc-giac",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.4,
+            "buoc": 70
+          },
+          {
+            "kieu": "song",
+            "mau": "toi-trang",
+            "dam_ve": "duoi",
+            "do_duc": 0.25,
+            "buoc": 40
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "song",
+            "mau": "toi-nhan",
+            "dam_ve": "duoi",
+            "do_duc": 0.45,
+            "buoc": 40
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tl",
+            "do_duc": 0.5
+          }
+        ]
+      ],
+      "noi-dung": [
+        [],
+        [
+          {
+            "kieu": "luc-giac",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.22,
+            "buoc": 60
+          }
+        ],
+        [
+          {
+            "kieu": "song",
+            "mau": "sang-mo",
+            "dam_ve": "duoi",
+            "do_duc": 0.25,
+            "buoc": 40
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "giua",
+            "do_duc": 0.5
+          },
+          {
+            "kieu": "vong-dong-tam",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.3,
+            "buoc": 44
+          }
+        ]
+      ]
+    }
+  },
+  "moi-truong-nong-nghiep": {
+    "ten": "Môi trường – Nông nghiệp – Địa lý",
+    "tu_khoa": [
+      "moi truong",
+      "bien doi khi hau",
+      "khi hau",
+      "o nhiem",
+      "rac thai",
+      "tai che",
+      "nong nghiep",
+      "lua",
+      "thuy san",
+      "rung",
+      "sinh thai",
+      "da dang sinh hoc",
+      "nuoc",
+      "dong bang",
+      "song cuu long",
+      "dia ly",
+      "phat trien ben vung",
+      "xanh",
+      "nang luong tai tao"
+    ],
+    "phong_cach_goc": [
+      "truyen-thong",
+      "hien-dai"
+    ],
+    "mau": {
+      "hue": 145,
+      "chroma": 0.1,
+      "kieu": "tuong-dong",
+      "lechNhan": -35,
+      "lechPhu": 40,
+      "nen": "am",
+      "cNhan": 0.13,
+      "chuNhanToi": "tuong-dong"
+    },
+    "mau_bien_the": {
+      "hue": 175,
+      "chroma": 0.09,
+      "kieu": "tuong-dong",
+      "lechNhan": -30,
+      "nen": "lanh",
+      "cNhan": 0.12,
+      "chuNhanToi": "tuong-dong"
+    },
+    "phong": {
+      "head": "Bricolage Grotesque",
+      "body": "Lexend",
+      "accent": null
+    },
+    "bo_cuc_uu_tien": [
+      "anhLopKhoi",
+      "biaAnhTran",
+      "thangSo",
+      "bieuDo",
+      "hinhChuThich",
+      "luoiAnh"
+    ],
+    "bo_cuc_han_che": [],
+    "trinh_bay": "Ảnh thiên nhiên thật, đường đồng mức/sóng nhẹ; số liệu khí hậu bằng biểu đồ; màu lục – lam lục tương đồng.",
+    "ty_le_nen_toi": 0.3,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "fade",
+        "wipe"
+      ],
+      "xuat_hien": [
+        "fade",
+        "wipe",
+        "floatUp"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": -80,
+        "lechPhu": -55,
+        "ghi_chu": "Xanh đậm Bách khoa + lục lam – lục (tương đồng phía lạnh).",
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-cum",
+              "mau": "toi-nhan",
+              "dam_ve": "tr",
+              "do_duc": 0.6,
+              "buoc": 90
+            }
+          ],
+          "chia-phan": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.15,
+              "buoc": 90
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tr",
+            "do_duc": 0.5
+          },
+          {
+            "kieu": "dong-muc",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.5
+          },
+          {
+            "kieu": "giay",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.6
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "song",
+            "mau": "toi-nhan",
+            "dam_ve": "tren",
+            "do_duc": 0.4,
+            "buoc": 36
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "bl",
+            "do_duc": 0.5
+          }
+        ],
+        [
+          {
+            "kieu": "dong-muc",
+            "mau": "toi-nhan",
+            "dam_ve": "tl",
+            "do_duc": 0.4
+          }
+        ]
+      ],
+      "noi-dung": [
+        [
+          {
+            "kieu": "dong-muc",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.22
+          }
+        ],
+        [
+          {
+            "kieu": "cham",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.35,
+            "buoc": 44
+          }
+        ],
+        [
+          {
+            "kieu": "song",
+            "mau": "sang-mo",
+            "dam_ve": "duoi",
+            "do_duc": 0.22,
+            "buoc": 40
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "giua",
+            "do_duc": 0.5
+          },
+          {
+            "kieu": "dong-muc",
+            "mau": "toi-nhan",
+            "dam_ve": "khong",
+            "do_duc": 0.25
+          }
+        ]
+      ]
+    }
+  },
+  "giao-duc-day-hoc": {
+    "ten": "Giáo dục – Bài giảng – Tập huấn",
+    "tu_khoa": [
+      "bai giang",
+      "tiet day",
+      "bai hoc",
+      "giao an",
+      "ke hoach bai day",
+      "tap huan",
+      "boi duong",
+      "giao vien",
+      "hoc sinh",
+      "day hoc",
+      "phuong phap day hoc",
+      "kiem tra danh gia",
+      "chuong trinh giao duc",
+      "sinh hoat chuyen mon",
+      "on tap",
+      "luyen tap"
+    ],
+    "phong_cach_goc": [
+      "su-pham",
+      "hanh-chinh"
+    ],
+    "mau": {
+      "hue": 195,
+      "chroma": 0.09,
+      "kieu": "tuong-dong",
+      "lechNhan": -40,
+      "lechPhu": 40,
+      "nen": "lanh",
+      "cNhan": 0.13,
+      "chuNhanToi": "tuong-dong"
+    },
+    "mau_bien_the": {
+      "hue": 255,
+      "chroma": 0.1,
+      "kieu": "tuong-dong",
+      "lechNhan": -40,
+      "nen": "lanh",
+      "cNhan": 0.13,
+      "chuNhanToi": "tuong-dong"
+    },
+    "phong": {
+      "head": "Bricolage Grotesque",
+      "body": "Lexend",
+      "accent": null
+    },
+    "bo_cuc_uu_tien": [
+      "hoiDap",
+      "nhiemVu",
+      "baThe",
+      "buocDoc",
+      "anhChu",
+      "congThuc",
+      "tuyenBo"
+    ],
+    "bo_cuc_han_che": [
+      "baoChi"
+    ],
+    "trinh_bay": "Theo tiến trình bài học; câu hỏi và đáp án tách cú nhấp; chữ to, ít chữ.",
+    "ty_le_nen_toi": 0.25,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "push",
+        "split",
+        "fade"
+      ],
+      "xuat_hien": [
+        "fade",
+        "appear",
+        "zoom",
+        "wipe"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": -55,
+        "lechPhu": 30,
+        "ghi_chu": "Xanh đậm Bách khoa + lục lam.",
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-cum",
+              "mau": "toi-nhan",
+              "dam_ve": "tr",
+              "do_duc": 0.6,
+              "buoc": 90
+            }
+          ],
+          "chia-phan": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.15,
+              "buoc": 90
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tr",
+            "do_duc": 0.5
+          },
+          {
+            "kieu": "ke-o",
+            "mau": "toi-trang",
+            "dam_ve": "br",
+            "do_duc": 0.3,
+            "buoc": 36
+          },
+          {
+            "kieu": "cham",
+            "mau": "toi-nhan",
+            "dam_ve": "tl",
+            "do_duc": 0.4,
+            "buoc": 40
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "ke-o",
+            "mau": "toi-trang",
+            "dam_ve": "tr",
+            "do_duc": 0.3,
+            "buoc": 36
+          }
+        ],
+        [
+          {
+            "kieu": "cham",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.45,
+            "buoc": 40
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tl",
+            "do_duc": 0.4
+          }
+        ]
+      ],
+      "noi-dung": [
+        [],
+        [
+          {
+            "kieu": "duong-ke-le",
+            "mau": "sang-phu",
+            "dam_ve": "khong",
+            "do_duc": 0.6,
+            "buoc": 60
+          }
+        ],
+        [
+          {
+            "kieu": "ke-o",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.3,
+            "buoc": 36
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "giua",
+            "do_duc": 0.5
+          },
+          {
+            "kieu": "cham",
+            "mau": "toi-nhan",
+            "dam_ve": "br",
+            "do_duc": 0.4,
+            "buoc": 40
+          }
+        ]
+      ]
+    }
+  },
+  "hanh-chinh": {
+    "ten": "Hành chính – Báo cáo cơ quan – Văn bản",
+    "tu_khoa": [
+      "bao cao",
+      "tong ket",
+      "so ket",
+      "trien khai",
+      "huong dan",
+      "quy che",
+      "cong van",
+      "quyet dinh",
+      "thong tu",
+      "nghi dinh",
+      "ke hoach nam hoc",
+      "nhiem vu nam hoc",
+      "thi dua",
+      "khen thuong",
+      "hoi nghi",
+      "du thao"
+    ],
+    "phong_cach_goc": [
+      "hanh-chinh",
+      "sang-trong"
+    ],
+    "mau": {
+      "hue": 258,
+      "chroma": 0.12,
+      "kieu": "don-sac",
+      "lechNhan": 0,
+      "nen": "trung-tinh",
+      "cNhan": 0.13,
+      "chuNhanToi": "trang"
+    },
+    "mau_bien_the": {
+      "hue": 258,
+      "chroma": 0.1,
+      "kieu": "tuong-dong",
+      "lechNhan": -45,
+      "nen": "trung-tinh",
+      "cNhan": 0.12,
+      "chuNhanToi": "trang"
+    },
+    "phong": {
+      "head": "Noto Serif",
+      "body": "Montserrat",
+      "accent": null
+    },
+    "bo_cuc_uu_tien": [
+      "bang",
+      "dongThoiGian",
+      "buocDoc",
+      "thangSo",
+      "bieuDo",
+      "soSanh",
+      "luoiThuySy"
+    ],
+    "bo_cuc_han_che": [
+      "chuKhongLo",
+      "hoiDap"
+    ],
+    "trinh_bay": "Đánh số mục I, II, 1, 2; số hiệu văn bản giữ nguyên; tiết chế màu và hiệu ứng.",
+    "ty_le_nen_toi": 0.2,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "fade",
+        "push"
+      ],
+      "xuat_hien": [
+        "wipe",
+        "fade"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "kieu": "don-sac",
+        "lechNhan": 0,
+        "ghi_chu": "Đơn sắc xanh Bách khoa.",
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-cum",
+              "mau": "toi-nhan",
+              "dam_ve": "tr",
+              "do_duc": 0.6,
+              "buoc": 90
+            }
+          ],
+          "chia-phan": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.15,
+              "buoc": 90
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "gach-cheo",
+            "mau": "toi-trang",
+            "dam_ve": "br",
+            "do_duc": 0.25,
+            "buoc": 20
+          },
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-trang",
+            "dam_ve": "tr",
+            "do_duc": 0.2
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-trang",
+            "dam_ve": "tr",
+            "do_duc": 0.2
+          }
+        ]
+      ],
+      "noi-dung": [
+        [],
+        [
+          {
+            "kieu": "gach-cheo",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.15,
+            "buoc": 18
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-trang",
+            "dam_ve": "giua",
+            "do_duc": 0.2
+          }
+        ]
+      ]
+    }
+  },
+  "su-kien-nghe-thuat": {
+    "ten": "Sự kiện – Lễ kỷ niệm – Văn nghệ",
+    "tu_khoa": [
+      "le ky niem",
+      "tri an",
+      "20/11",
+      "khai giang",
+      "be giang",
+      "chao mung",
+      "van nghe",
+      "trien lam",
+      "hoi thi",
+      "ngay hoi",
+      "tuyen duong",
+      "trao giai",
+      "gala"
+    ],
+    "phong_cach_goc": [
+      "le-ky-niem",
+      "nghe-thuat",
+      "sinh-dong"
+    ],
+    "mau": {
+      "hue": 20,
+      "chroma": 0.14,
+      "kieu": "tuong-dong",
+      "lechNhan": 45,
+      "lechPhu": -30,
+      "nen": "am",
+      "cNhan": 0.13,
+      "chuNhanToi": "nga"
+    },
+    "mau_bien_the": {
+      "hue": 330,
+      "chroma": 0.12,
+      "kieu": "tuong-dong",
+      "lechNhan": 40,
+      "nen": "am",
+      "cNhan": 0.14,
+      "chuNhanToi": "nga"
+    },
+    "phong": {
+      "head": "Playfair Display",
+      "body": "Montserrat",
+      "accent": "Great Vibes"
+    },
+    "bo_cuc_uu_tien": [
+      "biaAnhTran",
+      "luoiAnh",
+      "tuyenBo",
+      "trichDan",
+      "thangSo",
+      "chuKhongLo"
+    ],
+    "bo_cuc_han_che": [
+      "congThuc",
+      "bang"
+    ],
+    "trinh_bay": "Ảnh sự kiện thật; chữ nghệ thuật chỉ cho tiêu đề lớn; nền đậm ở bìa và lời cảm ơn.",
+    "ty_le_nen_toi": 0.4,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "fadeBlack",
+        "fade",
+        "morph"
+      ],
+      "xuat_hien": [
+        "zoom",
+        "floatUp",
+        "fade"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": 50,
+        "lechPhu": -40,
+        "ghi_chu": "Xanh đậm Bách khoa + tím mận.",
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-cum",
+              "mau": "toi-nhan",
+              "dam_ve": "tr",
+              "do_duc": 0.6,
+              "buoc": 90
+            }
+          ],
+          "chia-phan": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.15,
+              "buoc": 90
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tr",
+            "do_duc": 0.6
+          },
+          {
+            "kieu": "hat",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.8
+          },
+          {
+            "kieu": "vong-dong-tam",
+            "mau": "toi-nhan",
+            "dam_ve": "bl",
+            "do_duc": 0.3,
+            "buoc": 44
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "khoi-hinh-hoc",
+            "mau": "toi-phu",
+            "dam_ve": "br",
+            "do_duc": 0.7,
+            "buoc": 60
+          },
+          {
+            "kieu": "hat",
+            "mau": "toi-trang",
+            "dam_ve": "tr",
+            "do_duc": 0.5
+          }
+        ]
+      ],
+      "noi-dung": [
+        [],
+        [
+          {
+            "kieu": "giay",
+            "mau": "sang-mo",
+            "dam_ve": "khong",
+            "do_duc": 0.8
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "giua",
+            "do_duc": 0.6
+          },
+          {
+            "kieu": "hat",
+            "mau": "toi-trang",
+            "dam_ve": "khong",
+            "do_duc": 0.7
+          }
+        ]
+      ]
+    }
+  },
+  "da-nang": {
+    "ten": "Đa năng (không rõ lĩnh vực)",
+    "tu_khoa": [],
+    "phong_cach_goc": [
+      "hien-dai",
+      "sang-trong"
+    ],
+    "mau": {
+      "hue": 258,
+      "chroma": 0.08,
+      "kieu": "tuong-dong",
+      "lechNhan": -45,
+      "lechPhu": 35,
+      "nen": "trung-tinh",
+      "cNhan": 0.13,
+      "chuNhanToi": "tuong-dong"
+    },
+    "mau_bien_the": {
+      "kieu": "don-sac",
+      "nen": "trung-tinh",
+      "cNhan": 0.13,
+      "chuNhanToi": "tuong-dong"
+    },
+    "phong": {
+      "head": "Bricolage Grotesque",
+      "body": "Montserrat",
+      "accent": null
+    },
+    "bo_cuc_uu_tien": [
+      "tuyenBo",
+      "soLon",
+      "baThe",
+      "luoiThuySy",
+      "anhLopKhoi",
+      "buocDoc"
+    ],
+    "bo_cuc_han_che": [],
+    "trinh_bay": "Mở đầu – thân 3 ý – kết.",
+    "ty_le_nen_toi": 0.3,
+    "hieu_ung": {
+      "chuyen_trang": [
+        "fade",
+        "push"
+      ],
+      "xuat_hien": [
+        "fade",
+        "floatUp",
+        "wipe"
+      ]
+    },
+    "thuong_hieu": {
+      "bk-hcmut": {
+        "lechNhan": -45,
+        "lechPhu": 35,
+        "ghi_chu": "Xanh đậm Bách khoa + lục lam.",
+        "bien_the": {
+          "kieu": "don-sac",
+          "ghi_chu": "đơn sắc theo màu thương hiệu"
+        },
+        "lop_thuong_hieu": {
+          "bia": [
+            {
+              "kieu": "tam-giac-cum",
+              "mau": "toi-nhan",
+              "dam_ve": "tr",
+              "do_duc": 0.6,
+              "buoc": 90
+            }
+          ],
+          "chia-phan": [
+            {
+              "kieu": "tam-giac-luoi",
+              "mau": "toi-trang",
+              "dam_ve": "phai",
+              "do_duc": 0.15,
+              "buoc": 90
+            }
+          ]
+        }
+      }
+    },
+    "bo_texture": {
+      "bia": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "tr",
+            "do_duc": 0.5
+          },
+          {
+            "kieu": "cham",
+            "mau": "toi-trang",
+            "dam_ve": "br",
+            "do_duc": 0.4,
+            "buoc": 40
+          }
+        ]
+      ],
+      "chia-phan": [
+        [
+          {
+            "kieu": "khoi-hinh-hoc",
+            "mau": "toi-phu",
+            "dam_ve": "br",
+            "do_duc": 0.7,
+            "buoc": 60
+          }
+        ]
+      ],
+      "noi-dung": [
+        [],
+        [
+          {
+            "kieu": "cham",
+            "mau": "sang-mo",
+            "dam_ve": "br",
+            "do_duc": 0.35,
+            "buoc": 44
+          }
+        ]
+      ],
+      "nhan-manh": [
+        [
+          {
+            "kieu": "anh-sang",
+            "mau": "toi-phu",
+            "dam_ve": "giua",
+            "do_duc": 0.5
+          }
+        ]
+      ]
+    }
+  }
+}

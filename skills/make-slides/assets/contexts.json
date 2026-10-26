@@ -1,0 +1,72 @@
+{
+  "hoc-sinh-sinh-vien": {
+    "ten": "Học sinh, sinh viên thuyết trình trước lớp / hội trường",
+    "body_min": 24, "title_min": 36, "max_lines": 5, "max_words": 30, "sec_per_slide": 60,
+    "nen": "sang-tuong-phan-cao", "hieu_ung": "phong-phu", "auto": false,
+    "bat_buoc": ["bia-thanh-vien", "muc-luc", "ket-luan", "cam-on-hoi-dap"],
+    "xuat_kem": []
+  },
+  "cong-so": {
+    "ten": "Họp, báo cáo tại công sở (trước lãnh đạo, đồng nghiệp)",
+    "body_min": 20, "title_min": 32, "max_lines": 6, "max_words": 40, "sec_per_slide": 90,
+    "nen": "sang", "hieu_ung": "tiet-che", "auto": false,
+    "bat_buoc": ["bia-don-vi", "tom-tat-dieu-hanh", "kien-nghi", "so-trang-chan-trang"],
+    "xuat_kem": ["pdf"]
+  },
+  "hoi-nghi": {
+    "ten": "Hội nghị, hội thảo, lễ (hội trường lớn, đông người)",
+    "body_min": 28, "title_min": 40, "max_lines": 4, "max_words": 20, "sec_per_slide": 75,
+    "nen": "toi-hoac-sang-tuong-phan-cao", "hieu_ung": "phong-phu", "auto": false,
+    "bat_buoc": ["bia-hoi-nghi", "slide-cho", "cam-on"],
+    "xuat_kem": []
+  },
+  "bao-ve-do-an": {
+    "ten": "Bảo vệ đồ án, luận văn, đề tài trước giảng viên / hội đồng",
+    "body_min": 20, "title_min": 30, "max_lines": 6, "max_words": 45, "sec_per_slide": 60,
+    "nen": "sang", "hieu_ung": "toi-thieu", "auto": false,
+    "bat_buoc": ["bia-hoc-thuat", "muc-luc", "so-trang-chan-trang", "tai-lieu-tham-khao", "cam-on-hoi-dap", "phu-luc-du-phong"],
+    "xuat_kem": ["pdf"]
+  },
+  "giang-day": {
+    "ten": "Giảng dạy trên lớp",
+    "body_min": 24, "title_min": 36, "max_lines": 5, "max_words": 30, "sec_per_slide": 120,
+    "nen": "sang", "hieu_ung": "phong-phu", "auto": false,
+    "bat_buoc": ["bia-bai-hoc", "muc-tieu", "hoat-dong", "tong-ket", "nhiem-vu-ve-nha"],
+    "xuat_kem": []
+  },
+  "tap-huan": {
+    "ten": "Tập huấn, bồi dưỡng, hội thảo chuyên môn (workshop)",
+    "body_min": 22, "title_min": 34, "max_lines": 6, "max_words": 40, "sec_per_slide": 120,
+    "nen": "sang", "hieu_ung": "vua-phai", "auto": false,
+    "bat_buoc": ["bia-don-vi", "muc-tieu", "chuong-trinh", "nhiem-vu-nhom", "tai-lieu-qr", "hoi-dap"],
+    "xuat_kem": ["pdf"]
+  },
+  "online": {
+    "ten": "Thuyết trình trực tuyến (Zoom, Google Meet, Teams)",
+    "body_min": 24, "title_min": 36, "max_lines": 5, "max_words": 30, "sec_per_slide": 45,
+    "nen": "sang-hoac-toi-dong-nhat", "hieu_ung": "nhe", "auto": false,
+    "bat_buoc": ["bia", "slide-cho-truc-tuyen", "tuong-tac", "hoi-dap"],
+    "xuat_kem": ["pdf"]
+  },
+  "thi-pitch": {
+    "ten": "Hội thi, cuộc thi, trình bày ý tưởng (có ban giám khảo, giới hạn thời gian)",
+    "body_min": 24, "title_min": 40, "max_lines": 4, "max_words": 25, "sec_per_slide": 45,
+    "nen": "theo-phong-cach", "hieu_ung": "phong-phu", "auto": false,
+    "bat_buoc": ["mo-dau-an-tuong", "theo-tieu-chi-cham", "ket-thuc-manh"],
+    "xuat_kem": []
+  },
+  "doc-truoc": {
+    "ten": "Gửi đọc trước / đăng tải (người xem tự đọc, không có người trình bày)",
+    "body_min": 14, "title_min": 28, "max_lines": 10, "max_words": 90, "sec_per_slide": 0,
+    "nen": "sang", "hieu_ung": "khong", "auto": false,
+    "bat_buoc": ["bia", "tom-tat", "muc-luc", "so-trang-chan-trang", "nguon"],
+    "xuat_kem": ["pdf"]
+  },
+  "trinh-chieu-tu-dong": {
+    "ten": "Trình chiếu tự động (màn hình sảnh, sự kiện, lặp lại)",
+    "body_min": 32, "title_min": 48, "max_lines": 3, "max_words": 15, "sec_per_slide": 8,
+    "nen": "toi-hoac-anh-tran-vien", "hieu_ung": "tu-dong", "auto": true,
+    "bat_buoc": ["bia", "lap-lai"],
+    "xuat_kem": []
+  }
+}
