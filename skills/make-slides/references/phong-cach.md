@@ -78,7 +78,7 @@ Phân theo ba mức trang trọng. Mức quyết định **phông** (xem `phong-
 - Phông: Baloo 2 (tiêu đề) + Nunito (nội dung) + Pangolin (câu hỏi, lời nhắn vui).
 - Màu: xanh lam 2D3A8C với hồng san hô FF6F91, xanh trời 4FC3F7, tím oải hương B39DFF; nền trắng/lam nhạt EEF2FF (không ghép cam–lam, đỏ–lục).
 - Bố cục: chữ to (nội dung ≥ 24pt), ít chữ, nhiều hình minh hoạ, biểu tượng lớn; mỗi slide một nhiệm vụ.
-- Hiệu ứng: đủ danh mục, nhấn mạnh pulse khi khen/đáp án; chuyển trang vui (zoom, circle, cover).
+- Hiệu ứng: đủ danh mục, nhấn mạnh pulse khi khen/đáp án; chuyển trang Morph với cảnh `manhHinh` (mảnh hình bay xoay), lướt `pan`, `push`.
 
 ### Mức KIỂU CÁCH
 
@@ -87,7 +87,7 @@ Phân theo ba mức trang trọng. Mức quyết định **phông** (xem `phong-
 - Phông: Playfair Display (tiêu đề) + Montserrat (nội dung) + Great Vibes / Style Script (chữ nghệ thuật: "Tri ân", "Chào mừng", "Trân trọng cảm ơn").
 - Màu: đỏ đô 8B0000, vàng kim D4A017 (trên nền tối F2C14E).
 - Bố cục: bìa và kết thúc nền đậm có chữ nghệ thuật lớn; ảnh kỷ niệm; trích lời tri ân.
-- Hiệu ứng: zoom, floatUp, Morph; chuyển trang fadeBlack, circle cho slide cảm ơn.
+- Hiệu ứng: zoom, floatUp, Morph; chuyển trang Morph với cảnh `chuNen`, `quyDao`; `fadeBlack`, `reveal` cho mở đầu và slide cảm ơn.
 
 **11. Kiểu cách – Nghệ thuật** (`nghe-thuat`)
 - Đề tài: văn nghệ, thơ ca, giới thiệu tác phẩm/tác giả theo hướng cảm thụ, triển lãm, thiệp, WordArt, câu lạc bộ văn học.

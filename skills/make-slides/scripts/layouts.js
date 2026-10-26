@@ -117,6 +117,8 @@ function kicker(sl, S, text, o = {}, box = {}) {
   AT(sl, text.toUpperCase(), T({ objectName: "kicker", x: M, y: 0.25, w: CW, h: 0.25, fontFace: S.body, bold: true, fontSize: 11, charSpacing: 2, color: sub(S, o), ...box }));
 }
 function image(sl, S, img, box, name = "img", rounding) {
+  // img = đường dẫn, hoặc { duong, ten } (ten "!!…" để ảnh morph giữa hai slide — chuyen_trang.anh)
+  if (img && typeof img === "object") { name = img.ten || name; img = img.duong; }
   if (img) sl.addImage({ objectName: name, path: img, ...box, sizing: { type: "cover", w: box.w, h: box.h }, ...(rounding ? { rounding: true } : {}) });
   else sl.addShape("rect", { objectName: name, ...box, fill: { color: S.c.soft }, line: { color: S.c.soft } });
 }
@@ -192,7 +194,7 @@ L.mucLuc = (pres, S, c, o = {}) => {
 L.chiaPhan = (pres, S, c, o = { dark: true }) => {
   const sl = addSlide(pres, c); sl.background = { color: o.dark ? S.c.dark : S.c.soft };
   // số lớn mờ nằm trọn trong lề phải (không sát/ra ngoài mép slide)
-  AT(sl, String(c.num).padStart(2, "0"), T({ objectName: "bignum", x: W - M - 4.4, y: 0.3, w: 4.4, h: 3.4, fontFace: S.head, bold: true, fontSize: 200, color: o.dark ? "FFFFFF" : S.c.accent, transparency: o.dark ? 88 : 75, align: "right", valign: "top" }));
+  AT(sl, String(c.num).padStart(2, "0"), T({ objectName: c.soMorph ? "!!so" : "bignum", x: W - M - 4.4, y: 0.3, w: 4.4, h: 3.4, fontFace: S.head, bold: true, fontSize: 200, color: o.dark ? "FFFFFF" : S.c.accent, transparency: o.dark ? 88 : 75, align: "right", valign: "top" }));
   const ts = 38, tl = Math.min(3, D.ngat(c.title, { face: S.head, size: ts, bold: true, w: 6.6 }).length), th = D.cao(tl, ts, D.heSo(S.head, true)) + 0.1;
   const yT = 3.85 - th;
   AT(sl, c.title, T({ objectName: "title", x: M, y: yT, w: 6.6, h: th, fontFace: S.head, bold: !S.headItalic, italic: S.headItalic, fontSize: ts, color: fg(S, o), valign: "bottom", fit: "shrink" }));
@@ -353,7 +355,7 @@ L.dongThoiGian = (pres, S, c, o = {}) => {
       T({ objectName: `ev${i}`, x: Math.max(M - 0.1, Math.min(cx - bw / 2, W - M - bw + 0.1)), y: up ? 1.6 : 3.45, w: bw, h: 1.35, fontFace: S.body, align: "center", valign: up ? "bottom" : "top", fit: "shrink" }));
   });
   notes(sl, c);
-  return { slide: sl, idle: c.events.map((_, i) => ({ n: `dot${i}`, eff: "nhip", period: 8000, delay: 1500 + i * 500 })), steps: [[{ n: "axis", eff: "wipe", dir: "left", dur: 800 }], ...c.events.map((_, i) => [{ n: `dot${i}`, eff: "zoom", dur: 300 }, { n: `ev${i}`, eff: "fade" }])] };
+  return { slide: sl, idle: [{ n: `dot${c.events.length - 1}`, eff: "nhip", period: 8000 }], steps: [[{ n: "axis", eff: "wipe", dir: "left", dur: 800 }], ...c.events.map((_, i) => [{ n: `dot${i}`, eff: "zoom", dur: 300 }, { n: `ev${i}`, eff: "fade" }])] };
 };
 
 // 15 Biểu đồ + kết luận — c: {title, chart:{type, data, options}, takeaway, source}

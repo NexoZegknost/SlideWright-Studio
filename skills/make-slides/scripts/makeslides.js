@@ -73,20 +73,8 @@ async function embedFonts(buf, families) {
 // Toàn bộ danh mục hiệu ứng (mở đầu, nhấn mạnh, chờ, kết thúc) và cách dựng <p:timing>: scripts/hieu_ung.js
 const HU = require(path.join(__dirname, "hieu_ung.js"));
 
-// Chuyển trang. spd: slow|med|fast. Morph cần PowerPoint 2019/365; bản cũ tự lùi về Fade.
-const TRANSITIONS = {
-  none: () => "",
-  fade: () => `<p:transition spd="med"><p:fade/></p:transition>`,
-  fadeBlack: () => `<p:transition spd="slow"><p:fade thruBlk="1"/></p:transition>`,
-  push: (d = "u") => `<p:transition spd="med"><p:push dir="${d}"/></p:transition>`,
-  wipe: (d = "r") => `<p:transition spd="med"><p:wipe dir="${d}"/></p:transition>`,
-  cover: (d = "l") => `<p:transition spd="med"><p:cover dir="${d}"/></p:transition>`,
-  split: () => `<p:transition spd="med"><p:split orient="vert" dir="out"/></p:transition>`,
-  zoom: () => `<p:transition spd="med"><p:zoom/></p:transition>`,
-  circle: () => `<p:transition spd="med"><p:circle/></p:transition>`,
-  morph: () =>
-    `<mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice xmlns:p159="http://schemas.microsoft.com/office/powerpoint/2015/09/main" Requires="p159"><p:transition spd="slow" xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" p14:dur="1500"><p159:morph option="byObject"/></p:transition></mc:Choice><mc:Fallback><p:transition spd="slow"><p:fade/></p:transition></mc:Fallback></mc:AlternateContent>`,
-};
+// Chuyển trang: scripts/chuyen_trang.js (Morph chủ đạo + lướt hiện đại; không dùng kiểu cổ điển)
+const CT = require(path.join(__dirname, "chuyen_trang.js"));
 
 /*
  PLAN = {
@@ -94,7 +82,7 @@ const TRANSITIONS = {
    2: { transition: ["push","u"], steps: [ [{n:"card0",eff:"fly",dir:"up"},{n:"card0txt",eff:"fly",dir:"up"}], ... ] },
    3: { transition: "morph" },
  }
- transition: tên hoặc [tên, hướng]. autoFirst: nhóm đầu tự chạy khi vào slide.
+ transition: tên | [tên, hướng] | { kieu, huong, toc, tuy } — xem chuyen_trang.js. autoFirst: nhóm đầu tự chạy khi vào slide.
  idle: hiệu ứng chờ (tự phát, lặp tới hết slide) — [{n, eff:"quet"|"troi"|"chuNoi"|…, period, batDau:"vao"|"sau"}]
  ket:  cú nhấp cuối với hiệu ứng kết thúc — [{n, eff:"fadeOut"|"sinkOut"|…, start:"with"|"after"}]
  advanceAfter: số mili-giây tự chuyển sang slide sau (trình chiếu tự động).
@@ -209,8 +197,8 @@ async function applyEffects(buf, PLAN) {
       idle: (plan.idle || []).map((e) => bind(e, " cho hiệu ứng chờ")),
       ket: (plan.ket || []).map((e) => bind(e, " cho hiệu ứng kết thúc")),
     };
-    const tr = Array.isArray(plan.transition) ? TRANSITIONS[plan.transition[0]](plan.transition[1]) : (TRANSITIONS[plan.transition || "none"] || (() => { throw new Error(`Chuyển trang "${plan.transition}" không có`); }))();
-    let trx = tr;
+    let trx;
+    try { trx = CT.xml(plan.transition || "none"); } catch (e) { throw new Error(`Slide ${num}: ${e.message}`); }
     if (plan.advanceAfter) {
       // tự chuyển trang sau N mili-giây (trình chiếu tự động)
       if (!trx) trx = `<p:transition spd="med"><p:fade/></p:transition>`;
@@ -271,4 +259,4 @@ function installFontsForPreview(families) {
   try { require("child_process").execSync("fc-cache -f " + dst); } catch (e) {}
 }
 
-module.exports = { equation, applyEquations, ommlFromTex, cleanPackage, fixParagraphs, IDLE: Object.keys(HU.CHO), HIEU_UNG: HU, embedFonts, applyEffects, setLoop, toPpsx, save, installFontsForPreview, EFFECTS: [...Object.keys(HU.MO_DAU), ...Object.keys(HU.NHAN_MANH), ...Object.keys(HU.KET_THUC)], TRANSITIONS: Object.keys(TRANSITIONS), FONT_FILES };
+module.exports = { equation, applyEquations, ommlFromTex, cleanPackage, fixParagraphs, IDLE: Object.keys(HU.CHO), HIEU_UNG: HU, embedFonts, applyEffects, setLoop, toPpsx, save, installFontsForPreview, EFFECTS: [...Object.keys(HU.MO_DAU), ...Object.keys(HU.NHAN_MANH), ...Object.keys(HU.KET_THUC)], TRANSITIONS: CT.KIEU, CHUYEN_TRANG: CT, FONT_FILES };

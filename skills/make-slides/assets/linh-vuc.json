@@ -99,14 +99,19 @@
     "hieu_ung": {
       "chuyen_trang": [
         "morph",
-        "push",
-        "fadeBlack"
+        "pan",
+        "push"
       ],
       "xuat_hien": [
         "wipe",
         "zoom",
         "fade",
         "floatUp"
+      ],
+      "canh_morph": [
+        "quyDao",
+        "daiLua",
+        "tienDo"
       ]
     },
     "thuong_hieu": {
@@ -384,14 +389,18 @@
     "ty_le_nen_toi": 0.25,
     "hieu_ung": {
       "chuyen_trang": [
+        "morph",
         "push",
-        "fade",
-        "morph"
+        "fade"
       ],
       "xuat_hien": [
         "fade",
         "wipe",
         "appear"
+      ],
+      "canh_morph": [
+        "quyDao",
+        "tienDo"
       ]
     },
     "thuong_hieu": {
@@ -611,13 +620,19 @@
     "ty_le_nen_toi": 0.2,
     "hieu_ung": {
       "chuyen_trang": [
+        "morph",
         "fade",
-        "push"
+        "reveal"
       ],
       "xuat_hien": [
         "fade",
         "floatUp",
         "wipe"
+      ],
+      "canh_morph": [
+        "quyDao",
+        "chuNen",
+        "tienDo"
       ]
     },
     "thuong_hieu": {
@@ -899,12 +914,18 @@
     "ty_le_nen_toi": 0.25,
     "hieu_ung": {
       "chuyen_trang": [
-        "fade"
+        "morph",
+        "fade",
+        "reveal"
       ],
       "xuat_hien": [
         "fade",
         "split",
         "floatUp"
+      ],
+      "canh_morph": [
+        "chuNen",
+        "tienDo"
       ]
     },
     "thuong_hieu": {
@@ -1094,14 +1115,19 @@
     "ty_le_nen_toi": 0.3,
     "hieu_ung": {
       "chuyen_trang": [
-        "fade",
-        "wipe",
-        "morph"
+        "morph",
+        "reveal",
+        "fade"
       ],
       "xuat_hien": [
         "fade",
         "wipe",
         "floatUp"
+      ],
+      "canh_morph": [
+        "chuNen",
+        "quyDao",
+        "tienDo"
       ]
     },
     "thuong_hieu": {
@@ -1303,13 +1329,18 @@
     "ty_le_nen_toi": 0.25,
     "hieu_ung": {
       "chuyen_trang": [
+        "morph",
         "push",
-        "fade"
+        "wipe"
       ],
       "xuat_hien": [
         "wipe",
         "fade",
         "zoom"
+      ],
+      "canh_morph": [
+        "daiLua",
+        "tienDo"
       ]
     },
     "thuong_hieu": {
@@ -1483,12 +1514,17 @@
     "ty_le_nen_toi": 0.25,
     "hieu_ung": {
       "chuyen_trang": [
+        "morph",
         "fade",
         "push"
       ],
       "xuat_hien": [
         "fade",
         "wipe"
+      ],
+      "canh_morph": [
+        "quyDao",
+        "tienDo"
       ]
     },
     "thuong_hieu": {
@@ -1668,13 +1704,18 @@
     "ty_le_nen_toi": 0.3,
     "hieu_ung": {
       "chuyen_trang": [
-        "fade",
-        "wipe"
+        "morph",
+        "wipe",
+        "fade"
       ],
       "xuat_hien": [
         "fade",
         "wipe",
         "floatUp"
+      ],
+      "canh_morph": [
+        "quyDao",
+        "tienDo"
       ]
     },
     "thuong_hieu": {
@@ -1866,15 +1907,20 @@
     "ty_le_nen_toi": 0.25,
     "hieu_ung": {
       "chuyen_trang": [
+        "morph",
         "push",
-        "split",
-        "fade"
+        "pan"
       ],
       "xuat_hien": [
         "fade",
         "appear",
         "zoom",
         "wipe"
+      ],
+      "canh_morph": [
+        "manhHinh",
+        "quyDao",
+        "tienDo"
       ]
     },
     "thuong_hieu": {
@@ -2063,12 +2109,16 @@
     "ty_le_nen_toi": 0.2,
     "hieu_ung": {
       "chuyen_trang": [
+        "morph",
         "fade",
         "push"
       ],
       "xuat_hien": [
         "wipe",
         "fade"
+      ],
+      "canh_morph": [
+        "tienDo"
       ]
     },
     "thuong_hieu": {
@@ -2216,14 +2266,19 @@
     "ty_le_nen_toi": 0.4,
     "hieu_ung": {
       "chuyen_trang": [
+        "morph",
         "fadeBlack",
-        "fade",
-        "morph"
+        "reveal"
       ],
       "xuat_hien": [
         "zoom",
         "floatUp",
         "fade"
+      ],
+      "canh_morph": [
+        "chuNen",
+        "quyDao",
+        "daiLua"
       ]
     },
     "thuong_hieu": {
@@ -2368,6 +2423,7 @@
     "ty_le_nen_toi": 0.3,
     "hieu_ung": {
       "chuyen_trang": [
+        "morph",
         "fade",
         "push"
       ],
@@ -2375,6 +2431,10 @@
         "fade",
         "floatUp",
         "wipe"
+      ],
+      "canh_morph": [
+        "quyDao",
+        "tienDo"
       ]
     },
     "thuong_hieu": {
