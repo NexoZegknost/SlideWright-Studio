@@ -1,0 +1,11 @@
+{
+  "name": "make-slides-marketplace",
+  "owner": { "name": "NexoZegknost" },
+  "plugins": [
+    {
+      "name": "make-slides",
+      "source": "./",
+      "description": "makeSlides — tạo, nâng cấp, chuyển PDF thành bài trình chiếu tiếng Việt (PowerPoint .pptx/.ppsx, Gamma, Canva), có hiệu ứng, Morph, phông nhúng sẵn."
+    }
+  ]
+}

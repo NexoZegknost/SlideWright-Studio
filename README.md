@@ -66,3 +66,12 @@ Công cụ đầu ra: PowerPoint (mặc định, .pptx + .ppsx), Canva hoặc Ga
 - "Rà soát lại file trình chiếu này, thiết kế lại cho ấn tượng hơn" (kèm .pptx)
 - "Chuyển file PDF này sang PowerPoint, giữ nguyên hình nền, phông, màu, thêm hiệu ứng xuất hiện"
 - "Lễ kỷ niệm Ngày Nhà giáo Việt Nam 20/11" (phong cách kiểu cách)
+
+## Cài đặt từ GitHub
+Trong Claude Code: `/plugin marketplace add NexoZegknost/make-slides` rồi `/plugin install make-slides@make-slides-marketplace`.
+Hoặc tải tệp `.plugin` ở mục Releases và mở trong ứng dụng Claude.
+
+## Quản lý phiên bản
+- Nhánh `main` luôn là bản mới nhất; mỗi bản phát hành có tag `vX.Y.Z` và mục tương ứng trong `CHANGELOG.md`.
+- Quy trình ra bản mới: sửa mã → tăng `version` trong `.claude-plugin/plugin.json` → thêm mục vào `CHANGELOG.md` → `git commit` → `git tag vX.Y.Z` → `git push --follow-tags`.
+- Phụ thuộc chạy script: xem `skills/make-slides/references/quy-trinh-pptx.md`.
