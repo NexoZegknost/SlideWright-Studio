@@ -220,22 +220,39 @@ function timing(plan, ctx) {
   };
   const inner = (start, body) => `<p:par><p:cTn id="${nid()}" fill="hold"><p:stCondLst><p:cond delay="${Math.round(start)}"/></p:stCondLst><p:childTnLst>${body}</p:childTnLst></p:cTn></p:par>`;
 
+  // PowerPoint hiểu "After Previous" = sau khi MỤC ĐỨNG TRƯỚC TRONG DANH SÁCH kết thúc. Hiệu ứng chờ lặp vô hạn không bao giờ
+  // kết thúc → mọi mục "after" xếp sau nó sẽ không bao giờ chạy (lỗi 0.13.0: tiêu đề bìa không hiện). Vì vậy:
+  //   - nhóm KHÔNG có hiệu ứng chờ: dựng như PowerPoint lưu (mỗi chuỗi "after" một par con);
+  //   - nhóm CÓ hiệu ứng chờ: một par duy nhất, mọi mục là "With Previous" với độ trễ tuyệt đối; hiệu ứng chờ xếp CUỐI danh sách.
   const clicks = groups.map((g, gi) => {
     const segs = [];                           // [{start, nodes: []}]
+    const id0 = atGroup(gi);
+    const flat = id0.length > 0;
     let seg = null, prevEnd = 0, prevStart = 0;
     g.items.forEach((e, i) => {
       const start = i === 0 ? "first" : e.start || "with";
-      if (i === 0 || start === "after") { seg = { start: i === 0 ? 0 : prevEnd, nodes: [] }; segs.push(seg); }
-      const nodeType = i === 0 ? (g.auto ? "afterEffect" : "clickEffect") : start === "after" ? "afterEffect" : "withEffect";
-      const r = effNode(e, nodeType, e.delay || 0);
-      seg.nodes.push(r.xml);
-      prevStart = seg.start; prevEnd = Math.max(start === "with" ? prevEnd : 0, seg.start + r.len);
+      const begin = i === 0 ? 0 : start === "after" ? prevEnd : prevStart;
+      if (flat) {
+        if (!seg) { seg = { start: 0, nodes: [] }; segs.push(seg); }
+        const nodeType = i === 0 ? (g.auto ? "afterEffect" : "clickEffect") : "withEffect";
+        const r = effNode(e, nodeType, begin + (e.delay || 0));
+        seg.nodes.push(r.xml);
+        prevStart = begin; prevEnd = Math.max(start === "with" ? prevEnd : 0, r.len);
+      } else {
+        if (i === 0 || start === "after") { seg = { start: begin, nodes: [] }; segs.push(seg); }
+        const nodeType = i === 0 ? (g.auto ? "afterEffect" : "clickEffect") : start === "after" ? "afterEffect" : "withEffect";
+        const r = effNode(e, nodeType, e.delay || 0);
+        seg.nodes.push(r.xml);
+        prevStart = seg.start; prevEnd = Math.max(start === "with" ? prevEnd : 0, seg.start + r.len);
+      }
     });
-    const id0 = atGroup(gi);
-    if (id0.length) {
-      const now = id0.filter((e) => e.bd === "vao"), later = id0.filter((e) => e.bd !== "vao");
-      if (now.length) { if (!segs.length) segs.push({ start: 0, nodes: [] }); now.forEach((e) => segs[0].nodes.push(idleNode(e, segs[0].nodes.length ? "withEffect" : "afterEffect", e.delay || 0))); }
-      if (later.length) { const s = { start: prevEnd, nodes: [] }; later.forEach((e, i) => s.nodes.push(idleNode(e, i ? "withEffect" : "afterEffect", e.delay ?? 1200))); segs.push(s); }
+    if (flat) {
+      if (!segs.length) segs.push({ start: 0, nodes: [] });
+      const s0 = segs[0], first = !s0.nodes.length;
+      id0.forEach((e, i) => {
+        const at = e.bd === "vao" ? e.delay || 0 : prevEnd + (e.delay ?? 1200);
+        s0.nodes.push(idleNode(e, first && i === 0 ? (g.auto ? "afterEffect" : "clickEffect") : "withEffect", at));
+      });
     }
     const body = segs.map((s) => inner(s.start, s.nodes.join(""))).join("");
     return `<p:par><p:cTn id="${nid()}" fill="hold"><p:stCondLst><p:cond delay="indefinite"/>${g.auto ? '<p:cond evt="onBegin" delay="0"><p:tn val="2"/></p:cond>' : ""}</p:stCondLst><p:childTnLst>${body}</p:childTnLst></p:cTn></p:par>`;
