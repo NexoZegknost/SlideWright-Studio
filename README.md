@@ -1,4 +1,4 @@
-# makeSlides (make-slides)
+# SlideWright Studio — plugin makeSlides (make-slides)
 
 Plugin giúp Claude tạo **bài thuyết trình ấn tượng, đa chủ đề** bằng tiếng Việt (bài giảng, tập huấn, báo cáo hội nghị, lễ kỷ niệm, sự kiện, giới thiệu) từ chủ đề, dàn ý, văn bản dán vào hoặc tài liệu đính kèm (PDF, Word, ảnh, link).
 
@@ -68,7 +68,7 @@ Công cụ đầu ra: PowerPoint (mặc định, .pptx + .ppsx), Canva hoặc Ga
 - "Lễ kỷ niệm Ngày Nhà giáo Việt Nam 20/11" (phong cách kiểu cách)
 
 ## Cài đặt từ GitHub
-Trong Claude Code: `/plugin marketplace add NexoZegknost/make-slides` rồi `/plugin install make-slides@make-slides-marketplace`.
+Trong Claude Code: `/plugin marketplace add NexoZegknost/SlideWright-Studio` rồi `/plugin install make-slides@slidewright-studio`.
 Hoặc tải tệp `.plugin` ở mục Releases và mở trong ứng dụng Claude.
 
 ## Quản lý phiên bản
