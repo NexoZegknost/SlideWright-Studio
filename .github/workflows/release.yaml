@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Đồng bộ số phiên bản
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          VERSION="${TAG#v}"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+          # 1. plugin.json
+          jq --arg v "$VERSION" '.version = $v' .claude-plugin/plugin.json > tmp.json
+          mv tmp.json .claude-plugin/plugin.json
+
+          # 2. README
+          sed -i -E "s/(Phiên bản hiện tại: \*\*)[^*]+(\*\*)/\1$VERSION\2/" README.md
+
+          # 3. CHANGELOG: nếu bạn chưa tự viết mục này thì sinh từ các commit
+          if ! grep -q "^## $VERSION\$" CHANGELOG.md; then
+            PREV=$(git describe --tags --abbrev=0 "$TAG^" 2>/dev/null || true)
+            RANGE="${PREV:+$PREV..}$TAG"
+            { echo "## $VERSION"
+              git log "$RANGE" --no-merges --pretty='- %s' | grep -v 'chore(release)'
+              echo; } > section.md
+            awk 'FNR==NR{s=s $0 "\n"; next} !d && /^## /{printf "%s", s; d=1} {print}' \
+              section.md CHANGELOG.md > tmp.md
+            mv tmp.md CHANGELOG.md
+          fi
+
+          # ghi chú phát hành = mục của phiên bản này
+          awk -v v="## $VERSION" '$0==v{f=1;next} /^## /{f=0} f' CHANGELOG.md > notes.md
+
+      - name: Commit lại và dời tag về commit mới
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .claude-plugin/plugin.json README.md CHANGELOG.md
+          git diff --cached --quiet || git commit -m "chore(release): $VERSION"
+          git push origin HEAD:main
+          git tag -f "$TAG"
+          git push -f origin "$TAG"
+
+      - name: Đóng gói và phát hành
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          zip -r "slidewright-studio-$VERSION.plugin" . -x ".git/*" ".github/*" "*.patch" notes.md section.md
+          FLAGS=""
+          case "$VERSION" in *-*) FLAGS="--prerelease" ;; esac
+          gh release create "v$VERSION" "slidewright-studio-$VERSION.plugin" \
+            --title "SlideWright - Studio v$VERSION" \
+            --notes-file notes.md $FLAGS

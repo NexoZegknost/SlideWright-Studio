@@ -2,6 +2,10 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## 0.14.3
+- Thêm quy trình phát hành tự động bằng GitHub Actions (`.github/workflows/release.yml`): đẩy commit có tiêu đề bắt đầu bằng `chore(release):` thì tự tạo tag `vX.Y.Z`, đóng gói tệp `.plugin` và đăng bản phát hành lên mục Releases, ghi chú lấy từ mục tương ứng trong CHANGELOG.
+- Số phiên bản có hậu tố (ví dụ `-beta.1`) tự được đánh dấu là bản thử nghiệm.
+
 ## 0.14.2
 - Rút gọn README, chỉ giữ tính năng, cài đặt, yêu cầu, cách dùng và các lưu ý chính.
 
