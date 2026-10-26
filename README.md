@@ -2,16 +2,17 @@
 
 Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Plugin có tên kỹ thuật là `make-slides` (makeSlides).
 
-Phiên bản hiện tại: **0.13.0** · Lịch sử thay đổi: [CHANGELOG.md](CHANGELOG.md)
+Phiên bản hiện tại: **0.14.0-beta.1** (thử nghiệm) · bản ổn định: **0.13.0** · Lịch sử thay đổi: [CHANGELOG.md](CHANGELOG.md)
 
 ## Tính năng
 
 - **Ba chế độ làm việc:** tạo mới, nâng cấp, chuyển PDF sang PowerPoint giữ nguyên nền, phông, màu và hình.
 - **Ba đầu ra:** PowerPoint (`.pptx` và `.ppsx`, mặc định), Canva hoặc Gamma.
 - **Định hướng phong cách theo đề tài:** tự nhận diện lĩnh vực (công nghệ, khoa học xã hội, hành chính, sư phạm, nghệ thuật…) và đề xuất 3 phương án về màu, phông, texture, bố cục.
-- **Hiệu ứng đủ bốn nhóm:** mở đầu, nhấn mạnh, chờ (tự phát, lặp đến hết slide) và kết thúc, cộng chuyển trang gồm cả Morph.
+- **Hiệu ứng đủ bốn nhóm:** mở đầu, nhấn mạnh, chờ (tự phát, lặp đến hết slide) và kết thúc.
+- **Chuyển trang Morph làm chủ đạo:** cảnh morph xuyên suốt bài (vầng sáng trôi, băng màu xoay, mảnh hình bay, từ khoá trượt, thanh tiến độ) và các khoảnh khắc morph kể chuyện; chuyển trang lướt hiện đại cho chỗ đổi phần, không dùng kiểu cổ điển.
 - **Chữ tiếng Việt chuẩn:** phông đủ dấu nhúng sẵn trong file, công thức là khối Equation gốc của PowerPoint.
-- **Tự kiểm tra trước khi bàn giao:** cỡ chữ, lượng chữ, xuống dòng giữ nghĩa, tràn khung, lệch khung, tương phản và phối màu, dấu hiệu slide do AI làm.
+- **Tự kiểm tra trước khi bàn giao:** cỡ chữ, lượng chữ, xuống dòng giữ nghĩa, tràn khung, lệch khung, tương phản và phối màu, dấu hiệu slide do AI làm; mô phỏng hiệu ứng theo đúng cách PowerPoint chạy và xem trước Morph bằng ảnh động.
 - **Bối cảnh trình bày:** học sinh/sinh viên, công sở, hội nghị, bảo vệ đồ án, giảng dạy, tập huấn, trực tuyến, thi pitch, gửi đọc trước, trình chiếu tự động. Mỗi bối cảnh có cỡ chữ, mật độ nội dung và mức hiệu ứng riêng.
 - **Văn bản hành chính:** khung slide cho báo cáo, kế hoạch, dự thảo; giữ đúng số hiệu văn bản.
 - **Bộ nhận diện thương hiệu tuỳ chọn:** logo và hoạ tiết Trường Đại học Bách khoa – ĐHQG-HCM, chỉ dùng khi người dùng yêu cầu.
@@ -79,7 +80,8 @@ Chỉ cần nói với Claude bằng ngôn ngữ tự nhiên; skill tự chạy 
 
 ## Lưu ý
 
-- Hiệu ứng, hiệu ứng chờ và Morph chỉ chạy khi trình chiếu trong PowerPoint; ảnh xem trước tĩnh không thể hiện chúng.
+- Hiệu ứng, hiệu ứng chờ và Morph chỉ chạy khi trình chiếu trong PowerPoint; ảnh xem trước tĩnh không thể hiện chúng (Morph có bản xem trước bằng ảnh động gần đúng).
+- Bản beta dùng để thử nghiệm; báo lỗi hoặc góp ý qua mục Issues của kho.
 - Khi sửa và lưu lại trong PowerPoint, giữ tuỳ chọn *Embed fonts in the file* (đã bật sẵn) để phông không bị mất.
 - Tài nguyên thương hiệu Bách khoa thuộc Trường Đại học Bách khoa – ĐHQG-HCM; chỉ dùng cho báo cáo, thuyết trình tại trường hoặc khi được phép.
 - Bộ phông đi kèm (19 họ) dùng giấy phép SIL Open Font License; tệp giấy phép nằm cạnh từng họ phông.
@@ -87,6 +89,6 @@ Chỉ cần nói với Claude bằng ngôn ngữ tự nhiên; skill tự chạy 
 ## Phát hành phiên bản
 
 1. Sửa mã và cập nhật `CHANGELOG.md`.
-2. Tăng `version` trong `.claude-plugin/plugin.json` theo quy tắc semver.
+2. Tăng `version` trong `.claude-plugin/plugin.json` theo quy tắc semver (bản thử nghiệm thêm hậu tố `-beta.N`).
 3. Commit, gắn tag `vX.Y.Z` và đẩy lên kho: `git push --follow-tags`.
-4. Tạo Release trên GitHub từ tag và đính kèm tệp `.plugin`.
+4. Tạo Release trên GitHub từ tag và đính kèm tệp `.plugin`; bản beta đánh dấu *Set as a pre-release*.

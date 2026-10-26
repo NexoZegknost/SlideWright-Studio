@@ -43,6 +43,7 @@ await MS.save(buf, "Slide_<ChuDeKhongDau>_<ddmmyyyy>");  // 3. dọn gói (khai 
 1. `markitdown file.pptx` → chính tả, dấu, thứ tự, chữ giữ chỗ còn sót.
 2. `python <skill pptx>/scripts/office/validate.py file.pptx` → phải PASSED.
 2a. `python3 scripts/kiem_tra_van_ban.py file.pptx --sua file_sua.pptx` → văn bản (cỡ ≥ 24pt, lượng chữ, giãn dòng, xuống dòng giữ nghĩa, tiêu đề 2 dòng trên ngắn dưới dài, dòng mồ côi); bàn giao bản đã sửa khi hết LỖI.
+2d. `python3 scripts/kiem_tra_hieu_ung.py file.pptx` → hết LỖI (hiệu ứng chạy đúng như PowerPoint, Morph, chuyển trang); `python3 scripts/xem_truoc_morph.py file.pptx --ra xem_morph` để xem Morph.
 2c. `python3 scripts/kiem_tra_bo_cuc.py file.pptx --anh kiem_tra` → hết LỖI và CẢNH BÁO (văn bản/vật thể lệch khung, đường kẻ chạm chữ, chữ tràn khối màu, ra ngoài slide).
 2b. `python3 scripts/kiem_tra_slide.py file.pptx` → hết LỖI; xem từng CẢNH BÁO (màu, dấu hiệu AI theo `dau-hieu-ai.md`, công thức dạng chữ).
 3. Render ảnh: gọi `MS.installFontsForPreview([...])` trước để LibreOffice có phông, rồi chuyển PDF → ảnh (`soffice` qua script của skill pptx, `pdftoppm -r 100`). Xem **từng slide**: tràn chữ, xuống dòng xấu (từ/cụm từ bị tách, chữ mồ côi một từ ở dòng cuối tiêu đề), cỡ chữ đủ lớn, tương phản, độ tập trung (mỗi slide một điểm nhìn chính), lệch lề.
@@ -59,7 +60,7 @@ Gửi cả hai tệp: `.ppsx` (mở là trình chiếu ngay) và `.pptx` (để 
 
 ## Kinh nghiệm dựng thực tế (đã kiểm chứng)
 - **Layout có chân trang** (`defineSlideMaster` với footer + slideNumber) chỉ dùng cho slide nội dung. Slide có khối màu phủ cả chiều cao (mục lục, bìa phụ) dùng layout **không chân trang** riêng, nếu không chân trang bị che lộ một nửa.
-- **Morph slide chuyển phần → slide nội dung**: số La Mã lớn ở slide chuyển phần và huy hiệu tròn nhỏ ở slide nội dung đầu tiên của phần cùng `objectName: "!!sec"`; slide nội dung đó đặt `transition: "morph"`; các slide khác của phần dùng tên `sec` (không `!!`) và `push`.
+- **Morph**: theo `references/chuyen-trang.md` — cảnh morph `CT.canh(...)` trên mọi slide, `transition: CT.MORPH`; số chia phần → huy hiệu bằng `L.chiaPhan(..., { soMorph: true })` + `CT.soPhan(sl, S, n)` ở slide nội dung đầu phần.
 - **Xuống dòng**: dùng ` ` giữa ký hiệu–số (`CV 7991`); rút gọn hoặc giảm cỡ khi tiêu đề thẻ tách 1–2 từ xuống dòng; kiểm tra lại sau mỗi lần sửa bằng ảnh render.
 - **Họa tiết trên nền tối**: dùng bản mờ (`_dim`, ~45%) đặt lệch phải, tràn mép; chữ không đè lên phần đậm nhất của họa tiết.
 - **Thanh tỉ lệ 100%** vẽ bằng `RECTANGLE` nối tiếp (rộng = tổng × %), nhãn % chỉ đặt khi đoạn ≥ 8% → tránh nhãn chồng nhau của biểu đồ stacked.

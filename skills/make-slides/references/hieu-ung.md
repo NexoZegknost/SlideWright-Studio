@@ -14,7 +14,7 @@ Bốn nhóm hiệu ứng, đúng như bảng Animation của PowerPoint:
 ## 1. PLAN của một slide
 ```js
 PLAN[n] = {
-  transition: "fade" | ["push", "u"],          // chuyển trang (mục 6)
+  transition: CT.MORPH | ["pan", "l"] | "fadeBlack",   // chuyển trang (references/chuyen-trang.md)
   autoFirst: true,                             // nhóm đầu tự chạy khi vào slide
   steps: [                                     // mỗi mảng = một cú nhấp; trong mảng: "with" chạy cùng, "after" chạy nối
     [{ n: "title", eff: "riseWords" }, { n: "sub", eff: "floatUp", start: "after" }],
@@ -138,14 +138,7 @@ Tên đối tượng dựng sẵn (`nen`, `den`, `hat0…`, `vong`) được cá
 Cách dùng: (1) **thay tại chỗ** — trong cùng cú nhấp, đối tượng cũ `fadeOut` + đối tượng mới `fade` `start: "with"`; (2) **dọn sân khấu** — `ket` ở slide có nhiều lớp trước khi sang ý mới; (3) **hạ màn** slide cuối: chữ `sinkOut`, vầng sáng `fadeOut` dài hơn (1,5 s). Đối tượng đã có hiệu ứng chờ vẫn được kết thúc bình thường.
 
 ## 6. Chuyển trang (`transition`)
-| Tên | Dùng khi |
-|---|---|
-| `fadeBlack` | bìa, kết thúc, chuyển phần lớn |
-| `fade` | mặc định an toàn |
-| `push` (`u`/`d`/`l`/`r`) | đi tiếp trong cùng một phần |
-| `wipe`, `cover` | dòng thời gian, slide chi tiết phủ lên tổng quan |
-| `split`, `zoom`, `circle` | chia phần, đi sâu một ý, kết thúc (bài kiểu cách) |
-| `morph` | hai slide liên tiếp chung đối tượng (cùng objectName bắt đầu `!!`); PowerPoint 2019/365, bản cũ tự lùi về Fade |
+Xem `references/chuyen-trang.md`: Morph là chủ đạo, kèm cảnh morph (`scripts/chuyen_trang.js`) để mỗi lần chuyển slide là một chuyển động liền mạch; vài chuyển trang lướt hiện đại (pan, push, wipe, reveal, fadeBlack) cho chỗ đổi phần. Không dùng chuyển trang cổ điển.
 
 ## 7. Mức hiệu ứng theo bối cảnh (`contexts.json` → `hieu_ung`)
 | Mức | Bối cảnh | Cách làm |
@@ -163,7 +156,7 @@ Cách dùng: (1) **thay tại chỗ** — trong cùng cú nhấp, đối tượn
 2. **≤ 5 cú nhấp/slide**; bìa, chia phần, câu hỏi dùng `autoFirst`.
 3. **Nhất quán theo loại slide** (mọi danh sách `floatUp` theo đoạn, mọi số liệu `zoom`, mọi bước trước `dim`).
 4. **Một khoảnh khắc lớn mỗi phần**: hiệu ứng theo chữ (`riseWords`, `songChu`) và đèn quét chỉ ở bìa, câu hỏi lớn, kết — dùng khắp nơi sẽ mất tác dụng.
-5. Chuyển trang: một kiểu trong một phần, kiểu khác giữa các phần; Morph cho 2–4 cặp slide mỗi bài.
+5. Chuyển trang theo `references/chuyen-trang.md`: Morph cho mọi slide sau slide đầu, cảnh morph xuyên suốt, 2–3 khoảnh khắc morph kể chuyện.
 6. Ghi thứ tự cú nhấp vào ghi chú diễn giả ("[Nhấp 1] …").
 
 ## 9. Cấu trúc XML (để không bị PowerPoint báo "cần sửa chữa")
@@ -176,6 +169,8 @@ Cách dùng: (1) **thay tại chỗ** — trong cùng cú nhấp, đối tượn
 - Chữ theo chữ cái/từ: `<p:iterate type="lt|wd">` đặt sau `stCondLst` của nút preset.
 
 ## 10. Kiểm tra
-Ảnh render (LibreOffice) **không thể hiện hiệu ứng**. Kiểm tra: `validate.py` PASSED; đọc lại `<p:timing>` của vài slide (số cú nhấp, `delay="indefinite"` = một cú nhấp, `repeatCount="indefinite"` = hiệu ứng chờ, `presetClass="exit"` ở cú nhấp cuối); mọi tên trong PLAN tồn tại (applyEffects báo lỗi nếu thiếu). Nhắc người dùng xem ở chế độ trình chiếu PowerPoint 2016 trở lên (hiệu ứng chờ, Morph không chạy trên Google Slides/Keynote).
+Ảnh render (LibreOffice) **không thể hiện hiệu ứng**. Bắt buộc chạy `python3 scripts/kiem_tra_hieu_ung.py file.pptx` → hết LỖI. Script mô phỏng đúng cách PowerPoint chạy danh sách hiệu ứng (On Click / With Previous / After Previous): báo đối tượng **không bao giờ hiện** (ví dụ mục After Previous xếp sau một hiệu ứng chờ lặp vô hạn — lỗi của bản 0.13.0), thời điểm chạy lệch với dự định, > 5 cú nhấp, > 2 đối tượng chờ; và kiểm Morph, chuyển trang cổ điển. `--chi-tiet` in dòng thời gian từng cú nhấp. Sau đó `validate.py` PASSED; nhắc người dùng xem ở chế độ trình chiếu PowerPoint 2016 trở lên (Morph cần 2019/365; hiệu ứng chờ, Morph không chạy trên Google Slides/Keynote).
+
+**Luật thứ tự đã khắc trong `hieu_ung.js`**: nhóm nhấp có hiệu ứng chờ được dựng thành một danh sách With Previous với độ trễ tuyệt đối, hiệu ứng chờ luôn xếp cuối — không bao giờ để After Previous đứng sau một hiệu ứng lặp vô hạn.
 
 Mẫu minh hoạ đủ bốn nhóm: `assets/mau-hieu-ung/` (bài "Hiệu ứng ánh đèn sân khấu", script dựng kèm).

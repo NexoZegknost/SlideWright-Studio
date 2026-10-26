@@ -1,6 +1,6 @@
 {
   "name": "make-slides",
-  "version": "0.13.0",
+  "version": "0.14.0-beta.1",
   "description": "makeSlides — Bộ công cụ trình chiếu tổng hợp bằng tiếng Việt: tạo mới, nâng cấp, chuyển PDF thành PowerPoint giữ nguyên bản gốc; xuất PowerPoint (.pptx/.ppsx), Gamma hoặc Canva.",
   "author": {
     "name": "nguyenhuuai.ag"

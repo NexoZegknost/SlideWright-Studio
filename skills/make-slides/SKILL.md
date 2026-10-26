@@ -73,7 +73,7 @@ Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một d
    - *nhấn mạnh*: `dim` bước đã nói khi bước mới hiện, `pulse`/`grow`/`fontColor` cho con số, từ khoá;
    - *kết thúc*: thay nội dung tại chỗ, dọn sân khấu (`ket`), hạ màn slide cuối.
 4. **Hiệu ứng chờ** (tự phát, nhỏ, lặp): nền động ở bìa/chia phần/câu hỏi/kết (`nenDong` trôi, đèn quét `denSanKhau`, hạt sáng `hatBui`, vòng xoay chậm) + ≤ 2 điểm nhấn nội dung/slide (`chuNoi`, `songChu`, `nhip`, `gachChan`…), chu kỳ nền 15–30 s, nội dung 6–15 s.
-5. **Transition**: một kiểu trong cùng phần, kiểu khác giữa các phần, Morph cho 2–4 cặp slide (ví dụ số La Mã ở slide chuyển phần → huy hiệu ở slide nội dung đầu phần).
+5. **Transition** theo `references/chuyen-trang.md` (`scripts/chuyen_trang.js`): **Morph cho mọi slide sau slide đầu** với một cảnh morph xuyên suốt (1–2 motif hợp lĩnh vực — `linh-vuc.json` → `canh_morph` — cộng thanh `tienDo`), vẽ trong `c.truoc` bằng `canh.dat(sl, vai, { i })`; thêm 2–3 khoảnh khắc morph kể chuyện (ảnh thu thành biểu tượng, số chia phần thành huy hiệu, ánh sáng di chuyển). Đổi phần lớn dùng `reveal`/`pan`; slide đầu `fadeBlack`. Không dùng chuyển trang cổ điển (lật 3D, cắt, hoà tan…).
 
 ## Bước 7 — Tự kiểm tra (bắt buộc)
 - [ ] **Chính tả** tiếng Việt, dấu thanh, viết hoa tên riêng, địa danh; chữ **Đ** trong ký hiệu văn bản (BGDĐT, SGDĐT) — đặc biệt với Canva/Gamma.
@@ -84,6 +84,7 @@ Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một d
   - *dấu hiệu AI*: emoji/biểu tượng trước chữ, icon trong vòng tròn, "VS", nhãn khuôn mẫu, tiêu đề chung chung hoặc dạng "A: B" hàng loạt, từ sáo rỗng, gạch ngang nối ý, ba ý dài bằng nhau, bố cục lặp, lời kết sáo;
   - *công thức dạng chữ* → chuyển sang khối Equation.
 - [ ] **Văn bản**: `python3 scripts/kiem_tra_van_ban.py <file>.pptx --sua <file>_sua.pptx` → hết **LỖI** (cỡ ≥ 24pt, ≤ 30 chữ/slide, giãn dòng, hài hoà cỡ, tràn khung, dòng mồ côi, tách từ ghép/hư từ cuối dòng, tiêu đề 2 dòng trên ngắn dưới dài, tiêu đề đếm số sáo rỗng) — quy tắc ở mục 4 `references/noi-dung-slide.md`. Phần không tự sửa được: rút gọn/kéo dài nội dung trong script dựng rồi dựng lại.
+- [ ] **Hiệu ứng và chuyển trang**: `python3 scripts/kiem_tra_hieu_ung.py <file>.pptx` → hết **LỖI** (mô phỏng đúng cách PowerPoint chạy: không đối tượng nào bị kẹt không hiện; Morph có đối tượng chung và có chuyển động; không chuyển trang cổ điển). Xem `python3 scripts/xem_truoc_morph.py <file>.pptx --ra xem_morph` → mở `morph_tong.png`, kiểm khối trôi hài hoà, không đè chữ.
 - [ ] **Bố cục (lệch khung)**: `python3 scripts/kiem_tra_bo_cuc.py <file>.pptx --anh kiem_tra` → hết **LỖI** và **CẢNH BÁO** (đo trên bản dàn trang thật: đường kẻ chạm chân chữ, chữ tràn/sát mép khối màu, chữ chồng chữ, chữ đè logo, chữ/vật thể ra ngoài slide, lệch lề nhỏ, khoảng trống bất thường, khối màu quá rộng so với chữ). Sửa ở bố cục (đo bằng `scripts/do_chu.js`), không dịch tay từng đối tượng.
 - [ ] **Đọc lại bằng mắt** theo mục 4 của `references/dau-hieu-ai.md` (bỏ biểu tượng có mất gì không, đổi đề tài slide còn dùng được không).
 - [ ] **Slide bắt buộc** của bối cảnh có đủ (slide chờ hội nghị, kiến nghị cho công sở…).
