@@ -21,7 +21,11 @@ Công cụ đầu ra: PowerPoint (mặc định, .pptx + .ppsx), Canva hoặc Ga
 |---|---|
 | Kết nối Gamma, Canva | Tạo và xuất bài trình chiếu trên hai nền tảng; tự rà và sửa lỗi chính tả Canva sinh ra |
 | Bộ phông | 19 họ phông đủ dấu tiếng Việt, giấy phép SIL OFL |
-| `makeslides.js` | Hiệu ứng, chuyển trang (cả Morph), hiệu ứng chờ, công thức bằng khối Equation gốc của PowerPoint, nhúng phông, xuất .ppsx |
+| `makeslides.js` | Chuyển trang (cả Morph), công thức bằng khối Equation gốc của PowerPoint, nhúng phông, xuất .ppsx; gắn hiệu ứng qua `hieu_ung.js` |
+| `hieu_ung.js` | Thư viện hiệu ứng bốn nhóm: mở đầu (13, có chữ nổi theo từ/chữ cái), nhấn mạnh (9, có làm nhạt phần đã nói), chờ (17 hiệu ứng tự phát lặp tới hết slide: nền trôi, đèn quét, hạt sáng bồng bềnh, vòng xoay chậm, chữ nổi, sóng chữ…), kết thúc (8); dựng sẵn nền động, vầng sáng, hạt bụi; XML timing đúng chuẩn PowerPoint |
+| `kiem_tra_bo_cuc.py` | Kiểm tra lệch khung trên bản dàn trang thật: đường kẻ chạm chân chữ, chữ tràn/sát mép khối màu, chữ chồng chữ, chữ đè logo, chữ/vật thể ra ngoài slide, lệch lề nhỏ, khoảng trống bất thường |
+| `do_chu.js` | Đo chữ bằng phông thật (bề rộng, số dòng, chiều cao, chân chữ) để bố cục tự tính khung vừa nội dung |
+| `assets/mau-hieu-ung/` | Bài mẫu "Hiệu ứng ánh đèn sân khấu" dùng đủ bốn nhóm hiệu ứng, kèm script vẽ tranh minh hoạ SVG |
 | `layouts.js` | 31 bố cục (9 bố cục mở rộng: công thức, hình có chú thích, lưới Thuỵ Sĩ, trang báo, thang số…), không biểu tượng trước chữ, tự cảnh báo bảng màu |
 | Bộ nhận diện thương hiệu | `assets/thuong-hieu/bk-hcmut`: logo, màu, hoạ tiết Trường ĐH Bách khoa – ĐHQG-HCM; chỉ dùng khi người dùng yêu cầu (ví dụ báo cáo ở Bách khoa) |
 | `hoa_tiet_tam_giac.py` | Sinh hoạ tiết lưới tam giác (lưới nét, cụm góc, lục giác, dải) PNG + SVG theo bảng màu bất kỳ |
@@ -34,7 +38,7 @@ Công cụ đầu ra: PowerPoint (mặc định, .pptx + .ppsx), Canva hoặc Ga
 | `hoa_tiet_trong_dong.py` | Họa tiết vòng đồng tâm kiểu trống đồng cho phong cách Truyền thống |
 | Hướng dẫn văn bản hành chính | Khung slide cho báo cáo, kế hoạch, dự thảo; giữ đúng số hiệu văn bản; rà lỗi dự thảo |
 
-## Nguyên tắc thiết kế (0.12.0)
+## Nguyên tắc thiết kế (0.13.0)
 - Chữ nội dung ≥ 24pt, ≤ 30 chữ/slide; xuống dòng không tách từ ghép; tiêu đề 2 dòng thì dòng trên ngắn hơn; không tiêu đề đếm số sáo rỗng.
 - Không chữ tím trên nền tối; chữ màu trên nền tối ≥ 7:1.
 - Texture nhiều lớp, nhiều biến thể trong một bài, chung bảng màu.
@@ -44,6 +48,8 @@ Công cụ đầu ra: PowerPoint (mặc định, .pptx + .ppsx), Canva hoặc Ga
 - Không chữ sáng cùng tông với nền đậm (ví dụ chữ xanh nhạt trên nền xanh đậm).
 - Công thức luôn là khối Equation, sửa được trong PowerPoint.
 - Không dùng phông Be Vietnam Pro.
+- Hiệu ứng đủ bốn nhóm theo mạch nói; hiệu ứng chờ nhỏ, chậm, có khoảng nghỉ — nền ≤ 1 nhóm, điểm nhấn ≤ 2 đối tượng mỗi slide.
+- Văn bản và vật thể không lệch khung: khung tính theo chữ đo bằng phông thật, kiểm tra lại trên bản dàn trang.
 
 ## Nguyên tắc phông chữ
 - Bài **chính quy, nghiêm túc** chỉ dùng phông có chân hoặc không chân: Noto Serif Display, Playfair Display, Lora, Noto Serif, Montserrat, Lexend, Bricolage Grotesque…

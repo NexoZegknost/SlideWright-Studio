@@ -67,7 +67,7 @@ const S = style("su-pham");                 // phong cách (Bước 1); style("s
 setScale(ctx.body_min);                       // cỡ chữ theo bối cảnh (contexts.json), gọi trước khi dựng
 const pres = new pptxgen(); pres.layout = "LAYOUT_16x9";
 const plan = {}; let n = 0;
-const push = (r, transition) => { plan[++n] = { transition, steps: r.steps, autoFirst: r.autoFirst, idle: r.idle }; };
+const push = (r, transition) => { plan[++n] = { transition, steps: r.steps, autoFirst: r.autoFirst, idle: r.idle, ket: r.ket }; };
 push(L.biaToiGian(pres, S, { title: "…", sub: "…" }), "fadeBlack");
 push(L.baThe(pres, S, { title: "…", cards: [{ mark: "92%", head: "…", text: "…" }], highlight: 0 }), "fade");
 push(await L.congThuc(pres, S, { title: "…", tex: "A_v = -\\frac{R_C}{r_e}", terms: [{ tex: "R_C", text: "…" }] }), ["push", "l"]);
@@ -78,6 +78,7 @@ buf = await MS.applyEffects(buf, plan);   // steps gợi ý sẵn theo bố cụ
 - `idle` mỗi bố cục trả về là gợi ý hiệu ứng chờ cho điểm nhấn; giữ, chỉnh hoặc bỏ theo mức của bối cảnh (`hieu-ung.md`).
 - `steps` mỗi bố cục trả về là gợi ý mức phong phú. Bối cảnh tiết chế/tối thiểu/không: rút gọn hoặc bỏ `steps` (xem `hieu-ung.md`).
 - **Không dùng biểu tượng trước chữ.** Hàm `icon()` chỉ còn cho hình minh hoạ độc lập cỡ lớn (ví dụ sơ đồ tự vẽ cần một ký hiệu thiết bị), không đặt cạnh tiêu đề/đoạn văn.
+- Nền động và lớp trang trí có hiệu ứng chờ: thêm vào nội dung slide `nenDong: true` (texture `nen` trôi chậm), `truoc: (sl) => [...]` (vẽ đèn, hạt sáng, vòng xoay bằng `hieu_ung.js`, trả về mảng idle) hoặc `cho: [...]`; bố cục tự gộp vào `idle`.
 - Bố cục tự lọc gợi ý hiệu ứng: phần tuỳ chọn (sub, text, info…) không có thì tự bỏ khỏi `steps`/`idle`.
 - Ảnh: đường dẫn tệp cục bộ (tải từ Unsplash hoặc ảnh người dùng gửi). Thiếu ảnh → khối giữ chỗ màu soft (phải thay trước khi bàn giao).
 - Không ghép quá 2 bố cục giống nhau liên tiếp. Bố cục chưa có trong thư viện → tìm mẫu và tự dựng theo `mau-bo-cuc.md`, đặt `objectName` cho mọi đối tượng.

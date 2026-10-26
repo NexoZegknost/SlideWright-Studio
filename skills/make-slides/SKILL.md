@@ -53,7 +53,7 @@ Quy trình có hai điểm người dùng duyệt (dàn ý ở Bước 4, bản 
 Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một dòng phong cách (tên + cặp phông + màu chủ đạo), một dòng bối cảnh (tên + số slide + nhịp + mức hiệu ứng). Chờ xác nhận, trừ chế độ "làm luôn".
 
 ## Bước 5 — Material
-- **Ảnh**: Unsplash (nếu kết nối) đúng ngữ cảnh, ưu tiên Việt Nam, ≥ 1600px cho ảnh tràn viền, ghi tác giả vào ghi chú; Canva/Gamma có thể tự tạo ảnh minh hoạ.
+- **Ảnh**: Unsplash (nếu kết nối) đúng ngữ cảnh, ưu tiên Việt Nam, ≥ 1600px cho ảnh tràn viền, ghi tác giả vào ghi chú; Canva/Gamma có thể tự tạo ảnh minh hoạ. Không lấy được ảnh (công cụ ảnh lỗi, mạng chặn) → **vẽ tranh minh hoạ phẳng bằng SVG** theo bảng màu của bài rồi xuất PNG bằng sharp (mẫu: `assets/mau-hieu-ung/illus.js` — sân khấu, chiếc áo, khán giả), không để khối giữ chỗ trống.
 - **Không dùng biểu tượng/emoji trước đoạn văn, tiêu đề thẻ, gạch đầu dòng** (dấu hiệu slide AI). Điểm nhìn là chữ đậm, con số, ảnh thật, sơ đồ thật. Biểu tượng chỉ được dùng như một hình minh hoạ độc lập cỡ lớn khi không có ảnh/sơ đồ thay thế.
 - **Công thức**: viết sẵn LaTeX cho mọi công thức để dựng bằng khối Equation (`MS.equation`, bố cục `congThuc`).
 - **Biểu đồ**: biểu đồ gốc PowerPoint từ số liệu thật.
@@ -68,8 +68,11 @@ Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một d
    - **Chữ**: viết theo mục 4 `references/noi-dung-slide.md` — ≥ 24pt, ≤ 30 chữ/slide, tiêu đề là thông điệp (không đếm số kiểu "Ba con số đáng chú ý"), tiêu đề 2 dòng thì dòng trên ngắn hơn.
    - **Công thức**: luôn là khối Equation (`MS.equation` / `congThuc`), không gõ bằng chữ, không để trong ô bảng.
    - **Tránh dấu hiệu AI** khi viết và dàn trang theo `references/dau-hieu-ai.md` (biểu tượng trước chữ, thẻ bằng nhau, "VS", nhãn "Điểm chính", tiêu đề chung chung, gạch ngang nối ý, từ sáo rỗng, lời kết sáo).
-3. **Animation** theo `references/hieu-ung.md`: thứ tự xuất hiện = thứ tự nói, ≤ 5 cú nhấp/slide.
-4. **Hiệu ứng chờ** cho điểm nhấn (≤ 2 đối tượng/slide, chu kỳ 7–15 giây, theo mức của bối cảnh).
+3. **Animation** theo `references/hieu-ung.md` (thư viện `scripts/hieu_ung.js`), đủ bốn nhóm theo mức của bối cảnh:
+   - *mở đầu*: thứ tự xuất hiện = thứ tự nói, ≤ 5 cú nhấp/slide; bìa và câu hỏi lớn dùng chữ nổi theo từ (`riseWords`);
+   - *nhấn mạnh*: `dim` bước đã nói khi bước mới hiện, `pulse`/`grow`/`fontColor` cho con số, từ khoá;
+   - *kết thúc*: thay nội dung tại chỗ, dọn sân khấu (`ket`), hạ màn slide cuối.
+4. **Hiệu ứng chờ** (tự phát, nhỏ, lặp): nền động ở bìa/chia phần/câu hỏi/kết (`nenDong` trôi, đèn quét `denSanKhau`, hạt sáng `hatBui`, vòng xoay chậm) + ≤ 2 điểm nhấn nội dung/slide (`chuNoi`, `songChu`, `nhip`, `gachChan`…), chu kỳ nền 15–30 s, nội dung 6–15 s.
 5. **Transition**: một kiểu trong cùng phần, kiểu khác giữa các phần, Morph cho 2–4 cặp slide (ví dụ số La Mã ở slide chuyển phần → huy hiệu ở slide nội dung đầu phần).
 
 ## Bước 7 — Tự kiểm tra (bắt buộc)
@@ -81,11 +84,12 @@ Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một d
   - *dấu hiệu AI*: emoji/biểu tượng trước chữ, icon trong vòng tròn, "VS", nhãn khuôn mẫu, tiêu đề chung chung hoặc dạng "A: B" hàng loạt, từ sáo rỗng, gạch ngang nối ý, ba ý dài bằng nhau, bố cục lặp, lời kết sáo;
   - *công thức dạng chữ* → chuyển sang khối Equation.
 - [ ] **Văn bản**: `python3 scripts/kiem_tra_van_ban.py <file>.pptx --sua <file>_sua.pptx` → hết **LỖI** (cỡ ≥ 24pt, ≤ 30 chữ/slide, giãn dòng, hài hoà cỡ, tràn khung, dòng mồ côi, tách từ ghép/hư từ cuối dòng, tiêu đề 2 dòng trên ngắn dưới dài, tiêu đề đếm số sáo rỗng) — quy tắc ở mục 4 `references/noi-dung-slide.md`. Phần không tự sửa được: rút gọn/kéo dài nội dung trong script dựng rồi dựng lại.
+- [ ] **Bố cục (lệch khung)**: `python3 scripts/kiem_tra_bo_cuc.py <file>.pptx --anh kiem_tra` → hết **LỖI** và **CẢNH BÁO** (đo trên bản dàn trang thật: đường kẻ chạm chân chữ, chữ tràn/sát mép khối màu, chữ chồng chữ, chữ đè logo, chữ/vật thể ra ngoài slide, lệch lề nhỏ, khoảng trống bất thường, khối màu quá rộng so với chữ). Sửa ở bố cục (đo bằng `scripts/do_chu.js`), không dịch tay từng đối tượng.
 - [ ] **Đọc lại bằng mắt** theo mục 4 của `references/dau-hieu-ai.md` (bỏ biểu tượng có mất gì không, đổi đề tài slide còn dùng được không).
 - [ ] **Slide bắt buộc** của bối cảnh có đủ (slide chờ hội nghị, kiến nghị cho công sở…).
 - [ ] **Độ tập trung**: một điểm nhìn chính, ≥ 1 yếu tố thị giác, khoảng trắng đủ, chân trang không bị che.
 - [ ] **Nội dung**: số liệu khớp nguồn; đủ slide; có ghi chú diễn giả.
-- [ ] **Hiệu ứng**: ≤ 5 cú nhấp, đúng mạch nói, chuyển trang nhất quán; mọi `spid` trong timing tồn tại.
+- [ ] **Hiệu ứng**: ≤ 5 cú nhấp, đúng mạch nói, chuyển trang nhất quán; mọi tên trong PLAN tồn tại; hiệu ứng chờ đúng mức bối cảnh (nền ≤ 1 nhóm, nội dung ≤ 2 đối tượng); `validate.py` PASSED.
 - [ ] **Phông**: đúng nguyên tắc; mọi họ phông đã nhúng (PowerPoint).
 - [ ] PowerPoint: render từng slide (`installFontsForPreview` → soffice → pdftoppm), **xem từng ảnh**, ghép lưới để so; `validate.py` PASSED. Canva: đọc lại toàn bộ chữ bằng `read-design` và sửa lỗi theo `quy-trinh-canva.md`.
 Sửa đến khi đạt.

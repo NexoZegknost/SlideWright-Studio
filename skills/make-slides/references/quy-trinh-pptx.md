@@ -2,7 +2,7 @@
 
 ## 0. Chuẩn bị
 - Nếu môi trường có skill `pptx` (`anthropic-skills:pptx` hoặc `pptx`), **đọc SKILL.md của nó trước** và tuân thủ các lưu ý pptxgenjs, kiểm tra, render. Tài liệu này bổ sung, không thay thế.
-- Cài phụ thuộc trong thư mục làm việc: `npm install fonteditor-core jszip mathjax-full@3 mathml2omml sharp`; kiểm tra văn bản tiếng Việt: `pip install pyvi --break-system-packages` (tách từ ghép để không xuống dòng giữa từ) (pptxgenjs thường có sẵn; thiếu thì `npm install pptxgenjs`). Chạy script với `NODE_PATH=$PWD/node_modules:$(npm root -g)` (react, react-icons, sharp thường cài toàn cục).
+- Cài phụ thuộc trong thư mục làm việc: `npm install fonteditor-core jszip mathjax-full@3 mathml2omml sharp opentype.js@1.3.4`; kiểm tra văn bản tiếng Việt: `pip install pyvi --break-system-packages` (tách từ ghép để không xuống dòng giữa từ) (pptxgenjs thường có sẵn; thiếu thì `npm install pptxgenjs`). Chạy script với `NODE_PATH=$PWD/node_modules:$(npm root -g)` (react, react-icons, sharp thường cài toàn cục).
 - Thư viện bố cục: `scripts/layouts.js` (xem `bo-cuc.md`) — ưu tiên dùng thay vì tự đặt toạ độ.
 - Thư viện của plugin: `${CLAUDE_PLUGIN_ROOT}/skills/make-slides/scripts/makeslides.js` (`applyEffects`, `embedFonts`, `save`, `installFontsForPreview`). Nếu biến `CLAUDE_PLUGIN_ROOT` không có, tìm tệp bằng `find / -path "*make-slides/scripts/makeslides.js" 2>/dev/null | head -1`.
 
@@ -43,6 +43,7 @@ await MS.save(buf, "Slide_<ChuDeKhongDau>_<ddmmyyyy>");  // 3. dọn gói (khai 
 1. `markitdown file.pptx` → chính tả, dấu, thứ tự, chữ giữ chỗ còn sót.
 2. `python <skill pptx>/scripts/office/validate.py file.pptx` → phải PASSED.
 2a. `python3 scripts/kiem_tra_van_ban.py file.pptx --sua file_sua.pptx` → văn bản (cỡ ≥ 24pt, lượng chữ, giãn dòng, xuống dòng giữ nghĩa, tiêu đề 2 dòng trên ngắn dưới dài, dòng mồ côi); bàn giao bản đã sửa khi hết LỖI.
+2c. `python3 scripts/kiem_tra_bo_cuc.py file.pptx --anh kiem_tra` → hết LỖI và CẢNH BÁO (văn bản/vật thể lệch khung, đường kẻ chạm chữ, chữ tràn khối màu, ra ngoài slide).
 2b. `python3 scripts/kiem_tra_slide.py file.pptx` → hết LỖI; xem từng CẢNH BÁO (màu, dấu hiệu AI theo `dau-hieu-ai.md`, công thức dạng chữ).
 3. Render ảnh: gọi `MS.installFontsForPreview([...])` trước để LibreOffice có phông, rồi chuyển PDF → ảnh (`soffice` qua script của skill pptx, `pdftoppm -r 100`). Xem **từng slide**: tràn chữ, xuống dòng xấu (từ/cụm từ bị tách, chữ mồ côi một từ ở dòng cuối tiêu đề), cỡ chữ đủ lớn, tương phản, độ tập trung (mỗi slide một điểm nhìn chính), lệch lề.
 4. Hiệu ứng: kiểm tra XML (mỗi slide trong PLAN có `<p:timing>` / `<p:transition>`). Ảnh render không hiện hiệu ứng.

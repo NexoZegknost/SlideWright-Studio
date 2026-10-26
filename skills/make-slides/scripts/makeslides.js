@@ -70,114 +70,8 @@ async function embedFonts(buf, families) {
 }
 
 // ---------------------------------------------------------------- hiệu ứng
-let ctn = 0;
-const id = () => ++ctn;
-const tgt = (sp, para) =>
-  `<p:tgtEl><p:spTgt spid="${sp}">${para != null ? `<p:txEl><p:pRg st="${para}" end="${para}"/></p:txEl>` : ""}</p:spTgt></p:tgtEl>`;
-const show = (sp, p) =>
-  `<p:set><p:cBhvr><p:cTn id="${id()}" dur="1" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst></p:cTn>${tgt(sp, p)}<p:attrNameLst><p:attrName>style.visibility</p:attrName></p:attrNameLst></p:cBhvr><p:to><p:strVal val="visible"/></p:to></p:set>`;
-const anim = (sp, p, attr, from, to, dur, extra = "") =>
-  `<p:anim calcmode="lin" valueType="num"><p:cBhvr additive="base"><p:cTn id="${id()}" dur="${dur}" fill="hold"${extra}/>${tgt(sp, p)}<p:attrNameLst><p:attrName>${attr}</p:attrName></p:attrNameLst></p:cBhvr><p:tavLst><p:tav tm="0"><p:val><p:strVal val="${from}"/></p:val></p:tav><p:tav tm="100000"><p:val><p:strVal val="${to}"/></p:val></p:tav></p:tavLst></p:anim>`;
-const filt = (sp, p, filter, dur) =>
-  `<p:animEffect transition="in" filter="${filter}"><p:cBhvr><p:cTn id="${id()}" dur="${dur}"/>${tgt(sp, p)}</p:cBhvr></p:animEffect>`;
-
-const FLY = { up: ["#ppt_x", "1+#ppt_h/2", 4], down: ["#ppt_x", "0-#ppt_h/2", 1], left: ["0-#ppt_w/2", "#ppt_y", 8], right: ["1+#ppt_w/2", "#ppt_y", 2] };
-const WIPE = { up: ["up", 1], down: ["down", 4], left: ["left", 8], right: ["right", 2] };
-
-// Danh mục hiệu ứng. cls: entr (xuất hiện) | emph (nhấn mạnh)
-const EFFECTS = {
-  appear: { id: 1, cls: "entr", sub: () => 0, body: (sp, p) => show(sp, p) },
-  fade: { id: 10, cls: "entr", sub: () => 0, body: (sp, p, d) => show(sp, p) + filt(sp, p, "fade", d) },
-  fly: { id: 2, cls: "entr", sub: (o) => FLY[o.dir || "up"][2], body: (sp, p, d, o) => { const [x, y] = FLY[o.dir || "up"]; return show(sp, p) + anim(sp, p, "ppt_x", x, "#ppt_x", d) + anim(sp, p, "ppt_y", y, "#ppt_y", d); } },
-  floatUp: { id: 42, cls: "entr", sub: () => 0, body: (sp, p, d) => show(sp, p) + filt(sp, p, "fade", d) + anim(sp, p, "ppt_y", "#ppt_y+0.1", "#ppt_y", d, ' decel="100000"') },
-  zoom: { id: 53, cls: "entr", sub: () => 16, body: (sp, p, d) => show(sp, p) + anim(sp, p, "ppt_w", "0", "#ppt_w", d) + anim(sp, p, "ppt_h", "0", "#ppt_h", d) + filt(sp, p, "fade", d) },
-  wipe: { id: 22, cls: "entr", sub: (o) => WIPE[o.dir || "left"][1], body: (sp, p, d, o) => show(sp, p) + filt(sp, p, `wipe(${WIPE[o.dir || "left"][0]})`, d) },
-  split: { id: 16, cls: "entr", sub: () => 37, body: (sp, p, d) => show(sp, p) + filt(sp, p, "barn(outVertical)", d) },
-  wheel: { id: 21, cls: "entr", sub: () => 1, body: (sp, p, d) => show(sp, p) + filt(sp, p, "wheel(1)", d) },
-  pulse: { id: 26, cls: "emph", sub: () => 0, body: (sp, p, d) =>
-    `<p:animScale><p:cBhvr><p:cTn id="${id()}" dur="${Math.round(d / 2)}" autoRev="1" fill="hold"/>${tgt(sp, p)}</p:cBhvr><p:by x="110000" y="110000"/></p:animScale>` },
-};
-
-/*
- steps: mảng các "cú nhấp". Mỗi cú nhấp là mảng hiệu ứng chạy cùng lúc hoặc nối tiếp:
-   { n: "objectName", eff: "fly", dir: "up", dur: 600, delay: 0, start: "click"|"with"|"after", byPara: true }
- - start: "click" (mặc định, phần tử đầu của nhóm), "with" (cùng lúc với phần tử trước), "after" (sau phần tử trước)
- - byPara: true → mỗi đoạn văn của hộp chữ hiện lần lượt theo từng cú nhấp (tự tách thành nhiều bước)
- - Nhóm đầu tiên có thể đặt auto: true để tự chạy khi vào slide (không cần nhấp)
-*/
-function timingXml(steps, paraCount, idle = [], isShape = () => true) {
-  ctn = 2;
-  // mở rộng byPara thành nhiều bước
-  const expanded = [];
-  for (const g of steps) {
-    const bp = g.find((e) => e.byPara);
-    if (bp) {
-      for (let i = 0; i < paraCount(bp.sp); i++)
-        expanded.push({ auto: g.auto && i === 0, items: [{ ...bp, para: i, start: "click" }] });
-    } else expanded.push({ auto: g.auto, items: g });
-  }
-  if (!expanded.length && idle.length) expanded.push({ auto: true, items: [] });
-  const clicks = expanded.map((g, gi) => {
-    let t = 0, prevEnd = 0;
-    const effs = g.items.map((e, i) => {
-      const E = EFFECTS[e.eff];
-      if (!E) throw new Error(`Hiệu ứng "${e.eff}" không có. Có: ${Object.keys(EFFECTS).join(", ")}`);
-      const dur = e.dur || 600;
-      const start = i === 0 ? (g.auto ? "after" : "click") : e.start || "with";
-      const begin = start === "after" && i > 0 ? prevEnd : start === "with" ? t : 0;
-      const delay = begin + (e.delay || 0);
-      t = delay; prevEnd = delay + dur;
-      const node = i === 0 ? (g.auto ? "afterEffect" : "clickEffect") : start === "after" ? "afterEffect" : "withEffect";
-      return `<p:par><p:cTn id="${id()}" presetID="${E.id}" presetClass="${E.cls}" presetSubtype="${E.sub(e)}" fill="hold"${e.para != null ? ' grpId="0"' : ' grpId="0"'} nodeType="${node}"><p:stCondLst><p:cond delay="${delay}"/></p:stCondLst><p:childTnLst>${E.body(e.sp, e.para, dur, e)}</p:childTnLst></p:cTn></p:par>`;
-    }).join("") + (gi === expanded.length - 1 ? idle.map((e) => idleXml(e, prevEnd)).join("") : "");
-    return `<p:par><p:cTn id="${id()}" fill="hold"><p:stCondLst><p:cond delay="indefinite"/>${g.auto ? '<p:cond evt="onBegin" delay="0"><p:tn val="2"/></p:cond>' : ""}</p:stCondLst><p:childTnLst><p:par><p:cTn id="${id()}" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst><p:childTnLst>${effs}</p:childTnLst></p:cTn></p:par></p:childTnLst></p:cTn></p:par>`;
-  }).join("");
-  // bldLst: mỗi hình có hiệu ứng xuất hiện (trừ hình chỉ nhấn mạnh)
-  const blds = new Map();
-  // chỉ hình có khung chữ (p:sp) mới có bldP; ảnh, bảng, biểu đồ mà có bldP thì PowerPoint báo lỗi nội dung
-  for (const g of expanded) for (const e of g.items) if (EFFECTS[e.eff].cls === "entr" && isShape(e.sp)) blds.set(e.sp, e.para != null ? "p" : "whole");
-  const bld = [...blds].map(([sp, b]) => b === "p" ? `<p:bldP spid="${sp}" grpId="0" build="p"/>` : `<p:bldP spid="${sp}" grpId="0" animBg="1"/>`).join("");
-  return `<p:timing><p:tnLst><p:par><p:cTn id="1" dur="indefinite" restart="never" nodeType="tmRoot"><p:childTnLst><p:seq concurrent="1" nextAc="seek"><p:cTn id="2" dur="indefinite" nodeType="mainSeq"><p:childTnLst>${clicks}</p:childTnLst></p:cTn><p:prevCondLst><p:cond evt="onPrev" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:prevCondLst><p:nextCondLst><p:cond evt="onNext" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:nextCondLst></p:seq></p:childTnLst></p:cTn></p:par></p:tnLst>${bld ? `<p:bldLst>${bld}</p:bldLst>` : ""}</p:timing>`;
-}
-
-
-// ---------------------------------------------------------------- hiệu ứng chờ (lặp lại trong lúc thuyết trình)
-// Mỗi hiệu ứng chờ là một hiệu ứng nhấn mạnh nhỏ, lặp mãi theo chu kỳ `period` (ms) cho đến khi rời slide.
-// Đặt trong PLAN[n].idle = [{ n, eff, period, delay, para }]. Bắt đầu sau khi nội dung cuối cùng của slide đã hiện.
-const clr = (c) => `<a:srgbClr val="${c}"/>`;
-const setStyle = (sp, p, attr, val, dur) =>
-  `<p:set><p:cBhvr override="childStyle"><p:cTn id="${id()}" dur="${dur}" fill="remove"/>${tgt(sp, p)}<p:attrNameLst><p:attrName>${attr}</p:attrName></p:attrNameLst></p:cBhvr><p:to><p:strVal val="${val}"/></p:to></p:set>`;
-const IDLE = {
-  // chữ: thoáng in đậm / in nghiêng / gạch chân rồi trở lại
-  inDam: { id: 15, text: true, body: (sp, p, d) => setStyle(sp, p, "style.fontWeight", "bold", d) },
-  inNghieng: { id: 16, text: true, body: (sp, p, d) => setStyle(sp, p, "style.fontStyle", "italic", d) },
-  gachChan: { id: 18, text: true, body: (sp, p, d) => setStyle(sp, p, "style.textDecorationUnderline", "true", d) },
-  // đổi màu chữ chớp sang màu nhấn rồi về
-  doiMau: { id: 19, text: true, body: (sp, p, d, o) =>
-    `<p:animClr clrSpc="rgb" dir="cw"><p:cBhvr override="childStyle"><p:cTn id="${id()}" dur="${Math.round(d / 2)}" autoRev="1" fill="remove"/>${tgt(sp, p)}<p:attrNameLst><p:attrName>style.color</p:attrName></p:attrNameLst></p:cBhvr><p:to>${clr(o.color || "C9A227")}</p:to></p:animClr>` },
-  // chữ / hình rung nhẹ (lắc trái phải)
-  rung: { id: 32, body: (sp, p, d) =>
-    `<p:animRot by="180000"><p:cBhvr><p:cTn id="${id()}" dur="${Math.round(d / 8)}" autoRev="1" repeatCount="4000" fill="remove"/>${tgt(sp, p)}<p:attrNameLst><p:attrName>r</p:attrName></p:attrNameLst></p:cBhvr></p:animRot>` },
-  // nảy lên rồi rơi xuống
-  nay: { id: 0, body: (sp, p, d) =>
-    `<p:animMotion origin="layout" path="M 0 0 L 0 -0.025 E" pathEditMode="relative" ptsTypes=""><p:cBhvr><p:cTn id="${id()}" dur="${Math.round(d / 4)}" decel="100000" autoRev="1" repeatCount="2000" fill="remove"/>${tgt(sp, p)}<p:attrNameLst><p:attrName>ppt_x</p:attrName><p:attrName>ppt_y</p:attrName></p:attrNameLst></p:cBhvr></p:animMotion>` },
-  // phóng nhẹ rồi thu lại (nhịp thở)
-  nhip: { id: 26, body: (sp, p, d) =>
-    `<p:animScale><p:cBhvr><p:cTn id="${id()}" dur="${Math.round(d / 2)}" autoRev="1" fill="remove"/>${tgt(sp, p)}</p:cBhvr><p:by x="106000" y="106000"/></p:animScale>` },
-  // mờ thoáng rồi rõ lại
-  mo: { id: 9, body: (sp, p, d) =>
-    `<p:anim calcmode="lin" valueType="num"><p:cBhvr><p:cTn id="${id()}" dur="${Math.round(d / 2)}" autoRev="1" fill="remove"/>${tgt(sp, p)}<p:attrNameLst><p:attrName>style.opacity</p:attrName></p:attrNameLst></p:cBhvr><p:tavLst><p:tav tm="0"><p:val><p:fltVal val="1"/></p:val></p:tav><p:tav tm="100000"><p:val><p:fltVal val="0.45"/></p:val></p:tav></p:tavLst></p:anim>` },
-  // xoay một vòng nhỏ (biểu tượng)
-  xoay: { id: 8, body: (sp, p, d) =>
-    `<p:animRot by="21600000"><p:cBhvr><p:cTn id="${id()}" dur="${d}" accel="30000" decel="30000" fill="remove"/>${tgt(sp, p)}<p:attrNameLst><p:attrName>r</p:attrName></p:attrNameLst></p:cBhvr></p:animRot>` },
-};
-// một hiệu ứng chờ: vùng chứa lặp mãi, mỗi chu kỳ dài `period`, hiệu ứng chạy `dur` ms đầu chu kỳ
-function idleXml(e, startAt) {
-  const E = IDLE[e.eff];
-  if (!E) throw new Error(`Hiệu ứng chờ "${e.eff}" không có. Có: ${Object.keys(IDLE).join(", ")}`);
-  const dur = e.dur || 900, period = Math.max(e.period || 8000, dur + 500);
-  return `<p:par><p:cTn id="${id()}" presetID="${E.id}" presetClass="emph" presetSubtype="0" repeatCount="indefinite" fill="hold" grpId="1" nodeType="withEffect"><p:stCondLst><p:cond delay="${startAt + (e.delay || 1500)}"/></p:stCondLst><p:childTnLst><p:par><p:cTn id="${id()}" dur="${period}" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst><p:childTnLst>${E.body(e.sp, e.para, dur, e)}</p:childTnLst></p:cTn></p:par></p:childTnLst></p:cTn></p:par>`;
-}
+// Toàn bộ danh mục hiệu ứng (mở đầu, nhấn mạnh, chờ, kết thúc) và cách dựng <p:timing>: scripts/hieu_ung.js
+const HU = require(path.join(__dirname, "hieu_ung.js"));
 
 // Chuyển trang. spd: slow|med|fast. Morph cần PowerPoint 2019/365; bản cũ tự lùi về Fade.
 const TRANSITIONS = {
@@ -201,7 +95,10 @@ const TRANSITIONS = {
    3: { transition: "morph" },
  }
  transition: tên hoặc [tên, hướng]. autoFirst: nhóm đầu tự chạy khi vào slide.
+ idle: hiệu ứng chờ (tự phát, lặp tới hết slide) — [{n, eff:"quet"|"troi"|"chuNoi"|…, period, batDau:"vao"|"sau"}]
+ ket:  cú nhấp cuối với hiệu ứng kết thúc — [{n, eff:"fadeOut"|"sinkOut"|…, start:"with"|"after"}]
  advanceAfter: số mili-giây tự chuyển sang slide sau (trình chiếu tự động).
+ Danh mục và luật dùng: scripts/hieu_ung.js (node hieu_ung.js in danh mục), references/hieu-ung.md
 */
 // pptxgenjs chèn <a:pPr> cho mọi run trong một đoạn (khi trộn chữ thường + chữ nhấn) → run sau ghi đè dấu đầu dòng.
 // Giữ lại đúng một <a:pPr> đầu đoạn.
@@ -299,25 +196,19 @@ async function applyEffects(buf, PLAN) {
     const p = `ppt/slides/slide${num}.xml`;
     if (!zip.file(p)) throw new Error(`Không có slide ${num}`);
     let xml = await zip.file(p).async("string");
-    const ids = {};
-    for (const m of xml.matchAll(/<p:cNvPr id="(\d+)" name="([^"]*)"/g)) {
-      if (ids[m[2]] && ids[m[2]] !== m[1]) throw new Error(`Slide ${num}: objectName "${m[2]}" bị trùng`);
-      ids[m[2]] = m[1];
-    }
-    const paraCount = (sp) => {
-      const re = new RegExp(`<p:cNvPr id="${sp}"[\\s\\S]*?<\\/p:sp>`);
-      const m = xml.match(re);
-      return m ? (m[0].match(/<a:p>|<a:p /g) || []).length : 1;
+    let ctx;
+    try { ctx = HU.slideContext(xml); } catch (e) { throw new Error(`Slide ${num}: ${e.message}`); }
+    const bind = (e, loai) => {
+      const sp = ctx.ids[e.n];
+      if (!sp) throw new Error(`Slide ${num}: không thấy đối tượng "${e.n}"${loai}. Có: ${Object.keys(ctx.ids).join(", ")}`);
+      return { ...e, sp };
     };
-    const steps = (plan.steps || []).map((g, gi) => {
-      const items = g.map((e) => {
-        const sp = ids[e.n];
-        if (!sp) throw new Error(`Slide ${num}: không thấy đối tượng "${e.n}". Có: ${Object.keys(ids).join(", ")}`);
-        return { ...e, sp };
-      });
-      items.auto = gi === 0 && plan.autoFirst;
-      return items;
-    });
+    const tl = {
+      autoFirst: plan.autoFirst,
+      steps: (plan.steps || []).map((g) => g.map((e) => bind(e, ""))),
+      idle: (plan.idle || []).map((e) => bind(e, " cho hiệu ứng chờ")),
+      ket: (plan.ket || []).map((e) => bind(e, " cho hiệu ứng kết thúc")),
+    };
     const tr = Array.isArray(plan.transition) ? TRANSITIONS[plan.transition[0]](plan.transition[1]) : (TRANSITIONS[plan.transition || "none"] || (() => { throw new Error(`Chuyển trang "${plan.transition}" không có`); }))();
     let trx = tr;
     if (plan.advanceAfter) {
@@ -325,16 +216,11 @@ async function applyEffects(buf, PLAN) {
       if (!trx) trx = `<p:transition spd="med"><p:fade/></p:transition>`;
       trx = trx.replace(/<p:transition(?![^>]*advTm)/g, `<p:transition advTm="${plan.advanceAfter}"`);
     }
-    const idle = (plan.idle || []).map((e) => {
-      const sp = ids[e.n];
-      if (!sp) throw new Error(`Slide ${num}: không thấy đối tượng "${e.n}" cho hiệu ứng chờ`);
-      return { ...e, sp };
-    });
-    const isShape = (sp) => new RegExp(`<p:sp>\\s*<p:nvSpPr>\\s*<p:cNvPr id="${sp}"`).test(xml);
-    const extra = trx + (steps.length || idle.length ? timingXml(steps, paraCount, idle, isShape) : "");
+    let tim = "";
+    try { tim = HU.timing(tl, ctx); } catch (e) { throw new Error(`Slide ${num}: ${e.message}`); }
     xml = xml.replace(/<p:transition[\s\S]*?<\/p:transition>|<p:transition[^>]*\/>|<p:timing>[\s\S]*?<\/p:timing>/g, "");
     if (!/<\/p:clrMapOvr>/.test(xml)) xml = xml.replace(/(<\/p:cSld>)/, `$1<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>`);
-    xml = xml.replace(/<\/p:clrMapOvr>/, `</p:clrMapOvr>${extra}`);
+    xml = xml.replace(/<\/p:clrMapOvr>/, `</p:clrMapOvr>${trx + tim}`);
     zip.file(p, xml);
   }
   return zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
@@ -385,4 +271,4 @@ function installFontsForPreview(families) {
   try { require("child_process").execSync("fc-cache -f " + dst); } catch (e) {}
 }
 
-module.exports = { equation, applyEquations, ommlFromTex, cleanPackage, fixParagraphs, IDLE: Object.keys(IDLE), embedFonts, applyEffects, setLoop, toPpsx, save, installFontsForPreview, EFFECTS: Object.keys(EFFECTS), TRANSITIONS: Object.keys(TRANSITIONS), FONT_FILES };
+module.exports = { equation, applyEquations, ommlFromTex, cleanPackage, fixParagraphs, IDLE: Object.keys(HU.CHO), HIEU_UNG: HU, embedFonts, applyEffects, setLoop, toPpsx, save, installFontsForPreview, EFFECTS: [...Object.keys(HU.MO_DAU), ...Object.keys(HU.NHAN_MANH), ...Object.keys(HU.KET_THUC)], TRANSITIONS: Object.keys(TRANSITIONS), FONT_FILES };

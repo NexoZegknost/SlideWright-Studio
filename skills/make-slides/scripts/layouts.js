@@ -9,6 +9,7 @@
 // Chi tiết cách chọn bố cục: references/bo-cuc.md
 
 const path = require("path");
+const D = require(path.join(__dirname, "do_chu.js"));   // đo chữ bằng phông thật: số dòng, chiều cao, chân chữ
 const STYLES = require(path.join(__dirname, "..", "assets", "styles.json"));
 
 const W = 10, H = 5.625, M = 0.6;          // khổ slide và lề
@@ -73,6 +74,12 @@ function AT(sl, content, opts) {
       runs.slice(1).forEach((x) => { delete x.options.bullet; delete x.options.paraSpaceAfter; });
       return runs;
     });
+    // "\n" trong một run: pptxgenjs ghi nguyên ký tự xuống dòng vào <a:t> (PowerPoint không ngắt dòng) → tách thành run có breakLine
+    content = content.flatMap((r) => {
+      if (typeof r.text !== "string" || !r.text.includes("\n")) return [r];
+      const parts = r.text.split("\n");
+      return parts.map((t, i) => ({ text: t, options: { ...(r.options || {}), ...(i < parts.length - 1 ? { breakLine: true } : {}) } }));
+    });
   }
   return sl.addText(content, { ...opts, fontSize: sz(opts.fontSize, opts.objectName) });
 }
@@ -83,9 +90,16 @@ const onAccent = (S) => (contrast("FFFFFF", S.c.accent) >= contrast(S.c.dark, S.
 
 // ---------- tiện ích
 // Mọi bố cục tạo slide qua đây: c.nen = đường dẫn texture PNG (ví dụ từ dinh_huong.taoTexture) → đặt dưới cùng, trước mọi đối tượng
+// c.nenDong: true (hoặc {le, period}) → texture lớn hơn khổ slide và trôi chậm suốt slide (hiệu ứng chờ "troi", hieu_ung.js)
+// c.cho: mảng hiệu ứng chờ bổ sung (ví dụ từ hieu_ung.hatBui/denSanKhau gọi trong hàm truoc(sl)) — gộp vào idle của bố cục
+// c.truoc(sl): hàm vẽ thêm lớp trang trí ngay sau nền, trước nội dung (đèn, hạt sáng, vòng xoay…); trả về mảng idle nếu có
 function addSlide(pres, c) {
   const sl = pres.addSlide();
-  if (c && c.nen) texture(sl, c.nen, {}, "nen");
+  sl._cho = [];
+  if (c && c.nen && c.nenDong) sl._cho.push(require(path.join(__dirname, "hieu_ung.js")).nenDong(sl, c.nen, typeof c.nenDong === "object" ? c.nenDong : {}));
+  else if (c && c.nen) texture(sl, c.nen, {}, "nen");
+  if (c && typeof c.truoc === "function") { const r = c.truoc(sl); if (Array.isArray(r)) sl._cho.push(...r); }
+  if (c && Array.isArray(c.cho)) sl._cho.push(...c.cho);
   return sl;
 }
 const T = (o) => ({ isTextBox: true, margin: 0, valign: "top", ...o });
@@ -177,8 +191,11 @@ L.mucLuc = (pres, S, c, o = {}) => {
 // 05 Chia phần — c: {num, title, sub}
 L.chiaPhan = (pres, S, c, o = { dark: true }) => {
   const sl = addSlide(pres, c); sl.background = { color: o.dark ? S.c.dark : S.c.soft };
-  AT(sl, String(c.num).padStart(2, "0"), T({ objectName: "bignum", x: 5.2, y: 0.2, w: 4.6, h: 3.6, fontFace: S.head, bold: true, fontSize: 200, color: o.dark ? "FFFFFF" : S.c.accent, transparency: o.dark ? 88 : 75, align: "right", valign: "top" }));
-  AT(sl, c.title, T({ objectName: "title", x: M, y: 2.4, w: 6.6, h: 1.4, fontFace: S.head, bold: !S.headItalic, italic: S.headItalic, fontSize: 38, color: fg(S, o), valign: "bottom", fit: "shrink" }));
+  // số lớn mờ nằm trọn trong lề phải (không sát/ra ngoài mép slide)
+  AT(sl, String(c.num).padStart(2, "0"), T({ objectName: "bignum", x: W - M - 4.4, y: 0.3, w: 4.4, h: 3.4, fontFace: S.head, bold: true, fontSize: 200, color: o.dark ? "FFFFFF" : S.c.accent, transparency: o.dark ? 88 : 75, align: "right", valign: "top" }));
+  const ts = 38, tl = Math.min(3, D.ngat(c.title, { face: S.head, size: ts, bold: true, w: 6.6 }).length), th = D.cao(tl, ts, D.heSo(S.head, true)) + 0.1;
+  const yT = 3.85 - th;
+  AT(sl, c.title, T({ objectName: "title", x: M, y: yT, w: 6.6, h: th, fontFace: S.head, bold: !S.headItalic, italic: S.headItalic, fontSize: ts, color: fg(S, o), valign: "bottom", fit: "shrink" }));
   if (c.sub) AT(sl, c.sub, T({ objectName: "sub", x: M, y: 3.95, w: 6.6, h: 0.6, fontFace: S.body, fontSize: 16, color: sub(S, o) }));
   notes(sl, c);
   return { slide: sl, idle: [{ n: "bignum", eff: "mo", period: 7000, dur: 2000 }], steps: [[{ n: "bignum", eff: "fade", dur: 900 }, { n: "title", eff: "floatUp", start: "after" }, { n: "sub", eff: "fade", start: "after" }]], autoFirst: true };
@@ -203,8 +220,11 @@ L.soLon = (pres, S, c, o = {}) => {
   AT(sl, c.value, T({ objectName: "value", x: M, y: 1.2, w: 5.4, h: 2.3, fontFace: S.body, bold: true, fontSize: 110, color: o.dark ? S.c.accentOnDark : S.c.accentText, valign: "middle", fit: "shrink" }));
   AT(sl, c.label, T({ objectName: "label", x: M, y: 3.55, w: 5.2, h: 0.9, fontFace: S.head, bold: !S.headItalic, italic: S.headItalic, fontSize: 22, color: fg(S, o) }));
   if (c.context) {
-    sl.addShape("rect", { objectName: "ctxbox", x: 6.4, y: 1.4, w: 3.0, h: 2.8, fill: { color: o.dark ? S.c.soft : S.c.soft, transparency: o.dark ? 85 : 0 }, line: { color: o.dark ? S.c.accentOnDark : S.c.soft, width: 0.75 } });
-    AT(sl, c.context, T({ objectName: "context", x: 6.65, y: 1.65, w: 2.5, h: 2.3, fontFace: S.body, fontSize: 14, color: o.dark ? "E6E8EE" : S.c.muted, fit: "shrink" }));
+    // khung ôm vừa nội dung (đo bằng phông thật), canh giữa theo khối số + nhãn — không để khung trống quá nửa
+    const cs = sz(14, "context"), lines = D.ngat(c.context, { face: S.body, size: cs, w: 2.5 }).length;
+    const hTxt = Math.min(2.6, D.cao(lines, cs, 1.2) + 0.05), hBox = hTxt + 0.5, yBox = Math.max(1.2, 2.85 - hBox / 2);
+    sl.addShape("rect", { objectName: "ctxbox", x: 6.4, y: yBox, w: 3.0, h: hBox, fill: { color: o.dark ? S.c.soft : S.c.soft, transparency: o.dark ? 85 : 0 }, line: { color: o.dark ? S.c.accentOnDark : S.c.soft, width: 0.75 } });
+    AT(sl, c.context, T({ objectName: "context", x: 6.65, y: yBox + 0.25, w: 2.5, h: hTxt, fontFace: S.body, fontSize: 14, color: o.dark ? "E6E8EE" : S.c.muted, valign: "middle", fit: "shrink" }));
   }
   notes(sl, c);
   return { slide: sl, idle: [{ n: "value", eff: "nhip", period: 9000 }], steps: [[{ n: "value", eff: "zoom" }, { n: "label", eff: "fade", start: "after" }], ...(c.context ? [[{ n: "ctxbox", eff: "fade" }, { n: "context", eff: "fade" }]] : [])] };
@@ -228,7 +248,7 @@ L.anhChu = (pres, S, c, o = {}) => {
   image(sl, S, c.img, { x: ix, y: 0, w: 4.6, h: H }, "img");
   kicker(sl, S, c.kicker, {}, { x: tx, y: 0.75, w: 3.55 });
   AT(sl, c.title, T({ objectName: "title", x: tx, y: 1.05, w: 3.6, h: 1.3, fontFace: S.head, bold: !S.headItalic, italic: S.headItalic, fontSize: 26, color: S.c.text, fit: "shrink" }));
-  AT(sl, c.bullets.map((b, i) => ({ text: b, options: { bullet: { indent: 14 }, breakLine: i < c.bullets.length - 1 } })),
+  AT(sl, c.bullets.map((b, i) => ({ text: b, options: { bullet: { indent: Math.round(sz(16, "body") * 0.9) }, breakLine: i < c.bullets.length - 1 } })),
     T({ objectName: "body", x: tx, y: 2.55, w: 3.6, h: 2.4, fontFace: S.body, fontSize: 16, color: S.c.muted, paraSpaceAfter: 8, fit: "shrink" }));
   notes(sl, c);
   return { slide: sl, steps: [[{ n: "body", eff: "wipe", dir: "left", byPara: true }]] };
@@ -255,14 +275,19 @@ L.chuAnhKhung = (pres, S, c, o = {}) => {
 L.soSanh = (pres, S, c, o = {}) => {
   const sl = addSlide(pres, c); sl.background = { color: S.c.light };
   title(sl, S, c.title);
+  // khối cao vừa nội dung (đo bằng phông thật), canh giữa theo chiều dọc vùng nội dung
+  const bs = sz(15, "L"), ls = 20, wL = 3.95, wR = CW - 4.15;
+  const need = (side, w) => D.cao(side.items.reduce((s, it) => s + D.ngat(it, { face: S.body, size: bs, w: w - 0.7 - 0.35 }).length, 0), bs, 1.25) + 0.12 * side.items.length;
+  const hText = Math.max(need(c.left, wL), need(c.right, wR));
+  const hBox = Math.min(3.5, 0.3 + 0.6 + 0.15 + hText + 0.35), y0 = 1.55 + Math.max(0, (3.5 - hBox) / 2) * 0.5;
   const col = (side, x, w, dark, name) => {
-    sl.addShape("rect", { objectName: name + "box", x, y: 1.55, w, h: 3.5, fill: { color: dark ? S.c.dark : S.c.soft }, line: { color: dark ? S.c.dark : S.c.soft } });
-    AT(sl, side.label, T({ objectName: name + "lab", x: x + 0.35, y: 1.8, w: w - 0.7, h: 0.5, fontFace: S.head, bold: true, fontSize: 20, color: dark ? S.c.accentOnDark : S.c.accentText }));
-    AT(sl, side.items.map((t, i) => ({ text: t, options: { bullet: { indent: 14 }, breakLine: i < side.items.length - 1 } })),
-      T({ objectName: name, x: x + 0.35, y: 2.45, w: w - 0.7, h: 2.4, fontFace: S.body, fontSize: 15, color: dark ? "FFFFFF" : S.c.text, paraSpaceAfter: 8, fit: "shrink" }));
+    sl.addShape("rect", { objectName: name + "box", x, y: y0, w, h: hBox, fill: { color: dark ? S.c.dark : S.c.soft }, line: { color: dark ? S.c.dark : S.c.soft } });
+    AT(sl, side.label, T({ objectName: name + "lab", x: x + 0.35, y: y0 + 0.3, w: w - 0.7, h: 0.55, fontFace: S.head, bold: true, fontSize: ls, color: dark ? S.c.accentOnDark : S.c.accentText, valign: "middle" }));
+    AT(sl, side.items.map((t, i) => ({ text: t, options: { bullet: { indent: Math.round(bs * 0.9) }, breakLine: i < side.items.length - 1 } })),
+      T({ objectName: name, x: x + 0.35, y: y0 + 0.95, w: w - 0.7, h: hBox - 1.15, fontFace: S.body, fontSize: 15, color: dark ? "FFFFFF" : S.c.text, paraSpaceAfter: 8, fit: "shrink" }));
   };
   // bất đối xứng nhẹ: bên được nhấn (phải) rộng hơn
-  col(c.left, M, 3.95, false, "L"); col(c.right, M + 4.15, CW - 4.15, true, "R");
+  col(c.left, M, wL, false, "L"); col(c.right, M + 4.15, wR, true, "R");
   notes(sl, c);
   return { slide: sl, idle: [], steps: [[{ n: "Lbox", eff: "fly", dir: "left" }, { n: "Llab", eff: "fly", dir: "left" }, { n: "L", eff: "fly", dir: "left" }], [{ n: "Rbox", eff: "fly", dir: "right" }, { n: "Rlab", eff: "fly", dir: "right" }, { n: "R", eff: "fly", dir: "right" }]] };
 };
@@ -274,9 +299,14 @@ L.baThe = (pres, S, c, o = {}) => {
   const sl = addSlide(pres, c); sl.background = { color: S.c.light };
   title(sl, S, c.title);
   const n = c.cards.length, w = (CW - GAP * (n - 1)) / n, hasImg = c.cards.some((k) => k.img), hasMark = c.cards.some((k) => k.mark);
+  // đo chiều cao nội dung cột cao nhất → canh cả hàng cột giữa vùng nội dung (không dồn lên trên, để trống phía dưới)
+  const hs = sz(19, "ct"), bs = sz(15, "ct");
+  const colH = (k) => 0.2 + (hasImg ? 1.5 : 0) + (hasMark ? 0.9 : 0) + D.cao(D.ngat(k.head, { face: S.body, size: hs, bold: true, w }).length, hs, 1.2) + 0.08 + D.cao(D.ngat(k.text || "", { face: S.body, size: bs, w }).length, bs, 1.2);
+  const hMax = Math.max(...c.cards.map(colH)), top = 1.6, bottom = 5.0;
+  const y0 = top + Math.max(0, (bottom - top - hMax) / 2) * 0.7;
   c.cards.forEach((k, i) => {
     const x = M + i * (w + GAP);
-    let y = 1.6;
+    let y = y0;
     sl.addShape("rect", { objectName: `card${i}`, x, y, w, h: 0.04, fill: { color: i === c.highlight ? S.c.accent : S.c.text }, line: { color: i === c.highlight ? S.c.accent : S.c.text, width: 0 } });
     y += 0.2;
     if (hasImg) { image(sl, S, k.img, { x, y, w, h: 1.35 }, `img${i}`); y += 1.5; }
@@ -285,7 +315,7 @@ L.baThe = (pres, S, c, o = {}) => {
       y += 0.9;
     }
     AT(sl, [{ text: k.head, options: { bold: true, fontSize: 19, color: S.c.text, breakLine: true } }, { text: k.text, options: { fontSize: 15, color: S.c.muted } }],
-      T({ objectName: `ct${i}`, x, y, w, h: 5.1 - y, fontFace: S.body, paraSpaceAfter: 6, fit: "shrink" }));
+      T({ objectName: `ct${i}`, x, y, w, h: Math.max(0.6, 5.1 - y), fontFace: S.body, paraSpaceAfter: 6, fit: "shrink" }));
   });
   notes(sl, c);
   const hl = c.highlight != null ? c.highlight : null;
@@ -466,7 +496,7 @@ L.congThuc = async (pres, S, c, o = {}) => {
   const MS = require(path.join(__dirname, "makeslides.js"));
   const sl = addSlide(pres, c); sl.background = { color: bgOf(S, o) };
   title(sl, S, c.title, o);
-  const eq = await MS.equation(sl, c.tex, { x: M, y: 1.55, fontSize: c.size || 40, color: fg(S, o), name: "eq" });
+  const eq = await MS.equation(sl, c.tex, { x: M, y: 1.75, fontSize: c.size || 40, color: fg(S, o), name: "eq" });   // cách tiêu đề ≥ 0,4"
   const terms = (c.terms || []).slice(0, 4), n = terms.length;
   if (n) {
     const y0 = Math.max(3.05, 1.55 + eq.h + 0.25), w = (CW - GAP * (n - 1)) / n;
@@ -497,18 +527,27 @@ L.chuKhongLo = (pres, S, c, o = { dark: true }) => {
 L.thangSo = (pres, S, c, o = {}) => {
   const sl = addSlide(pres, c); sl.background = { color: bgOf(S, o) };
   title(sl, S, c.title, o);
-  const m = Math.min(4, c.items.length), sizes = [96, 56, 44, 40], base = 3.85;
+  const items = c.items.slice(0, 4), m = items.length, sizes = [96, 56, 44, 40];
   const widths = [CW * (m <= 2 ? 0.55 : 0.4), ...Array(m - 1).fill((CW * (m <= 2 ? 0.45 : 0.6)) / Math.max(1, m - 1))];   // cột phụ đủ rộng cho nhãn ≥ 24pt
+  // cỡ số: lớn nhất mà vẫn vừa một dòng trong cột (đo bằng phông thật)
+  const sv = items.map((k, i) => D.vuaCo(String(k.value), { face: S.head, bold: true, size: sizes[i], w: widths[i] - 0.3, dong: 1, min: 28 }));
+  const hv = Math.max(...sv.map((s) => D.dinh(s, S.head) + D.chan(s, S.head))) + 0.05;          // cao khối số = đỉnh + chân chữ lớn nhất
+  const ls = items.map((k, i) => sz(i ? 13 : 16, "l" + i));
+  const hl = Math.max(...items.map((k, i) => D.cao(D.ngat(k.label, { face: S.body, size: ls[i], w: widths[i] - 0.25 }).length, ls[i], 1.2)));
+  const gap = Math.max(0.12, (0.12 * sv[0]) / 72 + 0.04);                                       // vạch cách chân chữ ≥ 6pt
+  const blockH = hv + gap + 0.14 + hl, top = 1.45, bottom = 5.0;
+  const yv = top + Math.max(0, (bottom - top - blockH) / 2);                                     // canh giữa vùng nội dung
+  const base = yv + hv;
   let x = M;
-  c.items.slice(0, 4).forEach((k, i) => {
-    const w = widths[i], s = Math.round(Math.min(sizes[i], ((w - 0.3) * 72) / (String(k.value).length * 0.58))), h = sizes[i] / 72 * 1.15;   // co cỡ khi số dài để không tràn sang cột bên
-    AT(sl, k.value, T({ objectName: `v${i}`, x, y: base - h, w, h, fontFace: S.head, bold: true, fontSize: s, color: i ? fg(S, o) : (o.dark ? S.c.accentOnDark : S.c.accentText), valign: "bottom", fit: "shrink" }));
-    sl.addShape("line", { objectName: `b${i}`, x, y: base + 0.08, w: w - 0.25, h: 0, line: { color: i ? (o.dark ? "3A4766" : "C9CED8") : S.c.accent, width: i ? 0.75 : 2.5 } });
-    AT(sl, k.label, T({ objectName: `l${i}`, x, y: base + 0.2, w: w - 0.25, h: 1.0, fontFace: S.body, fontSize: i ? 13 : 16, color: mut(S, o), fit: "shrink" }));
+  items.forEach((k, i) => {
+    const w = widths[i];
+    AT(sl, k.value, T({ objectName: `v${i}`, x, y: yv, w, h: hv, fontFace: S.head, bold: true, fontSize: sv[i], color: i ? fg(S, o) : (o.dark ? S.c.accentOnDark : S.c.accentText), valign: "bottom" }));
+    sl.addShape("line", { objectName: `b${i}`, x, y: base + gap, w: w - 0.25, h: 0, line: { color: i ? (o.dark ? "3A4766" : "C9CED8") : S.c.accent, width: i ? 0.75 : 2.5 } });
+    AT(sl, k.label, T({ objectName: `l${i}`, x, y: base + gap + 0.14, w: w - 0.25, h: hl + 0.1, fontFace: S.body, fontSize: i ? 13 : 16, color: mut(S, o) }));
     x += w;
   });
   notes(sl, c);
-  return { slide: sl, idle: [{ n: "v0", eff: "nhip", period: 10000 }], steps: c.items.slice(0, 4).map((_, i) => [{ n: `v${i}`, eff: i ? "fade" : "zoom" }, { n: `b${i}`, eff: "wipe", dir: "left", start: "with" }, { n: `l${i}`, eff: "fade", start: "after", dur: 300 }]) };
+  return { slide: sl, idle: [{ n: "v0", eff: "nhip", period: 10000 }], steps: items.map((_, i) => [{ n: `v${i}`, eff: i ? "fade" : "zoom" }, { n: `b${i}`, eff: "wipe", dir: "left", start: "with" }, { n: `l${i}`, eff: "fade", start: "after", dur: 300 }]) };
 };
 
 // 26 Trang báo — c: {kicker, title, lead, body, pull, by} — dàn kiểu tạp chí: tiêu đề serif lớn, đoạn dẫn, thân bài 2 cột, trích dẫn kéo ra lề phải
@@ -534,10 +573,15 @@ L.anhLopKhoi = (pres, S, c, o = {}) => {
   const sl = addSlide(pres, c); sl.background = { color: S.c.light };
   const ix = o.flip ? 0 : 3.6, bx = o.flip ? 5.2 : M;
   image(sl, S, c.img, { x: ix, y: 0, w: 6.4, h: 4.55 }, "img");
-  sl.addShape("rect", { objectName: "block", x: bx, y: 2.35, w: 4.2, h: 2.75, fill: { color: S.c.dark }, line: { color: S.c.dark } });
-  kicker(sl, S, c.kicker, { dark: true }, { x: bx + 0.35, y: 2.6, w: 3.5 });
-  AT(sl, c.title, T({ objectName: "title", x: bx + 0.35, y: 2.9, w: 3.5, h: 1.0, fontFace: S.head, bold: !S.headItalic, italic: S.headItalic, fontSize: 24, color: "FFFFFF", fit: "shrink" }));
-  if (c.text) AT(sl, c.text, T({ objectName: "text", x: bx + 0.35, y: 3.95, w: 3.5, h: 1.0, fontFace: S.body, fontSize: 14, color: "D5D9E2", fit: "shrink" }));
+  // đo tiêu đề và đoạn chữ bằng phông thật → khung vừa nội dung, đoạn chữ nối ngay dưới tiêu đề, cả cụm nằm trong khối
+  const ts = sz(24, "title"), xs = sz(14, "text");
+  const th = D.cao(D.ngat(c.title, { face: S.head, size: ts, bold: true, w: 3.5 }).length, ts, 1.2) + 0.08;
+  const xh = c.text ? D.cao(D.ngat(c.text, { face: S.body, size: xs, w: 3.5 }).length, xs, 1.2) + 0.08 : 0;
+  const bh = Math.max(2.75, 0.55 + th + 0.1 + xh + 0.3), by = Math.min(2.35, H - 0.15 - bh), ty = by + 0.55, xy = ty + th + 0.1;
+  sl.addShape("rect", { objectName: "block", x: bx, y: by, w: 4.2, h: bh, fill: { color: S.c.dark }, line: { color: S.c.dark } });
+  AT(sl, c.title, T({ objectName: "title", x: bx + 0.35, y: ty, w: 3.5, h: th, fontFace: S.head, bold: !S.headItalic, italic: S.headItalic, fontSize: 24, color: "FFFFFF", fit: "shrink" }));
+  if (c.text) AT(sl, c.text, T({ objectName: "text", x: bx + 0.35, y: xy, w: 3.5, h: xh, fontFace: S.body, fontSize: 14, color: S.c.accentOnDark || "E6E8EE", fit: "shrink" }));
+  kicker(sl, S, c.kicker, { dark: true }, { x: bx + 0.35, y: by + 0.25, w: 3.5 });
   notes(sl, c);
   return { slide: sl, idle: [], steps: [[{ n: "block", eff: "fly", dir: o.flip ? "right" : "left" }, { n: "title", eff: "fade", start: "after" }, ...(c.text ? [{ n: "text", eff: "fade", start: "after" }] : [])]] };
 };
@@ -567,11 +611,22 @@ L.hinhChuThich = (pres, S, c, o = {}) => {
 // Câu hỏi in rất lớn, căn trái, chiếm nửa trên; lời đáp hiện sau cú nhấp dưới một vạch mảnh.
 L.hoiDap = (pres, S, c, o = {}) => {
   const sl = addSlide(pres, c); sl.background = { color: bgOf(S, o) };
-  kicker(sl, S, c.kicker, o, { y: 0.55 });
-  AT(sl, c.question, T({ objectName: "question", x: M, y: 0.85, w: 8.2, h: 2.3, fontFace: S.head, bold: !S.headItalic, italic: S.headItalic, fontSize: 38, color: fg(S, o), valign: "top", fit: "shrink" }));
-  if (c.hint) AT(sl, c.hint, T({ objectName: "hint", x: M, y: c.answer ? 3.15 : 4.4, w: CW, h: 0.55, fontFace: S.body, fontSize: 14, color: mut(S, o), fit: "shrink" }));
-  if (c.answer) sl.addShape("line", { objectName: "rule", x: M, y: 3.75, w: CW, h: 0, line: { color: o.dark ? S.c.accentOnDark : S.c.accent, width: 1.5 } });
-  if (c.answer) AT(sl, c.answer, T({ objectName: "answer", x: M, y: 3.95, w: CW, h: 1.2, fontFace: S.body, fontSize: 20, color: o.dark ? S.c.accentOnDark : S.c.accentText, fit: "shrink" }));
+  // đo câu hỏi → cả cụm (nhãn, câu hỏi, gợi ý, vạch, lời đáp) canh giữa theo chiều dọc, không để khoảng trống lớn
+  const qs = 38, ql = D.ngat(c.question, { face: S.head, size: qs, bold: true, w: CW }).length, qh = D.cao(ql, qs, D.heSo(S.head, true)) + 0.1;
+  const as = sz(20, "answer"), ah = c.answer ? D.cao(D.ngat(c.answer, { face: S.body, size: as, w: CW }).length, as, 1.2) + 0.1 : 0;
+  const hh = c.hint ? 0.5 : 0, kh = c.kicker ? 0.4 : 0;
+  const blockH = kh + qh + (hh ? 0.15 + hh : 0) + (c.answer ? 0.35 + 0.25 + ah : 0);
+  let y = Math.max(0.5, (H - blockH) / 2 - 0.1);
+  if (c.kicker) { kicker(sl, S, c.kicker, o, { y }); y += kh; }
+  AT(sl, c.question, T({ objectName: "question", x: M, y, w: CW, h: qh, fontFace: S.head, bold: !S.headItalic, italic: S.headItalic, fontSize: qs, color: fg(S, o), valign: "top" }));
+  y += qh;
+  if (c.hint) { y += 0.15; AT(sl, c.hint, T({ objectName: "hint", x: M, y, w: CW, h: hh, fontFace: S.body, fontSize: 14, color: mut(S, o) })); y += hh; }
+  if (c.answer) {
+    y += 0.35;
+    sl.addShape("line", { objectName: "rule", x: M, y, w: CW, h: 0, line: { color: o.dark ? S.c.accentOnDark : S.c.accent, width: 1.5 } });
+    y += 0.25;
+    AT(sl, c.answer, T({ objectName: "answer", x: M, y, w: CW, h: ah, fontFace: S.body, fontSize: 20, color: o.dark ? S.c.accentOnDark : S.c.accentText }));
+  }
   notes(sl, c);
   return { slide: sl, idle: [], steps: c.answer ? [[{ n: "rule", eff: "wipe", dir: "left" }, { n: "answer", eff: "floatUp", start: "after" }]] : [] };
 };
@@ -693,10 +748,11 @@ function dauThuongHieu(sl, S, o = {}) { return logo(sl, S, { kieu: "ngang", lang
 // (bố cục có phần tuỳ chọn như sub, text, info: không có thì bỏ khỏi steps/idle, tránh lỗi "không thấy đối tượng")
 function prune(r) {
   const names = new Set((r.slide._slideObjects || []).map((x) => x.options && x.options.objectName).filter(Boolean));
-  if (!names.size) return r;
+  if (!names.size) { r.idle = [...(r.slide._cho || []), ...(r.idle || [])]; return r; }
   const ok = (e) => names.has(e.n);
   r.steps = (r.steps || []).map((g) => g.filter(ok)).filter((g) => g.length);
-  r.idle = (r.idle || []).filter(ok);
+  r.idle = [...(r.slide._cho || []), ...(r.idle || [])].filter(ok);
+  if (r.ket) r.ket = r.ket.filter(ok);
   return r;
 }
 for (const k of Object.keys(L)) {
