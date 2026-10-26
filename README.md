@@ -1,8 +1,8 @@
 # SlideWright - Studio
 
-Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Gói plugin có tên kỹ thuật `slidewright-studio` (trước bản 0.14.0-beta.3 là `make-slides`) và chứa skill **makeSlides** (`make-slides`).
+Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Gói plugin có tên kỹ thuật `slidewright-studio` (trước bản 0.14.0 là `make-slides`) và chứa skill **makeSlides** (`make-slides`).
 
-Phiên bản hiện tại: **0.14.0-beta.3** (thử nghiệm) · bản ổn định: **0.13.0** · Lịch sử thay đổi: [CHANGELOG.md](CHANGELOG.md)
+Phiên bản hiện tại: **0.14.0** · Lịch sử thay đổi: [CHANGELOG.md](CHANGELOG.md)
 
 ## Tính năng
 
@@ -81,7 +81,7 @@ Chỉ cần nói với Claude bằng ngôn ngữ tự nhiên; skill tự chạy 
 ## Lưu ý
 
 - Hiệu ứng, hiệu ứng chờ và Morph chỉ chạy khi trình chiếu trong PowerPoint; ảnh xem trước tĩnh không thể hiện chúng (Morph có bản xem trước bằng ảnh động gần đúng).
-- Bản beta dùng để thử nghiệm; báo lỗi hoặc góp ý qua mục Issues của kho.
+- Báo lỗi hoặc góp ý qua mục Issues của kho.
 - Khi sửa và lưu lại trong PowerPoint, giữ tuỳ chọn *Embed fonts in the file* (đã bật sẵn) để phông không bị mất.
 - Tài nguyên thương hiệu Bách khoa thuộc Trường Đại học Bách khoa – ĐHQG-HCM; chỉ dùng cho báo cáo, thuyết trình tại trường hoặc khi được phép.
 - Bộ phông đi kèm (19 họ) dùng giấy phép SIL Open Font License; tệp giấy phép nằm cạnh từng họ phông.

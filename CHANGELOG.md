@@ -2,6 +2,14 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## 0.14.0
+Bản ổn định, gộp các bản thử nghiệm 0.14.0-beta.1 → beta.3:
+- Gói plugin đổi tên thành **SlideWright - Studio** (`slidewright-studio`); skill bên trong vẫn là **makeSlides** (`make-slides`). Người dùng bản cũ cần gỡ `make-slides` rồi cài `slidewright-studio`.
+- Sửa lỗi hiệu ứng không hiện khi trình chiếu (After Previous bị kẹt sau hiệu ứng chờ lặp vô hạn).
+- Bộ chuyển trang lấy Morph làm chủ đạo: cảnh morph (vầng tròn trôi, băng màu, mảnh hình, từ khoá nền, thanh tiến độ), morph kể chuyện (ảnh thành biểu tượng, số chia phần thành huy hiệu), chuyển trang lướt hiện đại; bỏ kiểu cổ điển.
+- Tự kiểm tra hiệu ứng theo cách PowerPoint chạy (`kiem_tra_hieu_ung.py`) và xem trước Morph bằng ảnh động (`xem_truoc_morph.py`).
+- Hoàn thiện quy trình: bước dựng file trước tự kiểm tra, thứ tự chạy script kiểm tra, vai slide và cảnh morph trong dàn ý.
+
 ## 0.14.0-beta.3
 - Đổi tên gói plugin thành **SlideWright - Studio** (tên kỹ thuật `slidewright-studio`, trước đây `make-slides`) ở manifest, marketplace và README. Skill bên trong giữ nguyên tên **makeSlides** (`make-slides`), cách gọi và script không đổi.
 - **Cần cài lại**: gỡ plugin `make-slides` cũ rồi cài `slidewright-studio`; lệnh cài mới: `/plugin install slidewright-studio@slidewright-studio`.
