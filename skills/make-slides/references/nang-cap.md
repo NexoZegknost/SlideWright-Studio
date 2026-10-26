@@ -8,7 +8,7 @@ Dùng khi người dùng gửi file .pptx, link Gamma hoặc thiết kế Canva 
 4. **Chẩn đoán ngắn** 3–5 gạch: chữ quá nhiều, bố cục lặp, màu thiếu nhất quán, ảnh mờ, lỗi chính tả, xuống dòng xấu…
 5. **Chọn phong cách mới** theo Bước 1 của SKILL.md (3 phương án + ảnh xem trước bằng chính nội dung). Hỏi gộp một lượt: phong cách; có giữ yếu tố nhận diện cũ (ảnh bìa hội nghị, màu đơn vị) hay theo hẳn phong cách mới; được rút gọn chữ không.
 6. **Dựng lại** theo Bước 3–7 của SKILL.md, **giữ nguyên nội dung, số liệu, thứ tự** (được thêm slide chuyển phần, tách slide quá dày). Nâng cấp thường đáng làm:
-   - slide chuyển phần nền đậm, số La Mã/số thứ tự lớn; Morph số đó thành huy hiệu nhỏ ở slide nội dung đầu tiên của phần (`objectName` `!!sec` ở cả hai slide);
+   - slide chuyển phần nền đậm, số La Mã/số thứ tự lớn; Morph số đó thành huy hiệu nhỏ ở slide nội dung đầu tiên của phần (`L.chiaPhan(..., { soMorph: true })` + `CT.soPhan`), cảnh morph xuyên suốt theo `chuyen-trang.md`;
    - mỗi slide một kiểu bố cục khác nhau (số lớn + thanh tỉ lệ, biểu đồ + trục mốc, cột so sánh, lộ trình nhiều chặng…);
    - một họa tiết xuyên suốt (ví dụ `scripts/hoa_tiet_trong_dong.py` cho phong cách Truyền thống);
    - hiệu ứng chờ cho 1–3 con số chủ chốt của cả bài.

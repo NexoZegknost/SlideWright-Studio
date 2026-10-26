@@ -47,10 +47,10 @@ Quy trình có hai điểm người dùng duyệt (dàn ý ở Bước 4, bản 
 - Không bịa số liệu, văn bản pháp quy, trích dẫn; thiếu thì để `[cần bổ sung]` và báo.
 
 ## Bước 3 — Dàn ý thông điệp
-Đọc `references/noi-dung-slide.md` (slide chỉ giữ nội dung khái quát: từ khoá, con số, sơ đồ; 1–3 điểm nhấn; chi tiết vào ghi chú) và `references/dan-y-mau.md` (khung theo bối cảnh; văn bản hành chính dùng khung trong `van-ban-hanh-chinh.md`). Mỗi slide = một thông điệp, tiêu đề ≤ 12 từ. Ghi cho từng slide: tiêu đề · ý chính · bố cục · hình ảnh · hiệu ứng.
+Đọc `references/noi-dung-slide.md` (slide chỉ giữ nội dung khái quát: từ khoá, con số, sơ đồ; 1–3 điểm nhấn; chi tiết vào ghi chú) và `references/dan-y-mau.md` (khung theo bối cảnh; văn bản hành chính dùng khung trong `van-ban-hanh-chinh.md`). Mỗi slide = một thông điệp, tiêu đề ≤ 12 từ. Ghi cho từng slide: tiêu đề · ý chính · bố cục · **vai** (bìa, nội dung, nhấn mạnh, chia phần, kết — quyết định tư thế cảnh morph) · hình ảnh · hiệu ứng.
 
 ## Bước 4 — Duyệt dàn ý ⟲
-Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một dòng phong cách (tên + cặp phông + màu chủ đạo), một dòng bối cảnh (tên + số slide + nhịp + mức hiệu ứng). Chờ xác nhận, trừ chế độ "làm luôn".
+Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một dòng phong cách (tên + cặp phông + màu chủ đạo), một dòng bối cảnh (tên + số slide + nhịp + mức hiệu ứng), một dòng chuyển trang (cảnh morph đã chọn + 1–2 khoảnh khắc morph kể chuyện). Chờ xác nhận, trừ chế độ "làm luôn".
 
 ## Bước 5 — Material
 - **Ảnh**: Unsplash (nếu kết nối) đúng ngữ cảnh, ưu tiên Việt Nam, ≥ 1600px cho ảnh tràn viền, ghi tác giả vào ghi chú; Canva/Gamma có thể tự tạo ảnh minh hoạ. Không lấy được ảnh (công cụ ảnh lỗi, mạng chặn) → **vẽ tranh minh hoạ phẳng bằng SVG** theo bảng màu của bài rồi xuất PNG bằng sharp (mẫu: `assets/mau-hieu-ung/illus.js` — sân khấu, chiếc áo, khán giả), không để khối giữ chỗ trống.
@@ -62,20 +62,23 @@ Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một d
 
 ## Bước 6 — Thiết kế (theo thứ tự)
 1. **Viết nội dung slide** theo `noi-dung-slide.md`, rút gọn theo mật độ của bối cảnh; ghi chú diễn giả 3–5 câu/slide có thứ tự cú nhấp ("[Nhấp 1] …").
-2. **Layout**: thư viện 31 bố cục ở `references/bo-cuc.md` (`scripts/layouts.js`, gọi `setScale(body_min)`), ưu tiên bố cục mở rộng 23–31 (bất đối xứng, thứ bậc chữ, chú thích hình) để bài không giống mẫu tải sẵn; mỗi bài ≥ 2 slide dựng riêng cho nội dung đặc thù — thiếu bố cục hợp thì tìm mẫu theo `references/mau-bo-cuc.md` (người dùng gửi mẫu → học cấu trúc theo mục 3 của tệp đó). Bổ sung theo `references/nguyen-tac-thiet-ke.md` — một màu chủ đạo, một motif xuyên suốt, không lặp bố cục quá 2 slide liên tiếp. Phông theo `references/phong-chu.md`: **bài chính quy chỉ dùng serif/sans-serif**; phông trang trí chỉ cho bài kiểu cách; **không dùng Be Vietnam Pro**.
+2. **Layout**: thư viện 32 bố cục ở `references/bo-cuc.md` (`scripts/layouts.js`, gọi `setScale(body_min)`), ưu tiên bố cục mở rộng 23–31 (bất đối xứng, thứ bậc chữ, chú thích hình) để bài không giống mẫu tải sẵn; mỗi bài ≥ 2 slide dựng riêng cho nội dung đặc thù — thiếu bố cục hợp thì tìm mẫu theo `references/mau-bo-cuc.md` (người dùng gửi mẫu → học cấu trúc theo mục 3 của tệp đó). Bổ sung theo `references/nguyen-tac-thiet-ke.md` — một màu chủ đạo, một motif xuyên suốt, không lặp bố cục quá 2 slide liên tiếp. Phông theo `references/phong-chu.md`: **bài chính quy chỉ dùng serif/sans-serif**; phông trang trí chỉ cho bài kiểu cách; **không dùng Be Vietnam Pro**.
    - **Màu**: chữ trên nền đậm dùng trắng/ngà hoặc `accentOnDark` (≥ 7:1); không chữ tím/tím oải hương trên nền tối, không chữ cùng tông nền đậm, không màu đối nhau. Nền tối ≤ một nửa số slide.
    - **Texture**: dùng tích cực theo bộ texture của phương án (`DH.taoTexture`): bìa, chia phần, nhấn mạnh nhiều lớp; slide nội dung luân phiên 2–3 biến thể nhẹ (`DH.nen(tex, "noi-dung", k)`), xen slide trơn để thở. Cùng bảng màu, độ dày nét, mật độ → nhiều mẫu nhưng chung phong cách. Có thể sáng tạo bộ mới bằng `scripts/hoa_tiet.py --lop` cho hoàn cảnh cụ thể (ảnh nền sự kiện, chủ đề đặc thù).
    - **Chữ**: viết theo mục 4 `references/noi-dung-slide.md` — ≥ 24pt, ≤ 30 chữ/slide, tiêu đề là thông điệp (không đếm số kiểu "Ba con số đáng chú ý"), tiêu đề 2 dòng thì dòng trên ngắn hơn.
    - **Công thức**: luôn là khối Equation (`MS.equation` / `congThuc`), không gõ bằng chữ, không để trong ô bảng.
    - **Tránh dấu hiệu AI** khi viết và dàn trang theo `references/dau-hieu-ai.md` (biểu tượng trước chữ, thẻ bằng nhau, "VS", nhãn "Điểm chính", tiêu đề chung chung, gạch ngang nối ý, từ sáo rỗng, lời kết sáo).
+Mục 3–5 dưới đây chỉ áp dụng cho PowerPoint; Canva/Gamma tự xử lý hiệu ứng (xem tài liệu quy trình tương ứng).
 3. **Animation** theo `references/hieu-ung.md` (thư viện `scripts/hieu_ung.js`), đủ bốn nhóm theo mức của bối cảnh:
    - *mở đầu*: thứ tự xuất hiện = thứ tự nói, ≤ 5 cú nhấp/slide; bìa và câu hỏi lớn dùng chữ nổi theo từ (`riseWords`);
    - *nhấn mạnh*: `dim` bước đã nói khi bước mới hiện, `pulse`/`grow`/`fontColor` cho con số, từ khoá;
    - *kết thúc*: thay nội dung tại chỗ, dọn sân khấu (`ket`), hạ màn slide cuối.
 4. **Hiệu ứng chờ** (tự phát, nhỏ, lặp): nền động ở bìa/chia phần/câu hỏi/kết (`nenDong` trôi, đèn quét `denSanKhau`, hạt sáng `hatBui`, vòng xoay chậm) + ≤ 2 điểm nhấn nội dung/slide (`chuNoi`, `songChu`, `nhip`, `gachChan`…), chu kỳ nền 15–30 s, nội dung 6–15 s.
-5. **Transition** theo `references/chuyen-trang.md` (`scripts/chuyen_trang.js`): **Morph cho mọi slide sau slide đầu** với một cảnh morph xuyên suốt (1–2 motif hợp lĩnh vực — `linh-vuc.json` → `canh_morph` — cộng thanh `tienDo`), vẽ trong `c.truoc` bằng `canh.dat(sl, vai, { i })`; thêm 2–3 khoảnh khắc morph kể chuyện (ảnh thu thành biểu tượng, số chia phần thành huy hiệu, ánh sáng di chuyển). Đổi phần lớn dùng `reveal`/`pan`; slide đầu `fadeBlack`. Không dùng chuyển trang cổ điển (lật 3D, cắt, hoà tan…).
+5. **Transition** theo `references/chuyen-trang.md` (`scripts/chuyen_trang.js`): **Morph cho mọi slide sau slide đầu** với một cảnh morph xuyên suốt (1–2 motif hợp lĩnh vực — `linh-vuc.json` → `canh_morph` — cộng thanh `tienDo`), vẽ trong `c.truoc` bằng `canh.dat(sl, vai, { i })`; thêm 2–3 khoảnh khắc morph kể chuyện (ảnh thu thành biểu tượng, số chia phần thành huy hiệu, ánh sáng di chuyển). Đổi phần lớn dùng `reveal`/`pan`; slide đầu `fadeBlack`. Không dùng chuyển trang cổ điển (lật 3D, cắt, hoà tan…). Mức của bối cảnh: tối thiểu/không hiệu ứng → chỉ `tienDo` hoặc không cảnh; trực tuyến → một motif, Morph ≤ 1400 ms.
+6. **Dựng file**: chạy script dựng — `applyEffects` → `embedFonts` (mọi họ phông đã dùng) → `save` ra .pptx + .ppsx — rồi mới sang Bước 7. Mỗi lần sửa ở Bước 7 thì sửa trong script dựng và dựng lại, không sửa tay trên file.
 
 ## Bước 7 — Tự kiểm tra (bắt buộc)
+Chạy theo thứ tự trên file vừa dựng: `kiem_tra_van_ban.py` → `kiem_tra_slide.py` → `kiem_tra_bo_cuc.py` → `kiem_tra_hieu_ung.py` → `xem_truoc_morph.py` → `validate.py` của skill pptx → render và xem ảnh. Có lỗi thì sửa script dựng, dựng lại và chạy lại từ đầu. Bản `_sua` do `kiem_tra_van_ban.py --sua` tạo chỉ để tham khảo cỡ chữ nên dùng; số liệu đó phải đưa ngược vào script dựng.
 - [ ] **Chính tả** tiếng Việt, dấu thanh, viết hoa tên riêng, địa danh; chữ **Đ** trong ký hiệu văn bản (BGDĐT, SGDĐT) — đặc biệt với Canva/Gamma.
 - [ ] **Xuống dòng**: không tách từ/cụm từ (số – đơn vị, ký hiệu – số, họ – tên), không mồ côi một từ ở dòng cuối tiêu đề/thẻ, không tràn khung.
 - [ ] **Cỡ chữ và mật độ** đúng `contexts.json`; chú thích ≥ 12pt.
@@ -90,16 +93,17 @@ Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một d
 - [ ] **Slide bắt buộc** của bối cảnh có đủ (slide chờ hội nghị, kiến nghị cho công sở…).
 - [ ] **Độ tập trung**: một điểm nhìn chính, ≥ 1 yếu tố thị giác, khoảng trắng đủ, chân trang không bị che.
 - [ ] **Nội dung**: số liệu khớp nguồn; đủ slide; có ghi chú diễn giả.
-- [ ] **Hiệu ứng**: ≤ 5 cú nhấp, đúng mạch nói, chuyển trang nhất quán; mọi tên trong PLAN tồn tại; hiệu ứng chờ đúng mức bối cảnh (nền ≤ 1 nhóm, nội dung ≤ 2 đối tượng); `validate.py` PASSED.
+- [ ] **Hiệu ứng (đọc lại bằng mắt)**: đúng mạch nói, ghi chú diễn giả có thứ tự cú nhấp, hiệu ứng chờ đúng mức bối cảnh (nền ≤ 1 nhóm, nội dung ≤ 2 đối tượng).
+- [ ] **Ảnh**: ảnh nội dung có mô tả (altText) và nguồn/tác giả trong ghi chú.
 - [ ] **Phông**: đúng nguyên tắc; mọi họ phông đã nhúng (PowerPoint).
 - [ ] PowerPoint: render từng slide (`installFontsForPreview` → soffice → pdftoppm), **xem từng ảnh**, ghép lưới để so; `validate.py` PASSED. Canva: đọc lại toàn bộ chữ bằng `read-design` và sửa lỗi theo `quy-trinh-canva.md`.
 Sửa đến khi đạt.
 
 ## Bước 8–9 — Bản xem trước và người dùng kiểm tra ⟲
-Gửi file/link kèm 1–2 câu và danh sách hiệu ứng chính. Cần sửa → quay lại Bước 6 (hoặc 3 nếu sửa nội dung lớn). Chế độ "làm luôn" → coi bản đã tự kiểm là bản cuối.
+Gửi file/link kèm 1–2 câu và danh sách hiệu ứng chính; với PowerPoint gửi kèm ảnh lưới các slide và `morph_tong.png` (xem trước Morph), nhắc rằng hiệu ứng thật chỉ thấy khi trình chiếu. Cần sửa → quay lại Bước 6 (hoặc 3 nếu sửa nội dung lớn). Chế độ "làm luôn" → coi bản đã tự kiểm là bản cuối.
 
 ## Bước 10 — Xuất và bàn giao
-- **PowerPoint**: `applyEffects` → `embedFonts` (mọi họ phông đã dùng) → `save` ra **.pptx + .ppsx**; thêm PDF khi bối cảnh yêu cầu; chiếu tự động thêm `setLoop`. Tên `Slide_<ChuDeKhongDau>_<ddmmyyyy>`; bản nâng cấp thêm hậu tố `_nang_cap`, không ghi đè bản gốc.
+- **PowerPoint**: bàn giao bản đã dựng ở Bước 6 và qua Bước 7 (**.pptx + .ppsx**); thêm PDF khi bối cảnh yêu cầu; chiếu tự động thêm `setLoop`. Tên `Slide_<ChuDeKhongDau>_<ddmmyyyy>`; bản nâng cấp thêm hậu tố `_nang_cap`, không ghi đè bản gốc.
 - **Canva/Gamma**: link chỉnh sửa + link tải (ghi thời hạn), xem tài liệu tương ứng.
 - Gửi file bằng SendUserFile. Nội dung bàn giao, ngắn gọn:
   - số slide, phong cách, cặp phông;
@@ -107,10 +111,10 @@ Gửi file/link kèm 1–2 câu và danh sách hiệu ứng chính. Cần sửa 
   - những gì đã tự quyết;
   - giới hạn còn lại (ví dụ khung bảng nằm trong ảnh nền);
   - lỗi phát hiện trong tài liệu nguồn.
-- Nhắc người dùng hai điều: Morph cần PowerPoint 2019/365; khi sửa và lưu lại trong PowerPoint thì giữ tuỳ chọn *Embed fonts in the file*.
+- Nhắc người dùng ba điều: hiệu ứng và Morph chỉ chạy ở chế độ trình chiếu PowerPoint (Morph cần 2019/365, bản cũ tự lùi về mờ dần; Google Slides/Keynote không chạy); khi sửa và lưu lại thì giữ tuỳ chọn *Embed fonts in the file*; muốn thêm slide thì giữ tên đối tượng `!!…` của cảnh morph.
 
 ## Những điều tránh
-- Gạch chân/đường kẻ dưới tiêu đề; dải màu trang trí chạy dọc/ngang mép slide.
+- Gạch chân/đường kẻ dưới tiêu đề; dải màu trang trí đứng yên chạy dọc/ngang mép slide (thanh tiến độ mảnh và băng màu của cảnh morph là ngoại lệ vì chúng chuyển động theo bài).
 - Biểu tượng/emoji trước đoạn văn và tiêu đề thẻ; biểu tượng trong vòng tròn; vòng "VS".
 - Chữ sáng cùng tông với nền đậm (chữ xanh nhạt trên nền xanh đậm); hai màu đối nhau trong cùng bài (lam–cam, đỏ–lục, vàng–tím).
 - Dùng logo, màu, hoạ tiết của một đơn vị khi người dùng không yêu cầu.
@@ -118,5 +122,5 @@ Gửi file/link kèm 1–2 câu và danh sách hiệu ứng chính. Cần sửa 
 - Phông Be Vietnam Pro.
 - Căn giữa đoạn văn nội dung (chỉ căn giữa tiêu đề, bìa, slide số liệu).
 - Phông trang trí trong bài chính quy; quá 3 họ phông.
-- Hiệu ứng không theo mạch nói; đổi kiểu chuyển trang ở mọi slide.
+- Hiệu ứng không theo mạch nói; đổi kiểu chuyển trang ở mọi slide; chuyển trang cổ điển; mục "After Previous" xếp sau hiệu ứng chờ lặp vô hạn (dùng `hieu_ung.js`, đừng sửa tay timing).
 - Bịa trích dẫn, số liệu, văn bản pháp quy; tự sửa nội dung văn bản gốc của người dùng (chỉ báo lỗi).

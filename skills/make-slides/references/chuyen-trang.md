@@ -46,6 +46,15 @@ Ngoài cảnh trang trí, mỗi bài nên có 2–3 khoảnh khắc morph **mang
 - **Số chia phần → huy hiệu**: `L.chiaPhan(pres, S, { num: 2, soMorph: true, ... })` rồi ở slide nội dung đầu phần `truoc: (sl) => CT.soPhan(sl, S, 2)` — số lớn co lại, bay lên góc phải thành huy hiệu.
 - **Chữ trượt**: hai slide liên tiếp có tiêu đề gần giống nhau → `CT.MORPH_TU`, các từ chung trượt về chỗ mới.
 
+### Theo mức hiệu ứng của bối cảnh
+| Mức | Cảnh morph |
+|---|---|
+| phong phú | 1–2 motif + `tienDo`, 2–3 khoảnh khắc kể chuyện |
+| vừa phải, tiết chế | 1 motif nhẹ (`quyDao` hoặc `tienDo`), Morph 1400–1600 ms |
+| nhẹ (trực tuyến) | 1 motif, Morph ≤ 1400 ms, không `chuNen` (chữ lớn mờ dễ vỡ hình khi truyền) |
+| tối thiểu (bảo vệ đồ án), không | chỉ `tienDo` hoặc không cảnh; Morph cho sơ đồ cần biến đổi |
+| tự động | như phong phú, thời gian tự chuyển ≥ Morph + 3 s |
+
 ### Quy tắc
 1. Đối tượng `!!…` **không gắn hiệu ứng mở đầu** ở slide đích (sẽ biến mất rồi hiện lại). Bố cục tự bỏ hiệu ứng mở đầu của ảnh khi ảnh mang tên `!!`.
 2. Cảnh nằm **trên texture, dưới nội dung** (vẽ trong `c.truoc`); khối trang trí trong suốt 80–95% để chữ vẫn đạt tương phản.

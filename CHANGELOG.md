@@ -2,6 +2,10 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## Chưa phát hành
+- Quy trình: thêm bước dựng file trước tự kiểm tra, thứ tự chạy các script kiểm tra, vai slide và cảnh morph trong dàn ý, xem trước Morph khi gửi bản duyệt, lời nhắc khi bàn giao.
+- Cảnh morph theo mức hiệu ứng của bối cảnh; bổ sung phụ thuộc Python cho các script kiểm tra.
+
 ## 0.14.0-beta.1
 **Sửa lỗi**
 - Một số thành phần không hiện khi trình chiếu (tiêu đề, phụ đề ở bìa; câu hỏi; chữ ở slide kết): PowerPoint chạy mục "After Previous" sau khi mục đứng trước kết thúc, mà hiệu ứng chờ lặp vô hạn không bao giờ kết thúc. Nhóm nhấp có hiệu ứng chờ nay được dựng thành danh sách With Previous với độ trễ tuyệt đối, hiệu ứng chờ luôn xếp cuối.
