@@ -1,9 +1,9 @@
 {
   "name": "slidewright-studio",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "SlideWright - Studio — Bộ công cụ trình chiếu tổng hợp bằng tiếng Việt: tạo mới, nâng cấp, chuyển PDF thành PowerPoint giữ nguyên bản gốc; xuất PowerPoint (.pptx/.ppsx), Gamma hoặc Canva.",
   "author": {
-    "name": "nguyenhuuai.ag"
+    "name": "TheGleam89"
   },
   "homepage": "https://github.com/NexoZegknost/SlideWright-Studio",
   "repository": "https://github.com/NexoZegknost/SlideWright-Studio",

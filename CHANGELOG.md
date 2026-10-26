@@ -2,7 +2,7 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
-## Chưa phát hành
+## 0.14.1
 - Bộ nhận diện SlideWright - Studio trong `assets/branding/`: logo nền sáng và nền tối (SVG, PNG 512 px và 128 px), ảnh xem trước kho GitHub 1280×640.
 - README hiển thị logo theo chế độ sáng/tối của GitHub; manifest plugin bổ sung `homepage` và `repository`.
 
