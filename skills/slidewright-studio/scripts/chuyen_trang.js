@@ -1,4 +1,4 @@
-// chuyen_trang.js — bộ chuyển trang của makeSlides: Morph là chủ đạo, kèm vài chuyển trang lướt hiện đại để hoà nhịp.
+// chuyen_trang.js — bộ chuyển trang của SlideWright - Studio: Morph là chủ đạo, kèm vài chuyển trang lướt hiện đại để hoà nhịp.
 // Không dùng chuyển trang cổ điển (lật 3D, cắt, hoà tan nhoè hạt, ô cờ, rèm sáo, xoáy…) — scripts/kiem_tra_hieu_ung.py cảnh báo nếu gặp.
 //
 // Hai phần:

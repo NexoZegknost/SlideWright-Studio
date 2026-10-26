@@ -1,11 +1,11 @@
 ---
-name: make-slides
-description: Bộ công cụ trình chiếu tổng hợp duy nhất — tạo mới bài thuyết trình ấn tượng (bài giảng, báo cáo hội nghị, kế hoạch, tập huấn, lễ kỷ niệm, sự kiện…) từ chủ đề, dàn ý, văn bản hoặc tài liệu đính kèm (PDF, Word, ảnh, link); nâng cấp/thiết kế lại bài trình chiếu có sẵn (.pptx, Gamma, Canva); chuyển PDF bài trình chiếu thành PowerPoint giữ nguyên bản gốc (hình nền, phông, cỡ, màu chữ, hình ảnh) kèm hiệu ứng. Đầu ra PowerPoint (.pptx + .ppsx, hiệu ứng, Morph, phông tiếng Việt nhúng sẵn), Gamma hoặc Canva. LUÔN dùng skill này khi người dùng nhắc "makeSlides", "tạo slide", "làm bài thuyết trình", "làm powerpoint", "slide báo cáo", "slide bài giảng", "trình chiếu", "slide-pptx", "slide-gamma", "slide-canva", "nâng cấp slide", "làm đẹp slide", "thiết kế lại slide", "chuyển PDF sang PowerPoint", "chuyển file này thành slide", hoặc muốn biến báo cáo/kế hoạch/dự thảo thành slide — kể cả khi không nói từ "skill".
+name: slidewright-studio
+description: Bộ công cụ trình chiếu tổng hợp duy nhất — tạo mới bài thuyết trình ấn tượng (bài giảng, báo cáo hội nghị, kế hoạch, tập huấn, lễ kỷ niệm, sự kiện…) từ chủ đề, dàn ý, văn bản hoặc tài liệu đính kèm (PDF, Word, ảnh, link); nâng cấp/thiết kế lại bài trình chiếu có sẵn (.pptx, Gamma, Canva); chuyển PDF bài trình chiếu thành PowerPoint giữ nguyên bản gốc (hình nền, phông, cỡ, màu chữ, hình ảnh) kèm hiệu ứng. Đầu ra PowerPoint (.pptx + .ppsx, hiệu ứng, Morph, phông tiếng Việt nhúng sẵn), Gamma hoặc Canva. LUÔN dùng skill này khi người dùng nhắc "SlideWright", "SlideWright - Studio", "makeSlides" (tên cũ), "tạo slide", "làm bài thuyết trình", "làm powerpoint", "slide báo cáo", "slide bài giảng", "trình chiếu", "slide-pptx", "slide-gamma", "slide-canva", "nâng cấp slide", "làm đẹp slide", "thiết kế lại slide", "chuyển PDF sang PowerPoint", "chuyển file này thành slide", hoặc muốn biến báo cáo/kế hoạch/dự thảo thành slide — kể cả khi không nói từ "skill".
 ---
 
-# makeSlides — Bộ công cụ trình chiếu tổng hợp
+# SlideWright - Studio — Bộ công cụ trình chiếu tổng hợp
 
-Mục tiêu: bộ slide **có thông điệp rõ, bố cục đa dạng, màu có chủ đích, chữ ít mà đắt, hiệu ứng theo mạch nói**, dùng được ngay. Viết **tiếng Việt chuẩn, đủ dấu**, văn phong hợp bối cảnh. Đường dẫn `references/`, `scripts/`, `assets/` tính từ thư mục skill này (`${CLAUDE_PLUGIN_ROOT}/skills/make-slides/`; không có biến thì `find / -path "*make-slides/scripts/makeslides.js" 2>/dev/null | head -1`).
+Mục tiêu: bộ slide **có thông điệp rõ, bố cục đa dạng, màu có chủ đích, chữ ít mà đắt, hiệu ứng theo mạch nói**, dùng được ngay. Viết **tiếng Việt chuẩn, đủ dấu**, văn phong hợp bối cảnh. Đường dẫn `references/`, `scripts/`, `assets/` tính từ thư mục skill này (`${CLAUDE_PLUGIN_ROOT}/skills/slidewright-studio/`; không có biến thì `find / -path "*slidewright-studio/scripts/makeslides.js" 2>/dev/null | head -1`).
 
 Tạo danh sách công việc (task list) theo các bước để người dùng theo dõi.
 

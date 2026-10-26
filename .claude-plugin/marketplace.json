@@ -3,9 +3,9 @@
   "owner": { "name": "NexoZegknost" },
   "plugins": [
     {
-      "name": "make-slides",
+      "name": "slidewright-studio",
       "source": "./",
-      "description": "makeSlides — tạo, nâng cấp, chuyển PDF thành bài trình chiếu tiếng Việt (PowerPoint .pptx/.ppsx, Gamma, Canva), có hiệu ứng, Morph, phông nhúng sẵn."
+      "description": "SlideWright - Studio — tạo, nâng cấp, chuyển PDF thành bài trình chiếu tiếng Việt (PowerPoint .pptx/.ppsx, Gamma, Canva), có hiệu ứng, Morph, phông nhúng sẵn."
     }
   ]
 }

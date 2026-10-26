@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""kiem_tra_slide.py — tự kiểm tra một tệp .pptx của makeSlides trước khi bàn giao.
+"""kiem_tra_slide.py — tự kiểm tra một tệp .pptx của SlideWright - Studio trước khi bàn giao.
 
 Ba nhóm kiểm tra:
   1. MÀU   — tương phản chữ/nền (WCAG 4.5:1, chữ lớn 3:1), chữ sáng cùng tông với nền đậm

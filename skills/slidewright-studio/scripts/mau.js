@@ -1,4 +1,4 @@
-// mau.js — màu sắc cho makeSlides: chuyển đổi OKLCH, tương phản, kiểm tra phối màu, tạo bảng màu theo luật hài hoà.
+// mau.js — màu sắc cho SlideWright - Studio: chuyển đổi OKLCH, tương phản, kiểm tra phối màu, tạo bảng màu theo luật hài hoà.
 // Quy tắc: references/phoi-mau.md
 //
 //   const C = require("./mau.js");

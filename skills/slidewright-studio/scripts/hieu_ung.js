@@ -1,4 +1,4 @@
-// hieu_ung.js — thư viện hiệu ứng động (animation) của makeSlides, viết thẳng XML <p:timing> của PowerPoint.
+// hieu_ung.js — thư viện hiệu ứng động (animation) của SlideWright - Studio, viết thẳng XML <p:timing> của PowerPoint.
 // Bốn nhóm, đúng như khung Animation của PowerPoint:
 //   MO_DAU   (Entrance, xanh lá)  — đối tượng xuất hiện
 //   NHAN_MANH (Emphasis, vàng)    — đối tượng đang có trên slide được làm nổi lên khi người nói nhấp

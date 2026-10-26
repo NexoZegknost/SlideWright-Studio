@@ -145,7 +145,7 @@ function apDung(pa) {
   S.dinhHuong = { boCuc: pa.boCuc, trinhBay: pa.trinhBay, hieuUng: pa.hieuUng, tyLeNenToi: pa.tyLeNenToi };
   LAY.setCurrent && LAY.setCurrent(S);
   const w = LAY.checkPalette(S);
-  if (w.length) console.warn("[makeSlides] Bảng màu định hướng cần xem lại:\n  - " + w.join("\n  - "));
+  if (w.length) console.warn("[SlideWright] Bảng màu định hướng cần xem lại:\n  - " + w.join("\n  - "));
   return S;
 }
 

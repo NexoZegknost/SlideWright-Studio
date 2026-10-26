@@ -4,7 +4,7 @@
 - Nếu môi trường có skill `pptx` (`anthropic-skills:pptx` hoặc `pptx`), **đọc SKILL.md của nó trước** và tuân thủ các lưu ý pptxgenjs, kiểm tra, render. Tài liệu này bổ sung, không thay thế.
 - Cài phụ thuộc trong thư mục làm việc: `npm install fonteditor-core jszip mathjax-full@3 mathml2omml sharp opentype.js@1.3.4`; các script kiểm tra: `pip install pyvi pymupdf python-pptx pillow --break-system-packages` (pyvi tách từ ghép để không xuống dòng giữa từ; pymupdf cho kiểm tra bố cục; python-pptx cho xem trước Morph); cần LibreOffice và pdftoppm để render (pptxgenjs thường có sẵn; thiếu thì `npm install pptxgenjs`). Chạy script với `NODE_PATH=$PWD/node_modules:$(npm root -g)` (react, react-icons, sharp thường cài toàn cục).
 - Thư viện bố cục: `scripts/layouts.js` (xem `bo-cuc.md`) — ưu tiên dùng thay vì tự đặt toạ độ.
-- Thư viện của plugin: `${CLAUDE_PLUGIN_ROOT}/skills/make-slides/scripts/makeslides.js` (`applyEffects`, `embedFonts`, `save`, `installFontsForPreview`). Nếu biến `CLAUDE_PLUGIN_ROOT` không có, tìm tệp bằng `find / -path "*make-slides/scripts/makeslides.js" 2>/dev/null | head -1`.
+- Thư viện của plugin: `${CLAUDE_PLUGIN_ROOT}/skills/slidewright-studio/scripts/makeslides.js` (`applyEffects`, `embedFonts`, `save`, `installFontsForPreview`). Nếu biến `CLAUDE_PLUGIN_ROOT` không có, tìm tệp bằng `find / -path "*slidewright-studio/scripts/makeslides.js" 2>/dev/null | head -1`.
 
 ## 1. Dựng bằng pptxgenjs (bộ slide có cấu trúc)
 - `pres.layout = "LAYOUT_16x9"` (10" × 5,625") đặt **trước** khi thêm slide.
