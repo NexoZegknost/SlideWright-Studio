@@ -1,0 +1,22 @@
+{
+ "_ghi_chu": "Phân loại họ phông của gói cho kiem_soat_van_ban.py. loai: serif | sans | mono | trung-bay | trang-tri. Thêm phông mới vào files.json thì thêm cả vào đây. min_pt / max_tu: giới hạn khi dùng phông trang trí; khong_so: không dùng cho con số; khong_doan: không dùng cho đoạn văn dài; khong_hoa: không viết HOA toàn bộ.",
+ "Noto Serif Display": {"loai": "serif"},
+ "Playfair Display": {"loai": "serif", "khong_so": true},
+ "Lora": {"loai": "serif"},
+ "Noto Serif": {"loai": "serif"},
+ "Montserrat": {"loai": "sans"},
+ "Lexend": {"loai": "sans"},
+ "Bricolage Grotesque": {"loai": "sans"},
+ "Nunito": {"loai": "sans"},
+ "Montserrat Alternates": {"loai": "sans", "ban_chinh_quy": true},
+ "Space Mono": {"loai": "mono", "khong_doan": true},
+ "Rowdies": {"loai": "trung-bay", "ban_chinh_quy": true, "khong_doan": true},
+ "Baloo 2": {"loai": "trung-bay", "ban_chinh_quy": true, "khong_doan": true},
+ "Dancing Script": {"loai": "trang-tri", "min_pt": 32, "max_tu": 8, "khong_so": true, "khong_hoa": true},
+ "Pangolin": {"loai": "trang-tri", "min_pt": 24, "max_tu": 12, "khong_so": true, "khong_hoa": true},
+ "Great Vibes": {"loai": "trang-tri", "min_pt": 32, "max_tu": 8, "khong_so": true, "khong_hoa": true},
+ "Allura": {"loai": "trang-tri", "min_pt": 32, "max_tu": 8, "khong_so": true, "khong_hoa": true},
+ "Style Script": {"loai": "trang-tri", "min_pt": 32, "max_tu": 8, "khong_so": true, "khong_hoa": true},
+ "Beau Rivage": {"loai": "trang-tri", "min_pt": 48, "max_tu": 3, "khong_so": true, "khong_hoa": true},
+ "WindSong": {"loai": "trang-tri", "min_pt": 48, "max_tu": 3, "khong_so": true, "khong_hoa": true}
+}

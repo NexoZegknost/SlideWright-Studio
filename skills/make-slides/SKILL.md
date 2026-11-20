@@ -78,8 +78,9 @@ Mục 3–5 dưới đây chỉ áp dụng cho PowerPoint; Canva/Gamma tự xử
 6. **Dựng file**: chạy script dựng — `applyEffects` → `embedFonts` (mọi họ phông đã dùng) → `save` ra .pptx + .ppsx — rồi mới sang Bước 7. Mỗi lần sửa ở Bước 7 thì sửa trong script dựng và dựng lại, không sửa tay trên file.
 
 ## Bước 7 — Tự kiểm tra (bắt buộc)
-Chạy theo thứ tự trên file vừa dựng: `kiem_tra_van_ban.py` → `kiem_tra_slide.py` → `kiem_tra_bo_cuc.py` → `kiem_tra_hieu_ung.py` → `xem_truoc_morph.py` → `validate.py` của skill pptx → render và xem ảnh. Có lỗi thì sửa script dựng, dựng lại và chạy lại từ đầu. Bản `_sua` do `kiem_tra_van_ban.py --sua` tạo chỉ để tham khảo cỡ chữ nên dùng; số liệu đó phải đưa ngược vào script dựng.
-- [ ] **Chính tả** tiếng Việt, dấu thanh, viết hoa tên riêng, địa danh; chữ **Đ** trong ký hiệu văn bản (BGDĐT, SGDĐT) — đặc biệt với Canva/Gamma.
+Chạy theo thứ tự trên file vừa dựng: `kiem_soat_van_ban.py --day-du --hien-thi` (module kiểm soát văn bản, gộp sẵn `kiem_tra_van_ban.py` và `kiem_tra_slide.py`) → `kiem_tra_bo_cuc.py` → `kiem_tra_hieu_ung.py` → `xem_truoc_morph.py` → `validate.py` của skill pptx → render và xem ảnh. Có lỗi thì sửa script dựng, dựng lại và chạy lại từ đầu. Bản `_sua` do `--sua` tạo chỉ để tham khảo (cỡ chữ nên dùng, chỗ ngắt dòng); các thay đổi đó phải đưa ngược vào script dựng.
+- [ ] **Kiểm soát văn bản**: `python3 scripts/kiem_soat_van_ban.py <file>.pptx --phong-cach <khoá> (hoặc --muc chinh-quy|ban-chinh-quy|kieu-cach) --boi-canh <khoá> --hien-thi --day-du` → hết **LỖI**, xem từng **CẢNH BÁO** theo `references/kiem-soat-van-ban.md`: phông (chưa nhúng, thiếu ký tự, đậm/nghiêng giả, phông trang trí sai chỗ, quá 3 họ), mã chữ (NFD, ký tự ẩn, TCVN3, Ð), chính tả âm tiết (dấu sai vị trí, sai luật c/k – g/gh – ng/ngh, lẫn hoà/hòa), dấu câu và khoảng trắng, viết hoa tên cơ quan, hiển thị (tự co chữ, chữ < 12pt, ra ngoài slide, hiệu ứng chữ, mã ngôn ngữ vi-VN), dựng thử (phông bị thay).
+- [ ] **Chính tả** tiếng Việt, dấu thanh, viết hoa tên riêng, địa danh; chữ **Đ** trong ký hiệu văn bản (BGDĐT, SGDĐT) — đặc biệt với Canva/Gamma (tải bản PPTX rồi chạy `kiem_soat_van_ban.py --chi ma-chu,chinh-ta,dau-cau,viet-hoa`). Module không tra từ điển: vẫn đọc lại để bắt từ đúng cấu tạo nhưng sai nghĩa.
 - [ ] **Xuống dòng**: không tách từ/cụm từ (số – đơn vị, ký hiệu – số, họ – tên), không mồ côi một từ ở dòng cuối tiêu đề/thẻ, không tràn khung.
 - [ ] **Cỡ chữ và mật độ** đúng `contexts.json`; chú thích ≥ 12pt.
 - [ ] **Script tự kiểm**: `python3 scripts/kiem_tra_slide.py <file>.pptx` → hết **LỖI**; xem và xử lý từng **CẢNH BÁO**:
@@ -95,7 +96,7 @@ Chạy theo thứ tự trên file vừa dựng: `kiem_tra_van_ban.py` → `kiem_
 - [ ] **Nội dung**: số liệu khớp nguồn; đủ slide; có ghi chú diễn giả.
 - [ ] **Hiệu ứng (đọc lại bằng mắt)**: đúng mạch nói, ghi chú diễn giả có thứ tự cú nhấp, hiệu ứng chờ đúng mức bối cảnh (nền ≤ 1 nhóm, nội dung ≤ 2 đối tượng).
 - [ ] **Ảnh**: ảnh nội dung có mô tả (altText) và nguồn/tác giả trong ghi chú.
-- [ ] **Phông**: đúng nguyên tắc; mọi họ phông đã nhúng (PowerPoint).
+- [ ] **Phông**: đúng nguyên tắc; mọi họ phông đã nhúng (PowerPoint) — `kiem_soat_van_ban.py` nhóm *phông* và *dựng thử* hết LỖI.
 - [ ] PowerPoint: render từng slide (`installFontsForPreview` → soffice → pdftoppm), **xem từng ảnh**, ghép lưới để so; `validate.py` PASSED. Canva: đọc lại toàn bộ chữ bằng `read-design` và sửa lỗi theo `quy-trinh-canva.md`.
 Sửa đến khi đạt.
 

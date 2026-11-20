@@ -2,6 +2,18 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## 0.15.0
+- Thêm module kiểm soát văn bản toàn diện `scripts/kiem_soat_van_ban.py` (tài liệu: `references/kiem-soat-van-ban.md`), gồm bảy nhóm:
+  - **phông**: phông bị loại hoặc mã cũ, phông chưa nhúng, phông thiếu ký tự (đọc bảng mã), đậm/nghiêng giả, quá 3 họ phông, phông trang trí sai chỗ hoặc trong bài chính quy, phông ngoài cặp phông của phong cách;
+  - **mã chữ**: Unicode tổ hợp (NFD), ký tự ẩn, ký tự hỏng, chữ TCVN3, Ð thay Đ, ký hiệu văn bản thiếu Đ;
+  - **chính tả**: phân tích âm tiết tiếng Việt (vần không hợp lệ, dấu sai vị trí, vần tắc sai dấu, luật c/k – g/gh – ng/ngh), lẫn kiểu bỏ dấu cũ/mới, lặp hư từ, Markdown/LaTeX hoặc chữ giữ chỗ còn sót;
+  - **dấu câu, viết hoa**: khoảng trắng, ngoặc lệch cặp, gạch đầu dòng gõ tay, tiêu đề có dấu chấm, chữ HOA toàn bộ, Viết Hoa Mỗi Chữ, tên cơ quan viết hoa sai hoặc chỉ có dạng viết tắt;
+  - **hiển thị**: Tự co chữ, chữ < 12pt, chữ ra ngoài slide, chữ không xuống dòng tràn khung, chữ xoay/dọc/WordArt, hiệu ứng chữ, gạch chân, liên kết hỏng, mã ngôn ngữ vi-VN, chữ biểu đồ/bảng nhỏ, ghi chú diễn giả;
+  - **dựng thử** (`--hien-thi`): dựng bằng LibreOffice, đọc phông thật của từng đoạn chữ để phát hiện phông bị thay và chữ rơi sang phông dự phòng.
+- `--day-du` gộp `kiem_tra_van_ban.py` và `kiem_tra_slide.py` vào một báo cáo; `--sua` tự sửa phần không đổi câu chữ (NFC, ký tự ẩn, khoảng trắng, phông bị loại, vi-VN), đi cùng `--day-du` thì chạy luôn phần tự sửa cỡ chữ và xuống dòng.
+- Thêm `assets/fonts/phan-loai.json` (phân loại họ phông và giới hạn dùng phông trang trí).
+- Bước 7 của quy trình chạy module này đầu tiên; nhánh nâng cấp dùng nó để chẩn đoán lỗi chữ của bài gốc.
+
 ## 0.14.3
 - Thêm quy trình phát hành tự động bằng GitHub Actions (`.github/workflows/release.yml`): đẩy commit có tiêu đề bắt đầu bằng `chore(release):` thì tự tạo tag `vX.Y.Z`, đóng gói tệp `.plugin` và đăng bản phát hành lên mục Releases, ghi chú lấy từ mục tương ứng trong CHANGELOG.
 - Số phiên bản có hậu tố (ví dụ `-beta.1`) tự được đánh dấu là bản thử nghiệm.
