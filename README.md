@@ -18,6 +18,7 @@ Phiên bản hiện tại: **0.14.3** · [Lịch sử thay đổi](CHANGELOG.md)
 - **Phong cách theo đề tài và bối cảnh trình bày:** Claude đề xuất 3 phương án về màu, phông, texture, bố cục để bạn chọn.
 - **Hiệu ứng và chuyển trang Morph:** hiệu ứng đủ bốn nhóm, cảnh morph xuyên suốt bài.
 - **Chữ tiếng Việt chuẩn:** phông đủ dấu nhúng sẵn trong file, công thức là khối Equation gốc của PowerPoint.
+- **Kiểm soát văn bản toàn diện:** phông (nhúng, thiếu ký tự, đậm/nghiêng giả), mã chữ (NFD, TCVN3, ký tự ẩn), chính tả âm tiết tiếng Việt, dấu câu, viết hoa tên cơ quan, chữ hiển thị thật khi dựng; tự sửa phần không đổi câu chữ.
 - **Tự kiểm tra trước khi bàn giao:** cỡ chữ, lượng chữ, xuống dòng, tràn khung, tương phản, phối màu và dấu hiệu slide do AI làm.
 
 ## Cài đặt
