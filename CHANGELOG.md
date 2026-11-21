@@ -9,17 +9,17 @@ Bản ổn định đầu tiên. Nhánh Canva được làm lại hoàn chỉnh:
   - cách viết bản yêu cầu và dàn ý để Canva không bỏ qua màu, không chép nhãn nội bộ, không tự thêm nội dung;
   - đọc thiết kế có cấu trúc (tránh báo nhầm dính chữ), lấy ảnh trang thật mà không làm đổi khung chữ, bảng quy đổi px ↔ pt;
   - quy tắc sửa đối tượng (lề, căn chân chữ, khung chữ, vạch trang trí, ảnh), văn bản (cỡ, lượng chữ, độ đục, màu, viết hoa, ghi chú diễn giả) và phông;
-  - bảng hiệu ứng đề xuất để người dùng đặt trong Canva (Chuyển động, Match and move);
+  - nhánh Canva chỉ thiết kế tĩnh: công cụ Canva không đặt được hiệu ứng, cần hiệu ứng thì làm bản PowerPoint;
   - lưu một lần sau khi người dùng đồng ý; bàn giao link chỉnh sửa.
 - Thêm `scripts/kiem_tra_canva.py`: kiểm tra thiết kế Canva từ dữ liệu `read-design` — cỡ chữ quy ra pt, lượng chữ, chữ đè chữ, khối chữ quá sát, khung hẹp hơn chữ, hộp ghép một dòng lệch chân chữ, lề lệch, chữ sát mép, chữ mờ/xoay, màu ngoài bảng màu và cặp màu đối nhau, nhãn nội bộ và câu tự thêm so với dàn ý, chính tả/dấu câu/viết hoa theo từng hộp chữ; mỗi mục kèm `locator_id` và giá trị gợi ý.
-- SKILL.md: Canva bàn giao link + bảng hiệu ứng; Bước 7 kiểm tra Canva bằng script mới.
+- SKILL.md: Canva bàn giao link chỉnh sửa (không hiệu ứng, không xuất tệp); Bước 7 kiểm tra Canva bằng script mới.
 - Bổ sung sau lần thử bộ slide tiếng Nhật (màu hồng pastel):
   - phát hiện phông dùng chung cho chữ Nhật/Trung và chữ Việt (mất dấu tiếng Việt, chữ Hán ra ô vuông) và quy trình tạo lại hộp chữ để khôi phục dấu;
   - bắt chữ sai dấu so với dàn ý ("tiêng" → "tiếng", "nãm" → "năm");
   - cảnh báo dòng có thể ngắt thêm khi tăng cỡ chữ mà không nới khung; chữ trang trí (mờ, xoay) không bị tính lỗi cỡ chữ mà nhắc kiểm tra chính tả và tên sách/thương hiệu thật;
-  - bản yêu cầu cho bài có chữ nước ngoài: chữ Việt phải dùng phông đủ dấu.
-  - phông chữ Nhật chỉ có một phần dấu tiếng Việt làm chữ to nhỏ lệch ("ế" to hơn): tạo lại toàn bộ hộp chữ Việt dùng phông đó, không chờ ảnh;
-  - nói rõ công cụ Canva không đặt được hiệu ứng, đưa ba lựa chọn: Chuyển động/Magic Animate trong Canva, đặt theo bảng đề xuất, hoặc làm bản PowerPoint.
+  - bản yêu cầu cho bài có chữ nước ngoài: chữ Việt phải dùng phông đủ dấu;
+  - phông chữ Nhật chỉ có một phần dấu tiếng Việt làm chữ to nhỏ lệch ("ế" to hơn): tạo lại toàn bộ hộp chữ Việt dùng phông đó, không chờ ảnh.
+- Thêm mô tả cho marketplace; sơ đồ quy trình ghi đúng nhánh Canva chỉ bàn giao link chỉnh sửa.
 
 ## 0.15.1
 - Thêm `displayName` (SlideWright - Studio) và `icon` (assets/branding/logo.png) vào `plugin.json`, để plugin cài từ marketplace hiện đúng tên và logo.

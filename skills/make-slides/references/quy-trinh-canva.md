@@ -21,7 +21,7 @@ Cần kết nối **Canva**. Tìm công cụ qua ToolSearch ("canva"). Không c�
 | Thay hoặc chèn ảnh | Có, cần `asset_id` | ảnh tải lên Canva (`upload-asset-from-url`) hoặc ảnh Canva AI tạo (`generate-image`) |
 | Ghi chú diễn giả | Có | `replace_speaker_notes` |
 | **Đổi phông chữ** | **Không** | Chọn phông qua bản yêu cầu. Phông thiếu dấu tiếng Việt: tạo lại hộp chữ (mục 6). Phông chỉ sai kiểu: dựng lại hoặc nhờ người dùng đổi trong Canva |
-| **Hiệu ứng, chuyển trang** | **Không** | Soạn bảng hiệu ứng đề xuất để người dùng làm trong Canva (mục 7) |
+| **Hiệu ứng, chuyển trang** | **Không** | Nhánh Canva không làm hiệu ứng (mục 7) |
 | Đổi màu ảnh nền | Không | Ảnh nền sai tông thì thay ảnh (`update_fill`) hoặc dựng lại |
 
 ## 2. Viết bản yêu cầu và dàn ý (quyết định 80% chất lượng)
@@ -102,7 +102,7 @@ Một phiên sửa cho cả bộ. Sửa **từng trang**, mỗi lần `edit-desi
 - Màu nhấn của chữ (số liệu, từ khoá) đổi về bảng màu bằng `format_text` → `color`.
 - Viết hoa: sửa chữ gốc dù phông đang hiển thị HOA toàn bộ (đổi phông sẽ lộ lỗi). Tên cơ quan viết đầy đủ, đúng hoa ("Sở Giáo dục và Đào tạo").
 - Đoạn nội dung căn trái; chỉ căn giữa tiêu đề bìa, slide số liệu lớn.
-- Ghi chú diễn giả 3–5 câu/slide có thứ tự cú nhấp, kèm bảng hiệu ứng nếu có (`replace_speaker_notes`).
+- Ghi chú diễn giả 3–5 câu/slide (`replace_speaker_notes`).
 
 **Phông**: không đổi được qua công cụ.
 - **Phông thiếu dấu tiếng Việt → tạo lại hộp chữ** (đã kiểm chứng). Khi script báo một phông vừa hiện chữ Nhật/Trung vừa hiện chữ Việt, tạo lại **tất cả** hộp chữ Việt dùng phông đó, kể cả hộp trông có vẻ đủ dấu: phông chỉ có một phần dấu tiếng Việt, ký tự thiếu được lấy từ phông dự phòng nên to nhỏ, đậm nhạt lệch ("ế" to hơn các chữ khác), và ảnh thu nhỏ không cho thấy. Làm cả bộ để mọi chữ Việt dùng chung một phông:
@@ -115,25 +115,8 @@ Một phiên sửa cho cả bộ. Sửa **từng trang**, mỗi lần `edit-desi
 
 Sửa xong: đọc lại có cấu trúc, chạy lại script đến khi hết LỖI, xem ảnh mọi trang đã sửa.
 
-## 7. Hiệu ứng (công cụ không đặt được, phải nói rõ với người dùng)
-Công cụ Canva hiện có **không có lệnh nào** đặt hiệu ứng đối tượng hay chuyển trang. Thiết kế bàn giao vì vậy **chưa có hiệu ứng**. Phải nói rõ điều này ngay khi nhận yêu cầu có hiệu ứng (không để người dùng tự phát hiện), và đưa ba lựa chọn:
-1. **Người dùng bấm một lần trong Canva:** chọn trang → **Chuyển động** → các kiểu hoạt ảnh trang có sẵn hoặc Magic Animate (tạo hoạt ảnh cho cả bộ) → áp dụng cho tất cả trang. Nhanh, nhưng hiệu ứng do Canva chọn.
-2. **Người dùng đặt theo bảng hiệu ứng đề xuất** (bên dưới): chọn từng đối tượng → **Chuyển động** → chọn hiệu ứng; chuyển trang thì bấm vào khoảng giữa hai trang ở thanh trang bên dưới → chọn kiểu chuyển cảnh.
-3. **Làm bản PowerPoint** bằng nhánh PowerPoint của plugin: hiệu ứng theo mạch nói, Morph, đặt tự động.
-
-Tên trong giao diện tiếng Việt của Canva có thể khác tên tiếng Anh trong bảng.
-
-Bảng hiệu ứng đề xuất soạn theo `references/hieu-ung.md` và mức của bối cảnh:
-
-| Trang | Đối tượng | Hiệu ứng xuất hiện | Thứ tự | Chuyển sang trang sau |
-|---|---|---|---|---|
-| 1 | Tiêu đề / dòng phụ | Rise / Fade | 1 / 2 | Match and move |
-| 3 | Số "13" → ba dòng năm học | Pop / Rise lần lượt | 1 → 4 | Match and move |
-
-Nguyên tắc:
-- Thứ tự xuất hiện = thứ tự nói; ≤ 5 bước mỗi trang; chữ nội dung dùng hiệu ứng nhẹ (Fade, Rise, Pan), không dùng hiệu ứng nhảy/rung cho bài chính quy.
-- Một kiểu chuyển trang xuyên suốt. **Match and move** của Canva tương tự Morph: chỉ chạy đẹp khi hai trang liền nhau có **cùng đối tượng** (cùng thanh màu, cùng ảnh, cùng số) ở vị trí khác nhau. Khi sửa ở mục 6, giữ các đối tượng nối tiếp này.
-- Mức tiết chế hoặc không hiệu ứng: chỉ chuyển trang Fade/Dissolve, không hiệu ứng đối tượng.
+## 7. Hiệu ứng: không làm trong nhánh Canva
+Nhánh Canva chỉ thiết kế tĩnh: công cụ Canva không có lệnh đặt hiệu ứng đối tượng hay chuyển trang, nên plugin không soạn bảng hiệu ứng và không hướng dẫn đặt hiệu ứng. Ghi một câu ở phần bàn giao rằng thiết kế không có hiệu ứng. Khi người dùng cần hiệu ứng thì đề nghị bản PowerPoint (nhánh PowerPoint đặt hiệu ứng theo mạch nói và Morph tự động); người dùng cũng có thể tự thêm trong Canva bằng nút **Chuyển động**.
 
 ## 8. Lưu
 Lưu (`finalize: "commit"`) cần người dùng đồng ý. Tóm tắt các chỗ đã sửa theo trang, gửi ảnh trước/sau của các trang thay đổi nhiều, hỏi **một lần** (AskUserQuestion). Không đồng ý thì `cancel`. Mọi phiên mở phải được lưu hoặc huỷ. Chế độ "làm luôn" vẫn phải hỏi trước khi lưu.
@@ -142,5 +125,5 @@ Lưu (`finalize: "commit"`) cần người dùng đồng ý. Tóm tắt các ch�
 - Link chỉnh sửa Canva (`design_metadata.urls.edit_url`).
 - 1–2 câu tóm tắt: số trang, phong cách, màu chủ đạo.
 - Các chỗ đã sửa và các giới hạn còn lại (phông không đổi được, ảnh nền giữ nguyên tông…).
-- **Nói rõ thiết kế chưa có hiệu ứng**, kèm ba lựa chọn ở mục 7 và bảng hiệu ứng đề xuất.
+- Một câu: thiết kế không có hiệu ứng; cần hiệu ứng thì làm bản PowerPoint (mục 7).
 - Lỗi phát hiện trong tài liệu nguồn (nếu có).

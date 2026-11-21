@@ -21,7 +21,7 @@ Công cụ đầu ra — đã nêu (gõ "slide-pptx", "bằng Canva", "trên Gam
 | Công cụ | Tài liệu kỹ thuật | Bàn giao |
 |---|---|---|
 | PowerPoint (mặc định) | `references/quy-trinh-pptx.md` + skill `pptx` (nếu có) + `scripts/makeslides.js` | .pptx + .ppsx |
-| Canva | `references/quy-trinh-canva.md` + `scripts/kiem_tra_canva.py` | link chỉnh sửa Canva + bảng hiệu ứng đề xuất (không xuất tệp; công cụ không đặt được hiệu ứng — nói rõ từ đầu) |
+| Canva | `references/quy-trinh-canva.md` + `scripts/kiem_tra_canva.py` | link chỉnh sửa Canva (thiết kế tĩnh, không hiệu ứng, không xuất tệp) |
 | Gamma | `references/quy-trinh-gamma.md` | link Gamma + link tải |
 Gamma/Canva chưa kết nối → báo một câu, gợi ý kết nối, đề nghị bản PowerPoint thay thế.
 
@@ -68,7 +68,7 @@ Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một d
    - **Chữ**: viết theo mục 4 `references/noi-dung-slide.md` — ≥ 24pt, ≤ 30 chữ/slide, tiêu đề là thông điệp (không đếm số kiểu "Ba con số đáng chú ý"), tiêu đề 2 dòng thì dòng trên ngắn hơn.
    - **Công thức**: luôn là khối Equation (`MS.equation` / `congThuc`), không gõ bằng chữ, không để trong ô bảng.
    - **Tránh dấu hiệu AI** khi viết và dàn trang theo `references/dau-hieu-ai.md` (biểu tượng trước chữ, thẻ bằng nhau, "VS", nhãn "Điểm chính", tiêu đề chung chung, gạch ngang nối ý, từ sáo rỗng, lời kết sáo).
-Mục 3–5 dưới đây chỉ áp dụng cho PowerPoint. Canva: không đặt được hiệu ứng qua công cụ, soạn bảng hiệu ứng đề xuất theo mục 7 `quy-trinh-canva.md`; Gamma xem `quy-trinh-gamma.md`.
+Mục 3–5 dưới đây chỉ áp dụng cho PowerPoint. Canva: không làm hiệu ứng (mục 7 `quy-trinh-canva.md`), cần hiệu ứng thì đề nghị bản PowerPoint; Gamma xem `quy-trinh-gamma.md`.
 3. **Animation** theo `references/hieu-ung.md` (thư viện `scripts/hieu_ung.js`), đủ bốn nhóm theo mức của bối cảnh:
    - *mở đầu*: thứ tự xuất hiện = thứ tự nói, ≤ 5 cú nhấp/slide; bìa và câu hỏi lớn dùng chữ nổi theo từ (`riseWords`);
    - *nhấn mạnh*: `dim` bước đã nói khi bước mới hiện, `pulse`/`grow`/`fontColor` cho con số, từ khoá;
@@ -105,7 +105,7 @@ Gửi file/link kèm 1–2 câu và danh sách hiệu ứng chính; với PowerP
 
 ## Bước 10 — Xuất và bàn giao
 - **PowerPoint**: bàn giao bản đã dựng ở Bước 6 và qua Bước 7 (**.pptx + .ppsx**); thêm PDF khi bối cảnh yêu cầu; chiếu tự động thêm `setLoop`. Tên `Slide_<ChuDeKhongDau>_<ddmmyyyy>`; bản nâng cấp thêm hậu tố `_nang_cap`, không ghi đè bản gốc.
-- **Canva**: link chỉnh sửa + bảng hiệu ứng đề xuất, không xuất tệp (mục 9 `quy-trinh-canva.md`).
+- **Canva**: link chỉnh sửa, không hiệu ứng, không xuất tệp (mục 9 `quy-trinh-canva.md`).
 - **Gamma**: link chỉnh sửa + link tải (ghi thời hạn), xem `quy-trinh-gamma.md`.
 - Gửi file bằng SendUserFile. Nội dung bàn giao, ngắn gọn:
   - số slide, phong cách, cặp phông;

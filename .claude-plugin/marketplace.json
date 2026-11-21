@@ -1,6 +1,9 @@
 {
   "name": "slidewright-studio",
-  "owner": { "name": "NexoZegknost" },
+  "owner": {
+    "name": "NexoZegknost"
+  },
+  "description": "Marketplace của SlideWright - Studio: bộ công cụ trình chiếu tiếng Việt (PowerPoint, Canva, Gamma).",
   "plugins": [
     {
       "name": "slidewright-studio",
