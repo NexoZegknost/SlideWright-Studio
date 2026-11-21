@@ -2,6 +2,9 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## 0.15.1
+- Thêm `displayName` (SlideWright - Studio) và `icon` (assets/branding/logo.png) vào `plugin.json`, để plugin cài từ marketplace hiện đúng tên và logo.
+
 ## 0.15.0
 - Thêm module kiểm soát văn bản toàn diện `scripts/kiem_soat_van_ban.py` (tài liệu: `references/kiem-soat-van-ban.md`), gồm bảy nhóm:
   - **phông**: phông bị loại hoặc mã cũ, phông chưa nhúng, phông thiếu ký tự (đọc bảng mã), đậm/nghiêng giả, quá 3 họ phông, phông trang trí sai chỗ hoặc trong bài chính quy, phông ngoài cặp phông của phong cách;
