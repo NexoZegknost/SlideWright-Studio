@@ -18,6 +18,8 @@ Bản ổn định đầu tiên. Nhánh Canva được làm lại hoàn chỉnh:
   - bắt chữ sai dấu so với dàn ý ("tiêng" → "tiếng", "nãm" → "năm");
   - cảnh báo dòng có thể ngắt thêm khi tăng cỡ chữ mà không nới khung; chữ trang trí (mờ, xoay) không bị tính lỗi cỡ chữ mà nhắc kiểm tra chính tả và tên sách/thương hiệu thật;
   - bản yêu cầu cho bài có chữ nước ngoài: chữ Việt phải dùng phông đủ dấu.
+  - phông chữ Nhật chỉ có một phần dấu tiếng Việt làm chữ to nhỏ lệch ("ế" to hơn): tạo lại toàn bộ hộp chữ Việt dùng phông đó, không chờ ảnh;
+  - nói rõ công cụ Canva không đặt được hiệu ứng, đưa ba lựa chọn: Chuyển động/Magic Animate trong Canva, đặt theo bảng đề xuất, hoặc làm bản PowerPoint.
 
 ## 0.15.1
 - Thêm `displayName` (SlideWright - Studio) và `icon` (assets/branding/logo.png) vào `plugin.json`, để plugin cài từ marketplace hiện đúng tên và logo.

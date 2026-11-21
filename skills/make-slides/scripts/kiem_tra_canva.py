@@ -237,7 +237,7 @@ def kiem(pages, co_min=24, co_td=32, chu_max=30, bang_mau=None, dan_y=None):
         ten = f.split(",")[0]
         if g["viet"]:
             vd = "; ".join(f"trang {P} '{b['text'].replace(chr(10), ' ')[:18]}'" for P, b in g["viet"][:4])
-            add("CẢNH BÁO", 0, "phong", f"phông {ten} hiện cả chữ Nhật/Trung lẫn {len(g['viet'])} hộp chữ Việt ({vd}…) — phông chữ Nhật hay thiếu dấu tiếng Việt (ra 'C ng học'); xem ảnh các hộp này, thiếu dấu thì tạo lại hộp chữ (mục 6 quy-trinh-canva.md)", g["viet"][0][1]["id"])
+            add("CẢNH BÁO", 0, "phong", f"phông {ten} hiện cả chữ Nhật/Trung lẫn {len(g['viet'])} hộp chữ Việt ({vd}…) — phông chữ Nhật thiếu một phần dấu tiếng Việt: chữ thiếu bị mất ('C ng học') hoặc lấy từ phông dự phòng nên to nhỏ lệch (chữ 'ế' to hơn) — ảnh thu nhỏ khó thấy; tạo lại TẤT CẢ các hộp này (mục 6 quy-trinh-canva.md), không chờ ảnh", g["viet"][0][1]["id"])
         if g["han"]:
             vd = "; ".join(f"trang {P} '{b['text'][:8]}'" for P, b in g["han"][:4])
             add("CẢNH BÁO", 0, "phong", f"phông {ten} hiện chữ Việt và {len(g['han'])} hộp chữ Hán ({vd}) — chữ Hán có thể hiện ô vuông □; xem ảnh", g["han"][0][1]["id"])

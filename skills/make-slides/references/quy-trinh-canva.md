@@ -105,7 +105,7 @@ Một phiên sửa cho cả bộ. Sửa **từng trang**, mỗi lần `edit-desi
 - Ghi chú diễn giả 3–5 câu/slide có thứ tự cú nhấp, kèm bảng hiệu ứng nếu có (`replace_speaker_notes`).
 
 **Phông**: không đổi được qua công cụ.
-- **Phông thiếu dấu tiếng Việt → tạo lại hộp chữ** (đã kiểm chứng):
+- **Phông thiếu dấu tiếng Việt → tạo lại hộp chữ** (đã kiểm chứng). Khi script báo một phông vừa hiện chữ Nhật/Trung vừa hiện chữ Việt, tạo lại **tất cả** hộp chữ Việt dùng phông đó, kể cả hộp trông có vẻ đủ dấu: phông chỉ có một phần dấu tiếng Việt, ký tự thiếu được lấy từ phông dự phòng nên to nhỏ, đậm nhạt lệch ("ế" to hơn các chữ khác), và ảnh thu nhỏ không cho thấy. Làm cả bộ để mọi chữ Việt dùng chung một phông:
   1. ghi lại `top`, `left`, `width`, cỡ, màu, độ đậm, giãn dòng của hộp lỗi;
   2. `delete_element` hộp lỗi, rồi `add_text` (cùng `page_id`, `top`, `left`, `width` rộng hơn một chút). Hộp mới dùng phông mặc định của Canva, có đủ dấu tiếng Việt, nhưng ra cỡ 16px màu đen;
   3. ở lệnh sửa tiếp theo, `format_text` hộp mới (lấy `locator_id` trong `document` trả về): `font_size`, `font_weight`, `color`, `line_height` như hộp cũ;
@@ -115,20 +115,25 @@ Một phiên sửa cho cả bộ. Sửa **từng trang**, mỗi lần `edit-desi
 
 Sửa xong: đọc lại có cấu trúc, chạy lại script đến khi hết LỖI, xem ảnh mọi trang đã sửa.
 
-## 7. Hiệu ứng (người dùng làm trong Canva theo bảng đề xuất)
-Công cụ không đặt được hiệu ứng. Plugin **soạn bảng hiệu ứng đề xuất** theo `references/hieu-ung.md` và mức của bối cảnh, đưa vào phần bàn giao:
+## 7. Hiệu ứng (công cụ không đặt được, phải nói rõ với người dùng)
+Công cụ Canva hiện có **không có lệnh nào** đặt hiệu ứng đối tượng hay chuyển trang. Thiết kế bàn giao vì vậy **chưa có hiệu ứng**. Phải nói rõ điều này ngay khi nhận yêu cầu có hiệu ứng (không để người dùng tự phát hiện), và đưa ba lựa chọn:
+1. **Người dùng bấm một lần trong Canva:** chọn trang → **Chuyển động** → các kiểu hoạt ảnh trang có sẵn hoặc Magic Animate (tạo hoạt ảnh cho cả bộ) → áp dụng cho tất cả trang. Nhanh, nhưng hiệu ứng do Canva chọn.
+2. **Người dùng đặt theo bảng hiệu ứng đề xuất** (bên dưới): chọn từng đối tượng → **Chuyển động** → chọn hiệu ứng; chuyển trang thì bấm vào khoảng giữa hai trang ở thanh trang bên dưới → chọn kiểu chuyển cảnh.
+3. **Làm bản PowerPoint** bằng nhánh PowerPoint của plugin: hiệu ứng theo mạch nói, Morph, đặt tự động.
+
+Tên trong giao diện tiếng Việt của Canva có thể khác tên tiếng Anh trong bảng.
+
+Bảng hiệu ứng đề xuất soạn theo `references/hieu-ung.md` và mức của bối cảnh:
 
 | Trang | Đối tượng | Hiệu ứng xuất hiện | Thứ tự | Chuyển sang trang sau |
 |---|---|---|---|---|
-| 1 | Tiêu đề / dòng phụ | Rise (Nổi lên) / Fade | 1 / 2 | Match and move |
+| 1 | Tiêu đề / dòng phụ | Rise / Fade | 1 / 2 | Match and move |
 | 3 | Số "13" → ba dòng năm học | Pop / Rise lần lượt | 1 → 4 | Match and move |
 
 Nguyên tắc:
 - Thứ tự xuất hiện = thứ tự nói; ≤ 5 bước mỗi trang; chữ nội dung dùng hiệu ứng nhẹ (Fade, Rise, Pan), không dùng hiệu ứng nhảy/rung cho bài chính quy.
-- Một kiểu chuyển trang xuyên suốt. **Match and move** của Canva tương tự Morph: chỉ chạy đẹp khi hai trang liền nhau có **cùng đối tượng** (cùng thanh màu, cùng ảnh, cùng số) ở vị trí khác nhau. Khi sửa ở mục 6, giữ các đối tượng nối tiếp này (motif của cảnh morph theo `references/chuyen-trang.md`).
+- Một kiểu chuyển trang xuyên suốt. **Match and move** của Canva tương tự Morph: chỉ chạy đẹp khi hai trang liền nhau có **cùng đối tượng** (cùng thanh màu, cùng ảnh, cùng số) ở vị trí khác nhau. Khi sửa ở mục 6, giữ các đối tượng nối tiếp này.
 - Mức tiết chế hoặc không hiệu ứng: chỉ chuyển trang Fade/Dissolve, không hiệu ứng đối tượng.
-
-Hướng dẫn kèm cho người dùng: chọn đối tượng → **Chuyển động** trên thanh công cụ → chọn hiệu ứng; chuyển trang thì bấm vào khoảng giữa hai trang ở thanh trang bên dưới → chọn kiểu chuyển cảnh. Tên trong giao diện tiếng Việt có thể khác tên tiếng Anh trong bảng.
 
 ## 8. Lưu
 Lưu (`finalize: "commit"`) cần người dùng đồng ý. Tóm tắt các chỗ đã sửa theo trang, gửi ảnh trước/sau của các trang thay đổi nhiều, hỏi **một lần** (AskUserQuestion). Không đồng ý thì `cancel`. Mọi phiên mở phải được lưu hoặc huỷ. Chế độ "làm luôn" vẫn phải hỏi trước khi lưu.
@@ -137,5 +142,5 @@ Lưu (`finalize: "commit"`) cần người dùng đồng ý. Tóm tắt các ch�
 - Link chỉnh sửa Canva (`design_metadata.urls.edit_url`).
 - 1–2 câu tóm tắt: số trang, phong cách, màu chủ đạo.
 - Các chỗ đã sửa và các giới hạn còn lại (phông không đổi được, ảnh nền giữ nguyên tông…).
-- Bảng hiệu ứng đề xuất (mục 7) và cách đặt trong Canva.
+- **Nói rõ thiết kế chưa có hiệu ứng**, kèm ba lựa chọn ở mục 7 và bảng hiệu ứng đề xuất.
 - Lỗi phát hiện trong tài liệu nguồn (nếu có).

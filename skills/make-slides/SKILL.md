@@ -21,7 +21,7 @@ Công cụ đầu ra — đã nêu (gõ "slide-pptx", "bằng Canva", "trên Gam
 | Công cụ | Tài liệu kỹ thuật | Bàn giao |
 |---|---|---|
 | PowerPoint (mặc định) | `references/quy-trinh-pptx.md` + skill `pptx` (nếu có) + `scripts/makeslides.js` | .pptx + .ppsx |
-| Canva | `references/quy-trinh-canva.md` + `scripts/kiem_tra_canva.py` | link chỉnh sửa Canva + bảng hiệu ứng đề xuất (không xuất tệp) |
+| Canva | `references/quy-trinh-canva.md` + `scripts/kiem_tra_canva.py` | link chỉnh sửa Canva + bảng hiệu ứng đề xuất (không xuất tệp; công cụ không đặt được hiệu ứng — nói rõ từ đầu) |
 | Gamma | `references/quy-trinh-gamma.md` | link Gamma + link tải |
 Gamma/Canva chưa kết nối → báo một câu, gợi ý kết nối, đề nghị bản PowerPoint thay thế.
 
