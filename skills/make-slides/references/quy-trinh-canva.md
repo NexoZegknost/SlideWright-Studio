@@ -20,7 +20,7 @@ Cần kết nối **Canva**. Tìm công cụ qua ToolSearch ("canva"). Không c�
 | Thêm chữ, hình vẽ, trang (có màu nền), đổi màu hình, viền | Có | `add_text`, `insert_shape`, `add_page`, `recolor_element`, `update_stroke_properties` |
 | Thay hoặc chèn ảnh | Có, cần `asset_id` | ảnh tải lên Canva (`upload-asset-from-url`) hoặc ảnh Canva AI tạo (`generate-image`) |
 | Ghi chú diễn giả | Có | `replace_speaker_notes` |
-| **Đổi phông chữ** | **Không** | Chọn phông qua bản yêu cầu. Sai phông thì dựng lại hoặc nhờ người dùng đổi trong Canva |
+| **Đổi phông chữ** | **Không** | Chọn phông qua bản yêu cầu. Phông thiếu dấu tiếng Việt: tạo lại hộp chữ (mục 6). Phông chỉ sai kiểu: dựng lại hoặc nhờ người dùng đổi trong Canva |
 | **Hiệu ứng, chuyển trang** | **Không** | Soạn bảng hiệu ứng đề xuất để người dùng làm trong Canva (mục 7) |
 | Đổi màu ảnh nền | Không | Ảnh nền sai tông thì thay ảnh (`update_fill`) hoặc dựng lại |
 
@@ -32,7 +32,8 @@ Cần kết nối **Canva**. Tìm công cụ qua ToolSearch ("canva"). Không c�
 - phông: "tiêu đề phông có chân / không chân, nội dung không chân, không phông viết tay, không chữ in hoa toàn bộ cho đoạn nội dung" (bài chính quy);
 - "giữ đúng, đủ dấu tiếng Việt; giữ nguyên ký hiệu văn bản có chữ Đ (BGDĐT, SGDĐT)";
 - "mỗi slide chỉ chữ trong dàn ý, không thêm câu, không thêm nhãn; chữ nội dung tối thiểu 48px";
-- "không biểu tượng/emoji trước chữ; không ảnh người nước ngoài; không logo thương hiệu".
+- "không biểu tượng/emoji trước chữ; không ảnh người nước ngoài; không logo thương hiệu, không tên sách/giáo trình có thật".
+- Bài có **chữ nước ngoài** (Nhật, Trung, Hàn…): ghi "chữ tiếng Việt dùng phông có đủ dấu tiếng Việt; phông chữ Nhật/Trung chỉ dùng cho chữ Nhật/Trung". Canva hay dùng một phông chữ Nhật cho cả tiêu đề tiếng Việt, làm mất dấu ("Cùng học" ra "C ng học").
 
 **Dàn ý (`outline.sections`)**: mỗi slide một mục.
 - `title`: đúng tiêu đề thông điệp sẽ hiện trên slide (≤ 12 từ, viết hoa đúng tên riêng).
@@ -47,7 +48,7 @@ Nhiều bộ slide độc lập thì gọi `create-design` song song. Nhiều b�
 
 ## 4. Đọc thiết kế đúng cách
 - **Đọc có cấu trúc, không đọc kiểu gộp.** Gọi `read-design` với `open_transaction: true` và `fields: ["design_content", "thumbnails"]`. Bản gộp nối các dòng trong cùng một hộp (ra "bằnggiọng", "giáđể") làm báo nhầm lỗi dính chữ. Bản có cấu trúc giữ từng hộp chữ, toạ độ, cỡ, màu và `locator_id`.
-- **Lưu dữ liệu cho script:** ghi phần `design_content` vào `canva.json`. Bộ dài thì chỉ cần giữ các trường: `index`, `width`, `height`, và với mỗi phần tử `locator_id`, `type`, `top`, `left`, `width`, `height`, `opacity`, `rotation`, `textRegions` (`characters`, `fontSize`, `color`, `fontWeight`, `lineHeight`, `letterSpacing`). Phần tử không phải chữ chỉ cần toạ độ.
+- **Lưu dữ liệu cho script:** ghi phần `design_content` vào `canva.json`. Bộ dài thì chỉ cần giữ các trường: `index`, `width`, `height`, và với mỗi phần tử `locator_id`, `type`, `top`, `left`, `width`, `height`, `opacity`, `rotation`, `textRegions` (`characters`, `fontSize`, `color`, `fontWeight`, `lineHeight`, `letterSpacing`, **`fontRef`**). Phần tử không phải chữ chỉ cần toạ độ.
 - **Ảnh trang:** ảnh Canva lưu sẵn thường trắng hoặc chưa có. Ảnh thật chỉ có trong kết quả `edit-design` của trang vừa sửa. Muốn xem một trang chưa cần sửa, dùng thao tác **không làm đổi kích thước chữ**: `position_element` đặt lại đúng toạ độ cũ của một phần tử. **Không** dùng `format_text` (đổi độ đậm, cỡ) để "lấy ảnh", vì Canva tính lại khung hộp và có thể làm hẹp khung, lòi nét chữ (đã gặp với số "13").
 - Quy đổi cỡ: trang 1920 × 1080px tương đương 960 × 540pt, nên **pt = px ÷ 2** (trang khác cỡ: pt = px × 960 ÷ bề rộng trang).
 
@@ -68,15 +69,19 @@ Script báo từng mục kèm `locator_id` để sửa ngay:
 | `mau` | màu chữ ngoài bảng màu (báo màu thay); cặp màu đối nhau; > 3 sắc màu chữ trên trang |
 | `dan-y` | nhãn nội bộ bị chép lên slide (LỖI); câu Canva tự thêm; ý trong dàn ý bị thiếu |
 | `chu` | chính tả âm tiết, dấu câu, viết hoa tên cơ quan, mã chữ (dùng bộ kiểm của `kiem_soat_van_ban.py`, giữ nguyên chỗ xuống dòng) |
+| `phong` | một phông (`fontRef`) vừa hiện chữ Nhật/Trung vừa hiện chữ Việt có dấu: dễ mất dấu tiếng Việt hoặc chữ Hán ra ô vuông □ — phải xem ảnh các hộp được liệt kê |
+
+Nhóm `dan-y` còn bắt **sai dấu so với dàn ý** ("tiêng" gần "tiếng", "nãm" gần "năm"). Đây là lỗi bộ kiểm âm tiết không thấy được vì về cấu tạo vẫn là âm tiết hợp lệ.
 
 Sau đó **xem ảnh từng trang**. Ảnh bắt được những gì script không thấy:
 - màu ảnh nền: script không đọc được màu trong ảnh, nên cặp lam–cam giữa nền ảnh và chữ chỉ thấy qua ảnh; đếm số trang nền tối (≤ một nửa);
 - chữ trên ảnh minh hoạ của Canva AI (thường vô nghĩa hoặc sai dấu);
+- **phông thiếu ký tự**: chữ Việt mất dấu hoặc mất cả chữ cái ("C ng học", "M~i ng y"), chữ Hán ra ô vuông □. Script chỉ cảnh báo nguy cơ, ảnh mới xác nhận;
 - phông thực tế: có phải phông viết tay, có viết HOA toàn bộ che lỗi viết hoa không;
 - vạch, khối trang trí chạm chân chữ (khối ảnh có viền trong suốt nên toạ độ không chính xác);
 - tiêu đề bị Canva tách thành nhãn nhỏ cộng câu viết thường ("Đề mở" / "giúp học sinh…"): đọc liền còn đúng thông điệp không.
 
-Lỗi tiếng Việt Canva AI hay mắc: mất chữ Đ trong ký hiệu (BGDDT); sai dấu (kíểm, đển, tính→tỉnh); viết thường tên cơ quan, tên môn học ("Sở giáo dục và đào tạo", "môn ngữ văn"); chữ vô nghĩa trên hình minh hoạ nhỏ.
+Lỗi tiếng Việt Canva AI hay mắc: mất chữ Đ trong ký hiệu (BGDDT); sai dấu (kíểm, đển, tính→tỉnh, tiêng→tiếng, nãm→năm); viết thường tên cơ quan, tên môn học ("Sở giáo dục và đào tạo", "môn ngữ văn"); đổi câu trong dàn ý ("Cố lên nhé!" thành "Cố gắng nhé! Mình tin bạn làm được!"); chữ vô nghĩa trên hình minh hoạ nhỏ; chữ nước ngoài trang trí viết sai (あいがとう thay ありがとう) hoặc là tên giáo trình có thật.
 
 ## 6. Sửa
 Một phiên sửa cho cả bộ. Sửa **từng trang**, mỗi lần `edit-design` (`finalize: "keep_open"`) xong thì so ảnh trước/sau và đọc lại `document` trả về rồi mới sửa tiếp trang đó.
@@ -91,7 +96,7 @@ Một phiên sửa cho cả bộ. Sửa **từng trang**, mỗi lần `edit-desi
 - Không thêm biểu tượng trước chữ, không vòng "VS", không thẻ bằng nhau hàng loạt (theo `references/dau-hieu-ai.md`).
 
 **Văn bản**
-- Cỡ: đặt `font_size` theo bảng ở mục 4 cho đủ cỡ tối thiểu của bối cảnh. Tăng cỡ làm chữ dài ra: kiểm tra xuống dòng, mồ côi một từ, tràn khung bằng ảnh và chạy lại script.
+- Cỡ: đặt `font_size` theo bảng ở mục 4 cho đủ cỡ tối thiểu của bối cảnh. **Tăng cỡ thì nới khung cùng lúc**: Canva giữ nguyên bề rộng khung, nên chữ to ra sẽ ngắt thêm dòng và tràn khỏi thẻ (đã gặp: "viết từ thuần Nhật" rơi xuống dòng thứ ba, đè lên thẻ dưới). Nới `width` theo khoảng trống của thẻ chứa nó, xem ảnh, chạy lại script.
 - Lượng chữ: ≤ số chữ của bối cảnh. Phần dư đưa vào ghi chú diễn giả.
 - Độ đục chữ 100% (`update_opacity`), màu chữ đủ tương phản: trắng/ngà trên nền đậm, đậm trên nền sáng.
 - Màu nhấn của chữ (số liệu, từ khoá) đổi về bảng màu bằng `format_text` → `color`.
@@ -99,7 +104,14 @@ Một phiên sửa cho cả bộ. Sửa **từng trang**, mỗi lần `edit-desi
 - Đoạn nội dung căn trái; chỉ căn giữa tiêu đề bìa, slide số liệu lớn.
 - Ghi chú diễn giả 3–5 câu/slide có thứ tự cú nhấp, kèm bảng hiệu ứng nếu có (`replace_speaker_notes`).
 
-**Phông**: không đổi được qua công cụ. Bài chính quy mà Canva dùng phông viết tay hoặc trang trí cho nội dung → dựng lại với bản yêu cầu ghi rõ hơn, hoặc ghi vào phần bàn giao để người dùng đổi trong Canva (chọn chữ → ô tên phông).
+**Phông**: không đổi được qua công cụ.
+- **Phông thiếu dấu tiếng Việt → tạo lại hộp chữ** (đã kiểm chứng):
+  1. ghi lại `top`, `left`, `width`, cỡ, màu, độ đậm, giãn dòng của hộp lỗi;
+  2. `delete_element` hộp lỗi, rồi `add_text` (cùng `page_id`, `top`, `left`, `width` rộng hơn một chút). Hộp mới dùng phông mặc định của Canva, có đủ dấu tiếng Việt, nhưng ra cỡ 16px màu đen;
+  3. ở lệnh sửa tiếp theo, `format_text` hộp mới (lấy `locator_id` trong `document` trả về): `font_size`, `font_weight`, `color`, `line_height` như hộp cũ;
+  4. xem ảnh: phông mặc định khác kiểu phông cũ một chút, kiểm tra còn hài hoà với các tiêu đề khác không.
+- Chữ nước ngoài trang trí (chữ Hán ô vuông, chữ viết sai, tên sách thật) → sửa đúng hoặc xoá; không có giá trị nội dung thì xoá.
+- Bài chính quy mà Canva dùng phông viết tay hoặc trang trí cho nội dung → dựng lại với bản yêu cầu ghi rõ hơn, hoặc ghi vào phần bàn giao để người dùng đổi trong Canva (chọn chữ → ô tên phông).
 
 Sửa xong: đọc lại có cấu trúc, chạy lại script đến khi hết LỖI, xem ảnh mọi trang đã sửa.
 

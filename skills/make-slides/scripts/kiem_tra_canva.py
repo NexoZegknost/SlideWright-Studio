@@ -78,7 +78,9 @@ def hop_chu(el):
     return {"id": el.get("locator_id") or el.get("id"), "text": text, "lines": lines, "fs": fs, "lh": lh,
             "x": x, "y": y, "w": w, "h": h, "one": one, "base": base, "ink": (x, ink_top, x + min(w, widest), ink_bot),
             "widest": widest, "opacity": el.get("opacity", 1), "rot": el.get("rotation", 0),
-            "colors": [f.get("color") for f in fmts if f.get("color")], "words": len(text.split())}
+            "colors": [f.get("color") for f in fmts if f.get("color")], "words": len(text.split()),
+            "fonts": {f.get("fontRef") for f in fmts if f.get("fontRef")},
+            "trang_tri": el.get("opacity", 1) < 0.99 or abs(el.get("rotation", 0)) > 0.5}
 
 def hex2hsl(h):
     h = h.lstrip("#"); r, g, b = (int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
@@ -86,7 +88,7 @@ def hex2hsl(h):
 def nhom_sac(h):
     hue, s, l = hex2hsl(h)
     if s < 0.25 or l > 0.92 or l < 0.08: return None
-    for name, a, b in (("đỏ", 345, 15), ("cam", 15, 45), ("vàng", 45, 70), ("lục", 70, 170), ("lam", 170, 260), ("tím", 260, 345)):
+    for name, a, b in (("đỏ", 352, 15), ("cam", 15, 45), ("vàng", 45, 70), ("lục", 70, 170), ("lam", 170, 260), ("tím", 260, 318), ("hồng", 318, 352)):
         if (a <= hue < b) if a < b else (hue >= a or hue < b): return name
 DOI = [("lam", "cam"), ("đỏ", "lục"), ("vàng", "tím")]
 def khoang_mau(a, b):
@@ -118,7 +120,9 @@ def kiem(pages, co_min=24, co_td=32, chu_max=30, bang_mau=None, dan_y=None):
         for b in boxes:
             pt = b["fs"] * k
             t = b["text"].replace("\n", " / ")[:45]
-            if pt < 12: add("LỖI", P, "co-chu", f"'{t}' chỉ {pt:.0f}pt (< 12pt) — đặt font_size ≥ {int(co_min / k)}", b["id"])
+            if b["trang_tri"]:
+                if pt < 12: add("GỢI Ý", P, "co-chu", f"chữ trang trí '{t}' {pt:.0f}pt — không đọc được khi chiếu; xoá nếu không cần", b["id"])
+            elif pt < 12: add("LỖI", P, "co-chu", f"'{t}' chỉ {pt:.0f}pt (< 12pt) — đặt font_size ≥ {int(co_min / k)}", b["id"])
             elif b["vai"] == "noi-dung" and pt < co_min: add("LỖI", P, "co-chu", f"'{t}' {pt:.0f}pt < {co_min}pt — đặt font_size ≥ {int(round(co_min / k))}", b["id"])
             elif b["vai"] == "tieu-de" and pt < co_td: add("CẢNH BÁO", P, "co-chu", f"tiêu đề '{t}' {pt:.0f}pt < {co_td}pt — đặt font_size ≥ {int(round(co_td / k))}", b["id"])
             if len(b["lines"]) > 4 and b["vai"] == "noi-dung": add("CẢNH BÁO", P, "luong-chu", f"'{t}' có {len(b['lines'])} dòng — tách bớt", b["id"])
@@ -128,6 +132,11 @@ def kiem(pages, co_min=24, co_td=32, chu_max=30, bang_mau=None, dan_y=None):
             so = sum(ch.isdigit() or ch in "%" for ch in b["text"]) >= 0.6 * len(b["text"].replace(" ", ""))
             if b["one"] and b["widest"] > b["w"] * (1.02 if so else 1.08) + 1:      # chữ số ước lượng sát; chữ cái sai số lớn hơn
                 add("CẢNH BÁO", P, "bo-cuc", f"khung '{t}' rộng {b['w']:.0f}px, chữ cần ~{b['widest']:.0f}px — nét có thể lòi/cắt; resize_element width ≈ {b['widest'] * 1.06:.0f} rồi xem ảnh", b["id"])
+            if not b["one"] and not b["trang_tri"]:
+                for l in b["lines"]:
+                    if be_rong(l, b["fs"]) > b["w"] * 1.0 + 1:
+                        add("CẢNH BÁO", P, "bo-cuc", f"dòng '{l[:30]}' (~{be_rong(l, b['fs']):.0f}px) có thể dài hơn khung {b['w']:.0f}px — sẽ ngắt thêm dòng, tràn thẻ; nới khung (resize_element) rồi xem ảnh", b["id"])
+                        break
             # ---- mép trang
             m = 0.03 * W
             if b["x"] < -1 or b["y"] < -1 or b["x"] + b["w"] > W + 1 or b["y"] + b["h"] > H + 1:
@@ -207,9 +216,31 @@ def kiem(pages, co_min=24, co_td=32, chu_max=30, bang_mau=None, dan_y=None):
                                defaultdict(lambda: defaultdict(set)), [], {"thang": set(), "cong": set()}, {"...": set(), "…": set()},
                                set(), defaultdict(set), {"runs": [], "bullet": False})
                     for lv, g, msg in tmp:
-                        if "đầu đoạn viết thường" in msg and b["vai"] == "noi-dung" and len(b["lines"]) == 1 and b["words"] <= 4: continue
+                        if "đầu đoạn viết thường" in msg: continue
                         add(lv, P, "chu", msg.replace("'canva': ", f"'{line[:25]}': ", 1) if msg.startswith("'canva'") else msg, b["id"])
         all_texts += [(P, b) for b in boxes]
+    # ---- phông: một phông vừa hiện chữ Nhật/Trung vừa hiện chữ Việt có dấu thường thiếu một trong hai bộ chữ
+    CJK = re.compile(r"[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]")
+    HAN = re.compile(r"[\u3400-\u9fff]")
+    dung = defaultdict(lambda: {"cjk": False, "han": False, "viet": False})
+    for P, b in all_texts:
+        for f in b["fonts"]:
+            dung[f]["cjk"] |= bool(CJK.search(b["text"])); dung[f]["han"] |= bool(HAN.search(b["text"]))
+            dung[f]["viet"] |= any(K and c in K.VN_DAU for c in b["text"])
+    gom = defaultdict(lambda: {"viet": [], "han": []})
+    for P, b in all_texts:
+        for f in b["fonts"]:
+            if not (dung[f]["cjk"] and dung[f]["viet"]): continue
+            if K and any(c in K.VN_DAU for c in b["text"]): gom[f]["viet"].append((P, b))
+            elif HAN.search(b["text"]): gom[f]["han"].append((P, b))
+    for f, g in gom.items():
+        ten = f.split(",")[0]
+        if g["viet"]:
+            vd = "; ".join(f"trang {P} '{b['text'].replace(chr(10), ' ')[:18]}'" for P, b in g["viet"][:4])
+            add("CẢNH BÁO", 0, "phong", f"phông {ten} hiện cả chữ Nhật/Trung lẫn {len(g['viet'])} hộp chữ Việt ({vd}…) — phông chữ Nhật hay thiếu dấu tiếng Việt (ra 'C ng học'); xem ảnh các hộp này, thiếu dấu thì tạo lại hộp chữ (mục 6 quy-trinh-canva.md)", g["viet"][0][1]["id"])
+        if g["han"]:
+            vd = "; ".join(f"trang {P} '{b['text'][:8]}'" for P, b in g["han"][:4])
+            add("CẢNH BÁO", 0, "phong", f"phông {ten} hiện chữ Việt và {len(g['han'])} hộp chữ Hán ({vd}) — chữ Hán có thể hiện ô vuông □; xem ảnh", g["han"][0][1]["id"])
     if kieu["cu"] and kieu["moi"]:
         add("CẢNH BÁO", 0, "chu", f"lẫn kiểu bỏ dấu cũ ({', '.join(list(kieu['cu'])[:3])}) và mới ({', '.join(list(kieu['moi'])[:3])})")
     # ---- đối chiếu dàn ý
@@ -219,23 +250,42 @@ def kiem(pages, co_min=24, co_td=32, chu_max=30, bang_mau=None, dan_y=None):
             items += [sec.get("title", "")] + list(sec.get("points") or [])
         src = [chuan(x) for x in items if x.strip()]
         desc_tok = set(" ".join(chuan(sec.get("description", "")) for sec in dan_y.get("sections", [])).split())
+        tu = lambda x: re.findall(r"[^\W_]+", x)
+        vocab = set(tu(" ".join(src))) | set(tu(" ".join(desc_tok)))
+        def bo_dau(w): return "".join(c for c in unicodedata.normalize("NFD", w) if not unicodedata.combining(c)).replace("đ", "d")
+        goc = defaultdict(set)
+        for w in vocab: goc[bo_dau(w)].add(w)
         NHAN = re.compile(r"^(slide|trang)\b|\b(slide bìa|slide kết|thông điệp kết|thông điệp chính|chia phần|phần mở đầu|lời kết|bố cục|ý chính|nội dung chính)\b")
         def trong_dan_y(t):
             return any(t in x or x in t or SequenceMatcher(None, t, x).ratio() > 0.72 for x in src)
         for P, b in all_texts:
             for line in b["lines"]:
                 t = chuan(line)
-                if not t or len(t) < 3 or re.fullmatch(r"[\d%.,\s–-]+", t) or trong_dan_y(t): continue
+                sai_dau = False
+                ws = re.findall(r"[^\W\d_]+", t)
+                for w in ws:                                                 # sai dấu so với dàn ý: phần còn lại của dòng phải khớp dàn ý
+                    khac = [x for x in ws if x != w]
+                    if khac and sum(x in vocab for x in khac) / len(khac) < 0.5: continue
+                    if w not in vocab and goc.get(bo_dau(w)):
+                        sai_dau = True
+                        add("CẢNH BÁO", P, "dan-y", f"'{w}' không có trong dàn ý, gần với '{'/'.join(sorted(goc[bo_dau(w)]))}' — sai dấu? (find_and_replace_text)", b["id"])
+                if sai_dau or not t or len(t) < 3 or re.fullmatch(r"[\d%.,\s–-]+", t) or trong_dan_y(t): continue
                 if NHAN.search(t) and len(t.split()) <= 5:
                     add("LỖI", P, "dan-y", f"'{line[:40]}' là nhãn/chỉ dẫn nội bộ bị chép lên slide — xoá (delete_element)", b["id"])
                     continue
-                tok = t.split()
-                if sum(w in desc_tok for w in tok) / len(tok) >= 0.6: continue           # lấy từ phần mô tả: hợp lệ
-                add("CẢNH BÁO", P, "dan-y", f"'{line[:40]}' không có trong dàn ý — Canva tự thêm; xoá hoặc thay bằng ý trong dàn ý", b["id"])
-        shown = " ".join(chuan(b["text"]) for _, b in all_texts)
-        for s in src:
-            if s and s not in shown and not any(SequenceMatcher(None, s, chuan(l)).ratio() > 0.72 for _, b in all_texts for l in b["text"].split("\n")):
-                add("CẢNH BÁO", 0, "dan-y", f"ý trong dàn ý không thấy trên slide: '{s[:50]}'")
+                tok = tu(t) or [t]
+                if sum(w in vocab for w in tok) / len(tok) >= 0.6: continue           # lấy từ dàn ý/mô tả, chỉ tách dòng khác
+                if b["trang_tri"]:
+                    add("GỢI Ý", P, "dan-y", f"chữ trang trí '{line[:30]}' Canva tự thêm — kiểm tra đúng chính tả/nghĩa (kể cả tiếng nước ngoài), không dùng tên sách/thương hiệu thật", b["id"])
+                else:
+                    add("CẢNH BÁO", P, "dan-y", f"'{line[:40]}' không có trong dàn ý — Canva tự thêm; xoá hoặc thay bằng ý trong dàn ý", b["id"])
+        by_page = defaultdict(str)
+        for P, b in all_texts: by_page[0] += " " + chuan(b["text"])
+        shown = set(tu(by_page[0]))
+        for s_ in src:
+            tok = tu(s_)
+            if tok and sum(w in shown for w in tok) / len(tok) < 0.85:
+                add("CẢNH BÁO", 0, "dan-y", f"ý trong dàn ý không thấy đủ trên slide: '{s_[:50]}'")
     return out
 
 def main():
