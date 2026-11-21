@@ -46,6 +46,6 @@
 | Tệp | Lệnh | Nội dung |
 |---|---|---|
 | `<tên>_kich_ban.pptx` (+ `.ppsx`) | `dung_kich_ban.py … --pptx bai.pptx --ppsx` | ghi chú diễn giả theo mẫu `[Mở] / [Nhấp n] / [Nhấn] / [Chuyển] / [Lưu ý]`; giữ lại dòng nguồn ảnh, tác giả có sẵn trong ghi chú cũ; không ghi đè bản gốc; phông nhúng và hiệu ứng giữ nguyên |
-| `KichBan_<ChuDeKhongDau>_<ddmmyyyy>.docx` | `dung_kich_ban.py … --ra-docx` | A4, Times New Roman 13: thông tin chung, chuẩn bị, bảng phân bổ thời gian (mốc bắt đầu), lời nói từng slide kèm ảnh thu nhỏ và mốc giờ, hỏi đáp dự kiến, trang thẻ nhắc; số trang ở chân trang |
+| `KichBan_<ChuDeKhongDau>_<ddmmyyyy>.docx` | `dung_kich_ban.py … --ra-docx` | A4, Times New Roman, bố cục ở `scripts/ban_in.py`: bìa có khối thông số (thời lượng, số slide, tốc độ nói, số câu hỏi) và bảng thông tin; bảng phân bổ thời gian (hàng tiêu đề màu, hàng xen màu, dòng tổng, mốc bắt đầu – kết thúc); mỗi slide một thẻ (thanh đầu số slide + mốc giờ, ảnh thu nhỏ, lời nói có nhãn MỞ / NHẤP n / CHUYỂN treo lề, từ nhấn in đậm, ô LƯU Ý); hỏi đáp có số thứ tự; trang thẻ nhắc có đường cắt; đầu trang ghi tên bài, chân trang "Trang x / y" |
 
 Bản in dùng để tập và cầm tay; ghi chú trong PowerPoint dùng ở chế độ Presenter View.
