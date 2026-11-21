@@ -9,7 +9,7 @@
 
 Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Gói plugin chứa skill **makeSlides**.
 
-Phiên bản hiện tại: **0.15.1** · [Lịch sử thay đổi](CHANGELOG.md)
+Phiên bản hiện tại: **1.0.0** · [Lịch sử thay đổi](CHANGELOG.md)
 
 ## Tính năng
 
@@ -18,6 +18,7 @@ Phiên bản hiện tại: **0.15.1** · [Lịch sử thay đổi](CHANGELOG.md)
 - **Phong cách theo đề tài và bối cảnh trình bày:** Claude đề xuất 3 phương án về màu, phông, texture, bố cục để bạn chọn.
 - **Hiệu ứng và chuyển trang Morph:** hiệu ứng đủ bốn nhóm, cảnh morph xuyên suốt bài.
 - **Chữ tiếng Việt chuẩn:** phông đủ dấu nhúng sẵn trong file, công thức là khối Equation gốc của PowerPoint.
+- **Thiết kế trên Canva có kiểm soát:** Canva AI dựng khung, Claude kiểm tra cỡ chữ, chữ đè, khung hẹp, lệch chân chữ, màu, nội dung ngoài dàn ý, chính tả ngay trên thiết kế rồi sửa trực tiếp; kèm bảng hiệu ứng đề xuất.
 - **Kiểm soát văn bản toàn diện:** phông (nhúng, thiếu ký tự, đậm/nghiêng giả), mã chữ (NFD, TCVN3, ký tự ẩn), chính tả âm tiết tiếng Việt, dấu câu, viết hoa tên cơ quan, chữ hiển thị thật khi dựng; tự sửa phần không đổi câu chữ.
 - **Tự kiểm tra trước khi bàn giao:** cỡ chữ, lượng chữ, xuống dòng, tràn khung, tương phản, phối màu và dấu hiệu slide do AI làm.
 

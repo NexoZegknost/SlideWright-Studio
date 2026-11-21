@@ -73,7 +73,8 @@ Chính tả, viết hoa, phông, cỡ chữ và ký hiệu văn bản chỉ đư
 - **Nhánh A (tạo mới):** chạy ở đầu Bước 7 với `--phong-cach`/`--muc`, `--boi-canh`, `--hien-thi`, `--day-du`. Sau đó chạy `kiem_tra_bo_cuc.py` và `kiem_tra_hieu_ung.py`.
 - **Nhánh B (nâng cấp):** chạy trên bài gốc trước khi thiết kế lại để biết lỗi chữ có sẵn (mã TCVN3, NFD, phông lạ, chính tả), ghi vào phần báo lỗi tài liệu nguồn, rồi chạy lại trên bản nâng cấp.
 - **Nhánh C (chuyển PDF):** chạy với `--chi ma-chu,chinh-ta,phong,dung-thu` để biết chữ trích ra có hỏng mã hay thiếu phông không. Không sửa nội dung bản gốc.
-- **Canva/Gamma:** tải bản PPTX về rồi chạy `--chi ma-chu,chinh-ta,dau-cau,viet-hoa` để rà lỗi chữ (đặc biệt chữ Đ trong ký hiệu văn bản).
+- **Canva:** dùng `scripts/kiem_tra_canva.py` trên dữ liệu `read-design` (gọi lại bộ kiểm chính tả, dấu câu, viết hoa, mã chữ của module này trên từng hộp chữ), không cần tải tệp. Xem `quy-trinh-canva.md`.
+- **Gamma:** tải bản PPTX về rồi chạy `--chi ma-chu,chinh-ta,dau-cau,viet-hoa`.
 
 ## 5. Mở rộng
 - Thêm phông vào gói: khai báo trong `assets/fonts/files.json` và phân loại trong `assets/fonts/phan-loai.json` (`loai`, `min_pt`, `max_tu`, `khong_so`, `khong_doan`, `khong_hoa`, `ban_chinh_quy`).

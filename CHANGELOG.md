@@ -2,6 +2,18 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## 1.0.0
+Bản ổn định đầu tiên. Nhánh Canva được làm lại hoàn chỉnh: chỉ thiết kế trên Canva, bàn giao link, không xuất tệp.
+- Viết lại `references/quy-trinh-canva.md`:
+  - bảng việc làm được / không làm được qua công cụ Canva (không đổi phông, không đặt hiệu ứng qua công cụ);
+  - cách viết bản yêu cầu và dàn ý để Canva không bỏ qua màu, không chép nhãn nội bộ, không tự thêm nội dung;
+  - đọc thiết kế có cấu trúc (tránh báo nhầm dính chữ), lấy ảnh trang thật mà không làm đổi khung chữ, bảng quy đổi px ↔ pt;
+  - quy tắc sửa đối tượng (lề, căn chân chữ, khung chữ, vạch trang trí, ảnh), văn bản (cỡ, lượng chữ, độ đục, màu, viết hoa, ghi chú diễn giả) và phông;
+  - bảng hiệu ứng đề xuất để người dùng đặt trong Canva (Chuyển động, Match and move);
+  - lưu một lần sau khi người dùng đồng ý; bàn giao link chỉnh sửa.
+- Thêm `scripts/kiem_tra_canva.py`: kiểm tra thiết kế Canva từ dữ liệu `read-design` — cỡ chữ quy ra pt, lượng chữ, chữ đè chữ, khối chữ quá sát, khung hẹp hơn chữ, hộp ghép một dòng lệch chân chữ, lề lệch, chữ sát mép, chữ mờ/xoay, màu ngoài bảng màu và cặp màu đối nhau, nhãn nội bộ và câu tự thêm so với dàn ý, chính tả/dấu câu/viết hoa theo từng hộp chữ; mỗi mục kèm `locator_id` và giá trị gợi ý.
+- SKILL.md: Canva bàn giao link + bảng hiệu ứng; Bước 7 kiểm tra Canva bằng script mới.
+
 ## 0.15.1
 - Thêm `displayName` (SlideWright - Studio) và `icon` (assets/branding/logo.png) vào `plugin.json`, để plugin cài từ marketplace hiện đúng tên và logo.
 

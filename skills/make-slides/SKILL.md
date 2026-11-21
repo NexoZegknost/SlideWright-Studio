@@ -21,7 +21,7 @@ Công cụ đầu ra — đã nêu (gõ "slide-pptx", "bằng Canva", "trên Gam
 | Công cụ | Tài liệu kỹ thuật | Bàn giao |
 |---|---|---|
 | PowerPoint (mặc định) | `references/quy-trinh-pptx.md` + skill `pptx` (nếu có) + `scripts/makeslides.js` | .pptx + .ppsx |
-| Canva | `references/quy-trinh-canva.md` | link Canva + link tải PPTX/PDF |
+| Canva | `references/quy-trinh-canva.md` + `scripts/kiem_tra_canva.py` | link chỉnh sửa Canva + bảng hiệu ứng đề xuất (không xuất tệp) |
 | Gamma | `references/quy-trinh-gamma.md` | link Gamma + link tải |
 Gamma/Canva chưa kết nối → báo một câu, gợi ý kết nối, đề nghị bản PowerPoint thay thế.
 
@@ -68,7 +68,7 @@ Gửi bảng `STT | Tiêu đề | Ý chính | Bố cục | Hình ảnh`, một d
    - **Chữ**: viết theo mục 4 `references/noi-dung-slide.md` — ≥ 24pt, ≤ 30 chữ/slide, tiêu đề là thông điệp (không đếm số kiểu "Ba con số đáng chú ý"), tiêu đề 2 dòng thì dòng trên ngắn hơn.
    - **Công thức**: luôn là khối Equation (`MS.equation` / `congThuc`), không gõ bằng chữ, không để trong ô bảng.
    - **Tránh dấu hiệu AI** khi viết và dàn trang theo `references/dau-hieu-ai.md` (biểu tượng trước chữ, thẻ bằng nhau, "VS", nhãn "Điểm chính", tiêu đề chung chung, gạch ngang nối ý, từ sáo rỗng, lời kết sáo).
-Mục 3–5 dưới đây chỉ áp dụng cho PowerPoint; Canva/Gamma tự xử lý hiệu ứng (xem tài liệu quy trình tương ứng).
+Mục 3–5 dưới đây chỉ áp dụng cho PowerPoint. Canva: không đặt được hiệu ứng qua công cụ, soạn bảng hiệu ứng đề xuất theo mục 7 `quy-trinh-canva.md`; Gamma xem `quy-trinh-gamma.md`.
 3. **Animation** theo `references/hieu-ung.md` (thư viện `scripts/hieu_ung.js`), đủ bốn nhóm theo mức của bối cảnh:
    - *mở đầu*: thứ tự xuất hiện = thứ tự nói, ≤ 5 cú nhấp/slide; bìa và câu hỏi lớn dùng chữ nổi theo từ (`riseWords`);
    - *nhấn mạnh*: `dim` bước đã nói khi bước mới hiện, `pulse`/`grow`/`fontColor` cho con số, từ khoá;
@@ -80,7 +80,7 @@ Mục 3–5 dưới đây chỉ áp dụng cho PowerPoint; Canva/Gamma tự xử
 ## Bước 7 — Tự kiểm tra (bắt buộc)
 Chạy theo thứ tự trên file vừa dựng: `kiem_soat_van_ban.py --day-du --hien-thi` (module kiểm soát văn bản, gộp sẵn `kiem_tra_van_ban.py` và `kiem_tra_slide.py`) → `kiem_tra_bo_cuc.py` → `kiem_tra_hieu_ung.py` → `xem_truoc_morph.py` → `validate.py` của skill pptx → render và xem ảnh. Có lỗi thì sửa script dựng, dựng lại và chạy lại từ đầu. Bản `_sua` do `--sua` tạo chỉ để tham khảo (cỡ chữ nên dùng, chỗ ngắt dòng); các thay đổi đó phải đưa ngược vào script dựng.
 - [ ] **Kiểm soát văn bản**: `python3 scripts/kiem_soat_van_ban.py <file>.pptx --phong-cach <khoá> (hoặc --muc chinh-quy|ban-chinh-quy|kieu-cach) --boi-canh <khoá> --hien-thi --day-du` → hết **LỖI**, xem từng **CẢNH BÁO** theo `references/kiem-soat-van-ban.md`: phông (chưa nhúng, thiếu ký tự, đậm/nghiêng giả, phông trang trí sai chỗ, quá 3 họ), mã chữ (NFD, ký tự ẩn, TCVN3, Ð), chính tả âm tiết (dấu sai vị trí, sai luật c/k – g/gh – ng/ngh, lẫn hoà/hòa), dấu câu và khoảng trắng, viết hoa tên cơ quan, hiển thị (tự co chữ, chữ < 12pt, ra ngoài slide, hiệu ứng chữ, mã ngôn ngữ vi-VN), dựng thử (phông bị thay).
-- [ ] **Chính tả** tiếng Việt, dấu thanh, viết hoa tên riêng, địa danh; chữ **Đ** trong ký hiệu văn bản (BGDĐT, SGDĐT) — đặc biệt với Canva/Gamma (tải bản PPTX rồi chạy `kiem_soat_van_ban.py --chi ma-chu,chinh-ta,dau-cau,viet-hoa`). Module không tra từ điển: vẫn đọc lại để bắt từ đúng cấu tạo nhưng sai nghĩa.
+- [ ] **Chính tả** tiếng Việt, dấu thanh, viết hoa tên riêng, địa danh; chữ **Đ** trong ký hiệu văn bản (BGDĐT, SGDĐT) — đặc biệt với Canva/Gamma (Canva: `kiem_tra_canva.py` trên dữ liệu `read-design`, không cần tải tệp; Gamma: tải bản PPTX rồi chạy `kiem_soat_van_ban.py --chi ma-chu,chinh-ta,dau-cau,viet-hoa`). Module không tra từ điển: vẫn đọc lại để bắt từ đúng cấu tạo nhưng sai nghĩa.
 - [ ] **Xuống dòng**: không tách từ/cụm từ (số – đơn vị, ký hiệu – số, họ – tên), không mồ côi một từ ở dòng cuối tiêu đề/thẻ, không tràn khung.
 - [ ] **Cỡ chữ và mật độ** đúng `contexts.json`; chú thích ≥ 12pt.
 - [ ] **Script tự kiểm**: `python3 scripts/kiem_tra_slide.py <file>.pptx` → hết **LỖI**; xem và xử lý từng **CẢNH BÁO**:
@@ -97,7 +97,7 @@ Chạy theo thứ tự trên file vừa dựng: `kiem_soat_van_ban.py --day-du -
 - [ ] **Hiệu ứng (đọc lại bằng mắt)**: đúng mạch nói, ghi chú diễn giả có thứ tự cú nhấp, hiệu ứng chờ đúng mức bối cảnh (nền ≤ 1 nhóm, nội dung ≤ 2 đối tượng).
 - [ ] **Ảnh**: ảnh nội dung có mô tả (altText) và nguồn/tác giả trong ghi chú.
 - [ ] **Phông**: đúng nguyên tắc; mọi họ phông đã nhúng (PowerPoint) — `kiem_soat_van_ban.py` nhóm *phông* và *dựng thử* hết LỖI.
-- [ ] PowerPoint: render từng slide (`installFontsForPreview` → soffice → pdftoppm), **xem từng ảnh**, ghép lưới để so; `validate.py` PASSED. Canva: đọc lại toàn bộ chữ bằng `read-design` và sửa lỗi theo `quy-trinh-canva.md`.
+- [ ] PowerPoint: render từng slide (`installFontsForPreview` → soffice → pdftoppm), **xem từng ảnh**, ghép lưới để so; `validate.py` PASSED. Canva: đọc thiết kế có cấu trúc (`read-design` + `open_transaction`), chạy `python3 scripts/kiem_tra_canva.py canva.json --boi-canh <khoá> --bang-mau <hex,…> --dan-y dan_y.json` → hết **LỖI**, xem ảnh từng trang, sửa theo mục 4–6 `quy-trinh-canva.md`.
 Sửa đến khi đạt.
 
 ## Bước 8–9 — Bản xem trước và người dùng kiểm tra ⟲
@@ -105,7 +105,8 @@ Gửi file/link kèm 1–2 câu và danh sách hiệu ứng chính; với PowerP
 
 ## Bước 10 — Xuất và bàn giao
 - **PowerPoint**: bàn giao bản đã dựng ở Bước 6 và qua Bước 7 (**.pptx + .ppsx**); thêm PDF khi bối cảnh yêu cầu; chiếu tự động thêm `setLoop`. Tên `Slide_<ChuDeKhongDau>_<ddmmyyyy>`; bản nâng cấp thêm hậu tố `_nang_cap`, không ghi đè bản gốc.
-- **Canva/Gamma**: link chỉnh sửa + link tải (ghi thời hạn), xem tài liệu tương ứng.
+- **Canva**: link chỉnh sửa + bảng hiệu ứng đề xuất, không xuất tệp (mục 9 `quy-trinh-canva.md`).
+- **Gamma**: link chỉnh sửa + link tải (ghi thời hạn), xem `quy-trinh-gamma.md`.
 - Gửi file bằng SendUserFile. Nội dung bàn giao, ngắn gọn:
   - số slide, phong cách, cặp phông;
   - hiệu ứng chính;
