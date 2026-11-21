@@ -2,8 +2,8 @@
   "displayName": "SlideWright - Studio",
   "icon": "./assets/branding/logo.png",
   "name": "slidewright-studio",
-  "version": "1.0.0",
-  "description": "SlideWright - Studio — Bộ công cụ trình chiếu tổng hợp bằng tiếng Việt: tạo mới, nâng cấp, chuyển PDF thành PowerPoint giữ nguyên bản gốc; xuất PowerPoint (.pptx/.ppsx), Gamma hoặc Canva.",
+  "version": "1.1.0",
+  "description": "SlideWright - Studio — Bộ công cụ trình chiếu tổng hợp bằng tiếng Việt: tạo mới, nâng cấp, chuyển PDF thành PowerPoint giữ nguyên bản gốc; xuất PowerPoint (.pptx/.ppsx), Gamma hoặc Canva; viết kịch bản thuyết trình (lời nói từng slide, phân bổ thời gian, hỏi đáp dự kiến).",
   "author": {
     "name": "TheGleam89"
   },
@@ -18,6 +18,8 @@
     "thuyet-trinh",
     "tieng-viet",
     "pdf-to-pptx",
-    "nang-cap-slide"
+    "nang-cap-slide",
+    "kich-ban-thuyet-trinh",
+    "speaker-notes"
   ]
 }

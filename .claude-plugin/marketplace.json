@@ -8,7 +8,7 @@
     {
       "name": "slidewright-studio",
       "source": "./",
-      "description": "SlideWright - Studio — tạo, nâng cấp, chuyển PDF thành bài trình chiếu tiếng Việt (PowerPoint .pptx/.ppsx, Gamma, Canva), có hiệu ứng, Morph, phông nhúng sẵn."
+      "description": "SlideWright - Studio — tạo, nâng cấp, chuyển PDF thành bài trình chiếu tiếng Việt (PowerPoint .pptx/.ppsx, Gamma, Canva), có hiệu ứng, Morph, phông nhúng sẵn; viết kịch bản thuyết trình và ghi chú diễn giả."
     }
   ]
 }

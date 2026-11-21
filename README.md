@@ -7,9 +7,9 @@
 
 <h1 align="center">SlideWright - Studio</h1>
 
-Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Gói plugin chứa skill **makeSlides**.
+Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Gói plugin chứa hai skill: **makeSlides** (dựng slide) và **presentationScript** (kịch bản thuyết trình).
 
-Phiên bản hiện tại: **1.0.0** · [Lịch sử thay đổi](CHANGELOG.md)
+Phiên bản hiện tại: **1.1.0** · [Lịch sử thay đổi](CHANGELOG.md)
 
 ## Tính năng
 
@@ -20,6 +20,7 @@ Phiên bản hiện tại: **1.0.0** · [Lịch sử thay đổi](CHANGELOG.md)
 - **Chữ tiếng Việt chuẩn:** phông đủ dấu nhúng sẵn trong file, công thức là khối Equation gốc của PowerPoint.
 - **Thiết kế trên Canva có kiểm soát:** Canva AI dựng khung, Claude kiểm tra cỡ chữ, chữ đè, khung hẹp, lệch chân chữ, màu, nội dung ngoài dàn ý, chính tả ngay trên thiết kế rồi sửa trực tiếp (thiết kế tĩnh, cần hiệu ứng thì dùng bản PowerPoint).
 - **Kiểm soát văn bản toàn diện:** phông (nhúng, thiếu ký tự, đậm/nghiêng giả), mã chữ (NFD, TCVN3, ký tự ẩn), chính tả âm tiết tiếng Việt, dấu câu, viết hoa tên cơ quan, chữ hiển thị thật khi dựng; tự sửa phần không đổi câu chữ.
+- **Kịch bản thuyết trình (presentationScript):** lời nói đầy đủ cho từng slide, khớp từng cú nhấp hiệu ứng, chia thời gian theo tổng thời lượng và tốc độ nói, chuẩn bị câu hỏi đáp dự kiến; ghi vào ghi chú diễn giả và xuất bản in Word kèm thẻ nhắc.
 - **Tự kiểm tra trước khi bàn giao:** cỡ chữ, lượng chữ, xuống dòng, tràn khung, tương phản, phối màu và dấu hiệu slide do AI làm.
 
 ## Cài đặt
@@ -51,6 +52,7 @@ Nói với Claude bằng ngôn ngữ tự nhiên; skill tự chạy khi bạn nh
 | "Thiết kế lại file này cho ấn tượng hơn" (kèm `.pptx`) | Nâng cấp |
 | "Chuyển PDF này sang PowerPoint, giữ nguyên, thêm hiệu ứng xuất hiện" | Chuyển đổi nguyên bản |
 | "Làm luôn, xuất file hoàn chỉnh" | Bỏ qua các bước duyệt |
+| "Viết kịch bản thuyết trình 15 phút cho bộ slide này" (kèm `.pptx`) | Kịch bản thuyết trình |
 
 **Quy trình:** nêu yêu cầu → chọn phong cách trong ba phương án → duyệt dàn ý → Claude dựng và tự kiểm tra → nhận file `.pptx` và `.ppsx` (hoặc link Canva, Gamma). Ở chế độ "làm luôn", hai bước chọn phong cách và duyệt dàn ý được bỏ qua.
 

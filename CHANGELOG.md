@@ -2,6 +2,14 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## 1.1.0
+Thêm skill thứ hai: **presentationScript** (`presentation-script`) — viết kịch bản thuyết trình cho bộ slide.
+- Đầu vào: bộ slide do makeSlides tạo, `.pptx` bất kỳ, PDF bài trình chiếu, Canva/Gamma hoặc chỉ dàn ý; dùng chung bối cảnh trong `make-slides/assets/contexts.json`.
+- `scripts/doc_slide.py`: đọc bộ slide thành `slide.json` (tiêu đề, chữ, ghi chú cũ, số cú nhấp, slide ẩn, vai slide), đề xuất thời lượng từng slide theo tổng thời gian, dựng ảnh thu nhỏ.
+- Lời nói theo mẫu `[Mở] / [Nhấp n] / [Nhấn] / [Chuyển]`, mỗi cú nhấp đúng một nhịp; hướng dẫn văn nói, xưng hô theo bối cảnh, nhịp toàn bài, tốc độ nói (`references/viet-loi-noi.md`); chuẩn bị hỏi đáp theo người nghe (`references/hoi-dap.md`).
+- `scripts/kiem_tra_kich_ban.py`: ước thời lượng theo âm tiết, so với mục tiêu; bắt slide thiếu lời, số nhịp lệch số cú nhấp, đọc lại nguyên văn slide, câu quá dài, thiếu câu mở/chuyển, từ nhấn không khớp, cụm sáo rỗng, Markdown/emoji, số liệu thiếu nguồn; kiểm tra mã chữ và chính tả âm tiết bằng bộ kiểm tra của makeSlides.
+- `scripts/dung_kich_ban.py`: ghi lời nói vào ghi chú diễn giả (tệp mới, giữ dòng nguồn ảnh cũ, xuất kèm `.ppsx`) và dựng bản in Word A4 (phân bổ thời gian, lời nói từng slide kèm ảnh thu nhỏ và mốc giờ, hỏi đáp dự kiến, thẻ nhắc).
+
 ## 1.0.0
 Bản ổn định đầu tiên. Nhánh Canva được làm lại hoàn chỉnh: chỉ thiết kế trên Canva, bàn giao link, không xuất tệp.
 - Viết lại `references/quy-trinh-canva.md`:
