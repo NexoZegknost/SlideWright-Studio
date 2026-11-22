@@ -13,8 +13,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
           fetch-depth: 0
+
+      # Bản chính thức (vX.Y.Z) phát hành từ main.
+      # Bản thử (vX.Y.Z-beta.N, có dấu "-") phát hành từ nhánh chứa tag, không đụng tới main;
+      # tag phải gắn đúng commit mới nhất của nhánh đó.
+      - name: Chọn nhánh phát hành
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          case "$TAG" in
+            *-*)
+              BRANCH=$(git branch -r --contains "$GITHUB_SHA" --format='%(refname:lstrip=3)' \
+                | grep -vE '^(HEAD|main)$' | head -1)
+              if [ -z "$BRANCH" ]; then
+                echo "::error::Tag thử $TAG phải gắn trên một nhánh khác main"; exit 1
+              fi
+              if [ "$(git rev-parse "origin/$BRANCH")" != "$GITHUB_SHA" ]; then
+                echo "::error::Tag $TAG không trỏ vào commit mới nhất của nhánh $BRANCH"; exit 1
+              fi ;;
+            *) BRANCH=main ;;
+          esac
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+          git checkout -B "$BRANCH" "origin/$BRANCH"
 
       - name: Đồng bộ số phiên bản
         env:
@@ -59,7 +80,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .claude-plugin/plugin.json gemini-extension.json package.json README.md CHANGELOG.md
           git diff --cached --quiet || git commit -m "chore(release): $VERSION"
-          git push origin HEAD:main
+          git push origin "HEAD:$BRANCH"
           git tag -f "$TAG"
           git push -f origin "$TAG"
 
