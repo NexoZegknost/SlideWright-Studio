@@ -5,7 +5,9 @@ Mỗi skill thành một tệp .zip có SKILL.md ở thư mục gốc:
   dist/slidewright-make-slides-gemini-app-<phiên bản>.zip
   dist/slidewright-presentation-script-gemini-app-<phiên bản>.zip
 
-Nguồn: skills/ (dùng chung với Claude và Gemini CLI) + gemini-app/ (phần riêng của Gemini app).
+Nguồn: skills/ (tài liệu quy tắc dùng chung với Claude và Gemini CLI) + gemini-app/ (SKILL.md riêng).
+Gemini app từ chối nạp skill có kèm mã chạy được, nên gói chỉ chứa SKILL.md, tệp .md và .json;
+có tệp thực thi lọt vào thì dừng với LỖI.
 Phiên bản lấy từ gemini-extension.json (workflow release đã đồng bộ theo tag).
 Cần Node.js để tính sẵn bảng màu (tools/phuong_an.js).
 
@@ -31,12 +33,10 @@ REF_MAKE_SLIDES = [
     "nguyen-tac-thiet-ke.md", "van-ban-hanh-chinh.md", "dan-y-mau.md", "kiem-soat-van-ban.md",
 ]
 ASSET_MAKE_SLIDES = ["contexts.json", "styles.json"]
-# Script kiểm tra chạy bằng Python thuần (+ python-pptx/lxml/Pillow)
-SCRIPT_MAKE_SLIDES = [
-    "kiem_tra_slide.py", "kiem_tra_hieu_ung.py", "kiem_tra_goi.py", "kiem_soat_van_ban.py", "kiem_tra_van_ban.py",
-]
-FONT_META = ["files.json", "phan-loai.json"]  # siêu dữ liệu phông cho kiem_soat_van_ban.py (không kèm tệp phông)
 BO_QUA = (".pyc", ".DS_Store")
+# Gemini Chat: "Skill … contains executable code or scripts, which are not supported"
+DUOI_THUC_THI = (".py", ".js", ".mjs", ".cjs", ".ts", ".sh", ".bash", ".ps1", ".bat", ".cmd", ".ipynb", ".rb", ".pl")
+REF_PRESENTATION_SCRIPT = ["viet-loi-noi.md", "hoi-dap.md", "dinh-dang-kich-ban.md"]
 
 
 def phien_ban():
@@ -46,11 +46,6 @@ def phien_ban():
 def chep(src, dst):
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     shutil.copy2(src, dst)
-
-
-def chep_cay(src, dst):
-    shutil.copytree(src, dst, ignore=shutil.ignore_patterns("__pycache__", *("*" + x for x in BO_QUA)),
-                    dirs_exist_ok=True)
 
 
 def nen(thu_muc, tep_zip):
@@ -68,16 +63,10 @@ def make_slides(ra, v):
     s = open(os.path.join(APP, "make-slides", "SKILL.md.tmpl"), encoding="utf-8").read()
     os.makedirs(d)
     open(os.path.join(d, "SKILL.md"), "w", encoding="utf-8").write(s.replace("{{VERSION}}", v))
-    chep_cay(os.path.join(APP, "make-slides", "scripts"), os.path.join(d, "scripts"))
-    chep_cay(os.path.join(APP, "make-slides", "assets"), os.path.join(d, "assets"))
     for f in REF_MAKE_SLIDES:
         chep(os.path.join(MS, "references", f), os.path.join(d, "references", f))
     for f in ASSET_MAKE_SLIDES:
         chep(os.path.join(MS, "assets", f), os.path.join(d, "assets", f))
-    for f in FONT_META:
-        chep(os.path.join(MS, "assets", "fonts", f), os.path.join(d, "assets", "fonts", f))
-    for f in SCRIPT_MAKE_SLIDES:
-        chep(os.path.join(MS, "scripts", f), os.path.join(d, "scripts", f))
     subprocess.run(["node", os.path.join(GOC, "tools", "phuong_an.js"), os.path.join(d, "assets", "phuong-an.json")],
                    check=True)
     return d
@@ -85,26 +74,32 @@ def make_slides(ra, v):
 
 def presentation_script(ra, v):
     d = os.path.join(ra, "presentation-script")
-    chep_cay(PS, d)
-    os.remove(os.path.join(d, "SKILL.md"))
+    s = open(os.path.join(APP, "presentation-script", "SKILL.md.tmpl"), encoding="utf-8").read()
+    os.makedirs(d)
+    open(os.path.join(d, "SKILL.md"), "w", encoding="utf-8").write(s.replace("{{VERSION}}", v))
+    for f in REF_PRESENTATION_SCRIPT:
+        chep(os.path.join(PS, "references", f), os.path.join(d, "references", f))
     chep(os.path.join(MS, "assets", "contexts.json"), os.path.join(d, "assets", "contexts.json"))
-    s = open(os.path.join(PS, "SKILL.md"), encoding="utf-8").read()
-    ghi_chu = open(os.path.join(APP, "presentation-script", "ghi-chu-app.md"), encoding="utf-8").read()
-    thay = [
-        (r"Đường dẫn `references/`, `scripts/` tính từ thư mục skill này \(.*?\)\. ",
-         "Đường dẫn `references/`, `scripts/`, `assets/` tính từ thư mục skill này. "),
-        (r"\(`\.\./make-slides/assets/contexts\.json`\)", "(`assets/contexts.json`)"),
-        (r"hỏi gộp một lượt bằng AskUserQuestion", "hỏi gộp một lượt trong hội thoại"),
-        (r"Gửi bằng SendUserFile:", "Đưa tệp để tải về:"),
-    ]
-    for mau, moi in thay:
-        s, n = re.subn(mau, moi, s, count=1)
-        if n != 1:
-            sys.exit(f"LỖI: không tìm thấy đoạn cần đổi trong presentation-script/SKILL.md: {mau}")
-    s = re.sub(r"^(# .+\n)", lambda m: m.group(1) + "\n" + ghi_chu.replace("{{VERSION}}", v) + "\n", s, count=1,
-               flags=re.M)
-    open(os.path.join(d, "SKILL.md"), "w", encoding="utf-8").write(s)
     return d
+
+
+def kiem_goi(d):
+    """Chặn tệp thực thi; mô tả ≤ 1024 ký tự; SKILL.md có frontmatter name/description."""
+    loi = []
+    for goc, _, tep in os.walk(d):
+        for t in tep:
+            if t.lower().endswith(DUOI_THUC_THI):
+                loi.append(f"tệp thực thi: {os.path.relpath(os.path.join(goc, t), d)}")
+    s = open(os.path.join(d, "SKILL.md"), encoding="utf-8").read()
+    m = re.match(r"---\nname: ([a-z0-9-]+)\ndescription: (.+?)\n---\n", s, flags=re.S)
+    if not m:
+        loi.append("SKILL.md thiếu frontmatter name/description")
+    elif len(m.group(2)) > 1024:
+        loi.append(f"description dài {len(m.group(2))} ký tự (> 1024)")
+    if "{{" in s:
+        loi.append("SKILL.md còn chỗ {{…}} chưa thay")
+    if loi:
+        sys.exit("LỖI gói " + os.path.basename(d) + ":\n  " + "\n  ".join(loi))
 
 
 def main():
@@ -118,6 +113,7 @@ def main():
     ket_qua = []
     for ten, ham in (("make-slides", make_slides), ("presentation-script", presentation_script)):
         d = ham(tam, v)
+        kiem_goi(d)
         z = os.path.join(a.ra, f"slidewright-{ten}-gemini-app-{v}.zip")
         nen(d, z)
         ket_qua.append(z)

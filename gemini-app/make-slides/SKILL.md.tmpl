@@ -1,102 +1,103 @@
 ---
 name: make-slides
-description: Bộ công cụ trình chiếu tiếng Việt SlideWright cho Gemini app — tạo bài thuyết trình (bài giảng, báo cáo, kế hoạch, tập huấn, hội nghị, sự kiện…) từ chủ đề, dàn ý, văn bản hoặc tài liệu đính kèm; dựng lại bài .pptx có sẵn cho đẹp hơn. Đầu ra PowerPoint (.pptx + .ppsx) có chuyển trang Morph, hiệu ứng theo mạch nói, ghi chú diễn giả. LUÔN dùng khi người dùng nhắc "makeSlides", "SlideWright", "tạo slide", "làm bài thuyết trình", "làm powerpoint", "slide báo cáo", "slide bài giảng", "trình chiếu", "slide-pptx", "nâng cấp slide", "làm đẹp slide", "thiết kế lại slide", hoặc muốn biến báo cáo/kế hoạch/dự thảo thành slide — kể cả khi không nói từ "skill".
+description: Bộ quy tắc trình chiếu tiếng Việt SlideWright cho Gemini app — tạo bài thuyết trình (bài giảng, báo cáo, kế hoạch, tập huấn, hội nghị, sự kiện…) từ chủ đề, dàn ý, văn bản hoặc tài liệu đính kèm; làm lại bài có sẵn cho đẹp hơn. Khi dùng skill này PHẢI đọc toàn bộ chỉ dẫn và các tệp đi kèm trước khi tạo slide, và mọi slide phải theo đúng ràng buộc trình bày trong đó. LUÔN dùng khi người dùng nhắc "makeSlides", "SlideWright", "tạo slide", "làm bài thuyết trình", "làm powerpoint", "slide báo cáo", "slide bài giảng", "trình chiếu", "nâng cấp slide", "làm đẹp slide", "thiết kế lại slide", hoặc muốn biến báo cáo/kế hoạch/dự thảo thành slide — kể cả khi không nói từ "skill".
 ---
 
 # makeSlides — bản Gemini app
 
 Phiên bản: {{VERSION}} · SlideWright - Studio · https://github.com/NexoZegknost/SlideWright-Studio
 
-Mục tiêu: bộ slide **có thông điệp rõ, bố cục đa dạng, màu có chủ đích, chữ ít mà đắt, hiệu ứng theo mạch nói**, dùng được ngay. Viết **tiếng Việt chuẩn, đủ dấu**, văn phong hợp bối cảnh.
+Mục tiêu: bộ slide **có thông điệp rõ, bố cục đa dạng, màu có chủ đích, chữ ít mà đắt**, dùng được ngay. Viết **tiếng Việt chuẩn, đủ dấu**, văn phong hợp bối cảnh.
 
-Tệp đi kèm (đường dẫn tính từ thư mục skill này):
-- `references/` — quy tắc nội dung, màu, phông, bối cảnh, dấu hiệu AI. Một số tệp nhắc tới script của bản Claude (`layouts.js`, `dinh_huong.js`, `kiem_tra_van_ban.py`…) **không có** trong bản này: bỏ qua phần đó, làm theo SKILL.md này.
-- `assets/contexts.json` — thông số 10 bối cảnh; `assets/phuong-an.json` — bảng màu và phông theo lĩnh vực, tính sẵn; `assets/styles.json` — 8 phong cách có sẵn; `assets/mau-dac-ta.json` — mẫu đặc tả để dựng.
-- `scripts/dung_slide.py` — dựng .pptx + .ppsx từ đặc tả JSON (cần python-pptx).
-- `scripts/kiem_tra_slide.py`, `kiem_tra_hieu_ung.py`, `kiem_tra_goi.py`, `kiem_soat_van_ban.py` — kiểm tra sau khi dựng.
+## Bắt buộc
+1. Câu đầu tiên trả lời người dùng: "Đang dùng make-slides {{VERSION}}."
+2. Đọc các tệp đi kèm trước khi lên dàn ý: `assets/contexts.json`, `assets/phuong-an.json`, `references/noi-dung-slide.md`, `references/dau-hieu-ai.md`, `references/phoi-mau.md`. Các tệp khác đọc khi đến bước cần.
+3. Dựng slide bằng công cụ tạo slide của Gemini, nhưng **mọi slide phải theo mục "Ràng buộc trình bày"** dưới đây. Mẫu trình bày mặc định của công cụ (hàng thẻ trắng bằng nhau, biểu tượng trên đầu thẻ, nhãn chữ in hoa nhỏ trên tiêu đề, chữ cỡ nhỏ) **không được dùng**.
+4. Không bỏ qua hai điểm duyệt (dàn ý, bản xem trước) trừ khi người dùng nói "làm luôn".
+5. Một số tệp trong `references/` nhắc tới script của bản Claude (`makeslides.js`, `dinh_huong.js`, `kiem_tra_slide.py`…). Bản Gemini app **không chạy script**: bỏ qua các lệnh đó, làm theo chỉ dẫn này và tự kiểm tra theo Bước 6.
 
-## Phạm vi của bản Gemini app
-- Chỉ xuất **PowerPoint**. Người dùng xin Canva, Gamma hoặc chuyển PDF thành PowerPoint giữ nguyên bản gốc → nói một câu là bản Gemini app chưa hỗ trợ (bản Claude có), rồi đề nghị làm bản PowerPoint.
-- **Không nhúng phông**: chỉ dùng phông có sẵn trong Office (trường `phong_office` của phương án: Cambria, Calibri, Consolas). Không dùng phông khác trên slide.
-- Không có công thức dạng Equation: công thức viết bằng chữ ngắn gọn (I = U/R), công thức dài đặt vào ghi chú hoặc đề nghị người dùng chèn bằng Equation của PowerPoint.
+## Phạm vi
+- Đầu ra: bộ slide của Gemini (mở bằng Google Slides, tải về PowerPoint được). Không có Morph và hiệu ứng theo cú nhấp; bản Claude và Gemini CLI mới có.
+- Công thức viết bằng chữ ngắn gọn (I = U/R); bỏ qua yêu cầu "khối Equation" trong `trinh_bay` của phương án.
+- Người dùng xin Canva, Gamma, chuyển PDF thành PowerPoint giữ nguyên bản gốc, hoặc tệp .pptx có hiệu ứng → nói một câu là bản Gemini app chưa làm được (bản Claude có), rồi đề nghị làm bộ slide của Gemini.
 
 ## Bước 0 — Chọn nhánh
 | Nhánh | Khi nào | Làm theo |
 |---|---|---|
 | **A. Tạo mới** | Có chủ đề, dàn ý, văn bản, tài liệu | Bước 1–7 |
-| **B. Nâng cấp** | Gửi .pptx muốn đẹp hơn, giữ nội dung | Đọc nội dung bằng python-pptx (tiêu đề, chữ, ghi chú từng slide), ghi lỗi chính tả/trình bày của bản gốc, rồi Bước 1–7 với nội dung đó; tên tệp thêm hậu tố `_nang_cap` |
+| **B. Làm lại bài có sẵn** | Gửi .pptx/.pdf/Google Slides muốn đẹp hơn, giữ nội dung | Đọc nội dung từng slide, ghi lỗi chính tả/trình bày của bản gốc, rồi Bước 1–7 với nội dung đó |
 | **A + văn bản hành chính** | Nguồn là báo cáo, kế hoạch, dự thảo | Bước 1–7 + `references/van-ban-hanh-chinh.md` |
-
-## Hai điểm duyệt và chế độ "làm luôn"
-Người dùng duyệt **dàn ý** (Bước 3) và **bản hoàn chỉnh** (Bước 6). **Bỏ qua cả hai** khi người dùng nói "làm luôn", "xuất file hoàn chỉnh" hoặc gửi nhiều tài liệu và yêu cầu kết quả cuối; khi đó tự chọn phương án đề xuất và ghi rõ ở phần bàn giao những gì đã tự quyết.
 
 ## Bước 1 — Đề tài, bối cảnh, phong cách
 1. **Đề tài** từ lời người dùng và tài liệu. Chỉ hỏi khi không có.
-2. **Bối cảnh** theo `references/boi-canh.md`; thông số (`body_min`, `title_min`, `max_words`, `sec_per_slide`, slide bắt buộc) ở `assets/contexts.json`. Số slide = thời lượng ÷ `sec_per_slide`. Bối cảnh thắng mặc định của phong cách.
-3. **Phong cách**: nhận diện lĩnh vực bằng cách so đề tài (viết không dấu) với `tu_khoa` của từng lĩnh vực trong `assets/phuong-an.json`; đề tài lai thì chọn lĩnh vực của nội dung chính. Lĩnh vực có 3 phương án (màu, phông, cách trình bày, lý do). Đưa 3 phương án cho người dùng chọn, phương án đề xuất đặt đầu và ghi "(Đề xuất)", mỗi phương án một câu lý do; gộp các câu còn thiếu (bối cảnh, thời lượng) vào cùng lượt, tối đa 4 câu. Muốn phong cách có sẵn: `assets/styles.json` + `references/phong-cach.md`.
-4. **Màu**: dùng **nguyên** bảng màu của phương án (đã kiểm tương phản), không tự pha màu mới. Quy tắc ở `references/phoi-mau.md`: không phối màu đối nhau (lam–cam, đỏ–lục, vàng–tím), nền tối ≤ một nửa số slide.
+2. **Bối cảnh** theo `references/boi-canh.md`; thông số ở `assets/contexts.json`: `body_min` (cỡ chữ nội dung tối thiểu, pt), `title_min` (cỡ tiêu đề tối thiểu), `max_words` (số chữ tối đa mỗi slide), `sec_per_slide`. **Số slide = thời lượng (giây) ÷ `sec_per_slide`**, cộng bìa và slide kết; không vượt quá 1–2 slide.
+3. **Lĩnh vực**: so đề tài (viết không dấu) với `tu_khoa` của từng lĩnh vực trong `assets/phuong-an.json`; đề tài lai thì chọn lĩnh vực của nội dung chính. Mỗi lĩnh vực có 3 phương án (màu, phông gốc, cách trình bày, lý do).
+4. Đưa **3 phương án** cho người dùng chọn: phương án đề xuất đặt đầu, ghi "(Đề xuất)", mỗi phương án một câu lý do và 4 mã màu chính; gộp các câu còn thiếu (bối cảnh, thời lượng) vào cùng lượt, tối đa 4 câu. Muốn phong cách có sẵn: `assets/styles.json` + `references/phong-cach.md`.
 
-## Bước 2 — Thu thập và xử lý nội dung
+## Bước 2 — Thu thập nội dung
 - Tài liệu người dùng gửi: đọc hết, giữ đúng số liệu, tên riêng, trích dẫn.
-- Chỉ có chủ đề: tìm thông tin bằng Google Search, ưu tiên nguồn chính thống; ghi nguồn vào ghi chú diễn giả và slide nguồn tham khảo.
-- Không bịa trích dẫn, số liệu, văn bản pháp quy. Lỗi phát hiện trong tài liệu nguồn: không tự sửa, ghi vào phần bàn giao.
+- Chỉ có chủ đề: tìm bằng Google Search, ưu tiên nguồn chính thống. **Mọi con số trên slide phải có nguồn** (ghi ở ghi chú hoặc slide nguồn); không tìm được nguồn thì bỏ con số.
+- Không bịa trích dẫn, số liệu, văn bản pháp quy. Lỗi trong tài liệu nguồn: không tự sửa, báo ở phần bàn giao.
+- Nội dung kỹ thuật: kiểm tra các thông số đi cùng nhau có khớp không (loại linh kiện – dải giá trị đo – điện áp…); chỗ phụ thuộc thực tế thì ghi rõ "đo/hiệu chuẩn lại".
 
 ## Bước 3 — Dàn ý ⟲ (người dùng duyệt)
-Bảng: số slide · loại slide · tiêu đề (là thông điệp, ≤ 12 từ) · ý chính · điểm nhấn. Mẫu dàn ý: `references/dan-y-mau.md`. Có đủ slide bắt buộc của bối cảnh.
+Bảng: số slide · loại bố cục (bảng ở Bước 5) · tiêu đề (là thông điệp, ≤ 12 từ) · ý chính · điểm nhấn. Mẫu: `references/dan-y-mau.md`. Đủ slide bắt buộc của bối cảnh.
 
 ## Bước 4 — Viết nội dung slide
 Theo `references/noi-dung-slide.md` và `references/dau-hieu-ai.md`:
-- Một slide – một thông điệp; tiêu đề là câu kết luận ngắn, không đếm số kiểu "Ba con số đáng chú ý".
-- Mỗi ý là cụm 2–7 chữ; tối đa 3 ý (4–5 khi là các bước); số chữ ≤ `max_words` của bối cảnh.
-- 1–3 điểm nhấn mỗi slide, đánh dấu `**cụm**` (tự in đậm, đổi màu nhấn).
-- Không biểu tượng/emoji trước chữ, không "VS", không nhãn "Điểm chính", không gạch ngang nối ý, không lời kết sáo.
-- Ghi chú diễn giả mọi slide theo mẫu `[Mở] … [Nhấp 1] … [Nhấn] … [Chuyển] …` — số `[Nhấp]` khớp số bước hiệu ứng (mỗi ý của danh sách, mỗi thẻ, mỗi con số là một cú nhấp; ≤ 5).
-- Tiêu đề hai dòng thì dòng trên ngắn hơn; không để một từ đứng một mình ở dòng cuối.
+- Một slide – một thông điệp. **Tiêu đề là câu kết luận ngắn** ("Tưới tự động giữ đất ẩm ổn định"), không phải nhãn ("Đánh giá hiệu quả"), không đếm số kiểu "Ba con số đáng chú ý".
+- Mỗi ý là cụm 2–7 chữ; tối đa 3 ý (4–5 khi là các bước); tổng chữ ≤ `max_words`.
+- 1–3 điểm nhấn mỗi slide (in đậm hoặc màu nhấn).
+- Ghi chú diễn giả cho mọi slide: `[Mở] …  [Ý] …  [Nhấn] …  [Chuyển] …`, kèm nguồn số liệu.
 
-## Bước 5 — Dựng file
-1. Viết đặc tả JSON theo `assets/mau-dac-ta.json`:
-   - `phong_cach.mau` = `mau` của phương án đã chọn; `phong_tieu_de`, `phong_noi_dung` = `phong_office.head`, `phong_office.body`;
-   - `co_chu` = `body_min`, `title_min`, `max_words` của bối cảnh;
-   - `ten_tep` = `Slide_<ChuDeKhongDau>_<ddmmyyyy>`.
-2. Chọn **loại slide** đa dạng, không lặp một loại quá 2 slide liên tiếp:
+## Bước 5 — Ràng buộc trình bày (áp cho từng slide)
+**Màu** — dùng nguyên mã màu của phương án đã chọn, không thêm màu ngoài bảng:
+- `dark` nền tối; `light` nền sáng; `soft` khối nền phụ; `text` chữ trên nền sáng; `muted` chữ phụ; `accent`, `accent2` hình nhấn; `accentText` chữ nhấn trên nền sáng; `accentOnDark` chữ nhấn trên nền tối.
+- Nền tối chỉ cho bìa, chia phần, câu hỏi lớn, kết — **không quá một nửa số slide**.
+- Không đặt hai màu đối nhau cạnh nhau (lam–cam, đỏ–lục, vàng–tím), kể cả ở thanh, biểu đồ.
 
-| Loại | Dùng cho | Trường |
+**Chữ**
+- Cỡ chữ nội dung **≥ `body_min`**, tiêu đề **≥ `title_min`**, kể cả chữ trong thẻ, bảng, chú thích (chú thích nguồn được nhỏ hơn, ≥ 12pt). Không đủ chỗ thì bớt chữ hoặc tách slide, không thu nhỏ chữ.
+- Phông: theo `phong_goc` của phương án (Google Slides có sẵn các phông này); tối đa 2 họ phông. Không viết HOA cả câu; không nhãn chữ in hoa nhỏ phía trên tiêu đề.
+- Căn trái đoạn nội dung; căn giữa chỉ cho bìa, câu hỏi lớn, kết.
+- Tiêu đề hai dòng thì dòng trên ngắn hơn; không để một từ đứng một mình ở dòng cuối; không tách số khỏi đơn vị.
+
+**Bố cục** — đa dạng, không lặp một loại quá 2 slide liền nhau:
+
+| Loại | Dùng cho | Cách trình bày |
 |---|---|---|
-| `bia` | Slide đầu (nền tối) | `nhan`, `tieu_de`, `phu_de`, `thong_tin` |
-| `chia-phan` | Mở đầu một phần (nền tối) | `so`, `tieu_de`, `mo_ta` |
-| `y-chinh` | 2–5 ý + một con số/cụm nhấn bên phải | `tieu_de`, `y[]`, `diem_nhan{so, chu}` (tuỳ chọn) |
-| `hai-cot` | So sánh, đối chiếu hai mặt | `tieu_de`, `cot[2]{tieu_de, y[]}` |
-| `the` | 2–4 nhóm ý; thẻ đầu (ý chính) rộng hơn | `tieu_de`, `the[]{tieu_de, noi_dung}` |
-| `so-lieu` | 1–3 con số lớn | `tieu_de`, `so_lieu[]{so, chu}`, `nguon` |
-| `trich-dan` | Câu trích, điều khoản, câu thơ | `trich`, `nguon` |
-| `dong-thoi-gian` | 2–5 mốc, quy trình theo bước | `tieu_de`, `moc[]{moc, noi_dung}` |
-| `bang` | Bảng ≤ 7 hàng, hàng đầu là tiêu đề cột | `tieu_de`, `hang[][]` |
-| `anh` | Ảnh nửa trái + ý bên phải | `tieu_de`, `anh` (đường dẫn), `mo_ta_anh`, `y[]` |
-| `cau-hoi` | Câu hỏi lớn gợi mở (nền tối) | `cau_hoi`, `goi_y` |
-| `ket` | Slide cuối (nền tối) | `tieu_de`, `y[]` |
+| Bìa | Slide đầu | Nền tối, tiêu đề lớn căn trái, phụ đề màu `accentOnDark`, một hình nhấn lớn lệch một bên |
+| Chia phần | Mở đầu một phần | Nền tối, số phần lớn ("01"), tiêu đề phần, một dòng mô tả |
+| Ý chính + điểm nhấn | 2–5 ý | Danh sách bên trái; bên phải một con số hoặc cụm nhấn lớn trên khối `soft` |
+| Hai cột | So sánh, đối chiếu | Hai cột có vạch màu đứng, mỗi cột một tiêu đề nhỏ + 2–4 ý ngắn |
+| Nhóm ý | 2–4 nhóm | Khối **không bằng nhau**: khối đầu (ý chính) rộng hơn, nền `dark`; các khối sau nền `soft` |
+| Số liệu | 1–3 con số | Con số rất lớn, vạch ngắn `accent`, một dòng giải thích; nguồn ở chân slide |
+| Trích dẫn | Câu trích, điều khoản, câu thơ | Vạch màu đứng bên trái, chữ lớn nghiêng, nguồn bên dưới |
+| Dòng thời gian / các bước | 2–5 mốc | Một đường ngang, chấm `accent` tại mỗi mốc, chữ dưới mỗi mốc |
+| Bảng | ≤ 7 hàng | Hàng đầu nền `dark` chữ trắng, các hàng xen `soft`/`light`; chữ ≥ `body_min` − 4 |
+| Ảnh + ý | Ảnh minh hoạ | Ảnh chiếm nửa trái, tiêu đề và ý bên phải |
+| Câu hỏi lớn | Gợi mở, thảo luận | Nền tối, một câu hỏi rất lớn |
+| Kết | Slide cuối | Nền tối, thông điệp chốt hoặc kiến nghị, không chỉ "Cảm ơn" |
 
-   Mọi slide có `ghi_chu`. Slide không cần hiệu ứng: `"hieu_ung": false`. Bối cảnh hiệu ứng *tối thiểu*: đặc tả có `"morph": false` (chỉ mờ dần).
-3. Chạy `python3 scripts/dung_slide.py dac_ta.json --ra <thư mục>` → ra `.pptx` + `.ppsx`. Script tự thêm cảnh Morph xuyên suốt (vòng tròn trôi, chấm nhấn, thanh tiến độ dài dần), hiệu ứng mờ dần theo từng cú nhấp, ghi chú diễn giả, mã ngôn ngữ vi-VN. Mọi CẢNH BÁO (tràn chữ, quá nhiều chữ, quá 5 cú nhấp, thiếu ghi chú) → sửa đặc tả, dựng lại.
-4. Không chạy được Python hoặc thiếu python-pptx → nói rõ một câu, dựng bằng công cụ tạo slide có sẵn của Gemini theo đúng dàn ý, bảng màu và nội dung đã duyệt (có thể dùng phông gốc `phong_goc` vì Google Slides có sẵn các phông này), và ghi rõ bản này không có Morph và hiệu ứng.
+**Ảnh**
+- Chỉ dùng ảnh tải được và hiển thị được; **không để khung ảnh trống** hoặc dòng mô tả thay ảnh. Không có ảnh phù hợp thì dùng bố cục khác.
+- Ghi nguồn ảnh **đúng trang lấy ảnh**, slide nguồn đặt tên tiếng Việt "Nguồn tham khảo". Ưu tiên ảnh có giấy phép dùng lại.
+
+**Tránh** (dấu hiệu bài do AI làm): biểu tượng/emoji trước hoặc trên chữ; biểu tượng trong vòng tròn; hàng 3–4 thẻ trắng bằng nhau; vòng "VS"; gạch chân dưới tiêu đề; nhãn "Điểm chính"; ba ý dài bằng nhau; gạch ngang nối các ý; lời kết sáo rỗng.
 
 ## Bước 6 — Tự kiểm tra (bắt buộc) ⟲
-Chạy trên tệp vừa dựng, có LỖI thì sửa đặc tả, dựng lại, chạy lại:
-- `python3 scripts/kiem_tra_goi.py <tệp>.pptx <tệp>.ppsx` → PASSED.
-- `python3 scripts/kiem_tra_slide.py <tệp>.pptx` → hết LỖI; xem từng CẢNH BÁO (tương phản, màu đối nhau, nền tối quá nhiều, dấu hiệu AI, ba ý dài bằng nhau).
-- `python3 scripts/kiem_tra_hieu_ung.py <tệp>.pptx` → hết LỖI (không đối tượng nào bị kẹt không hiện, Morph có đối tượng chung).
-- `python3 scripts/kiem_soat_van_ban.py <tệp>.pptx --chi ma-chu,chinh-ta,dau-cau,viet-hoa` → hết LỖI (mã chữ, chính tả âm tiết, dấu câu, viết hoa tên cơ quan). Script không chạy được thì tự rà các mục đó theo `references/kiem-soat-van-ban.md`.
-- Đọc lại bằng mắt: chính tả, xuống dòng (không tách số – đơn vị, họ – tên), số liệu khớp nguồn, đủ slide bắt buộc, ghi chú có thứ tự cú nhấp.
-Rồi gửi bản xem trước cho người dùng (trừ chế độ "làm luôn"); cần sửa → quay lại Bước 4 hoặc 5.
+Rà từng slide, sửa trước khi đưa người dùng xem:
+- [ ] Cỡ chữ ≥ `body_min` / `title_min` ở mọi khối chữ; không chữ nào tràn khung.
+- [ ] Số chữ mỗi slide ≤ `max_words`; số slide khớp thời lượng.
+- [ ] Chỉ dùng mã màu của phương án; nền tối ≤ một nửa; không cặp màu đối nhau.
+- [ ] Tiêu đề là thông điệp; không biểu tượng, không nhãn in hoa, không hàng thẻ bằng nhau.
+- [ ] Mọi con số có nguồn; thông số kỹ thuật khớp nhau; tên riêng, số hiệu văn bản đúng.
+- [ ] Chính tả, dấu câu, viết hoa tên cơ quan theo `references/kiem-soat-van-ban.md`.
+- [ ] Ảnh hiển thị đủ, nguồn ảnh đúng.
+- [ ] Mọi slide có ghi chú diễn giả.
+Rồi đưa bản xem trước cho người dùng (trừ chế độ "làm luôn"); cần sửa → quay lại Bước 4 hoặc 5.
 
 ## Bước 7 — Bàn giao
-Đưa tệp **.pptx + .ppsx** để tải về, kèm ngắn gọn:
-- số slide, phương án phong cách, cặp phông;
-- những gì đã tự quyết; lỗi phát hiện trong tài liệu nguồn;
-- ba lưu ý: hiệu ứng và Morph chỉ chạy khi trình chiếu bằng PowerPoint (Morph cần PowerPoint 2019/365; bản cũ tự chuyển sang mờ dần; Google Slides không chạy Morph); bài dùng phông có sẵn của Office nên mở trên máy khác vẫn đúng; muốn thêm slide thì sao chép một slide cùng loại để giữ cảnh Morph (các hình tên `!!vong`, `!!cham`, `!!tien-do`).
-
-## Những điều tránh
-- Gạch chân dưới tiêu đề; biểu tượng/emoji trước chữ; biểu tượng trong vòng tròn; vòng "VS".
-- Chữ sáng cùng tông nền đậm; hai màu đối nhau trong một bài; quá nửa số slide nền tối.
-- Căn giữa đoạn văn nội dung; quá 3 họ phông; phông không có sẵn trong Office.
-- Dùng logo, màu, hoạ tiết của một đơn vị khi người dùng không yêu cầu.
-- Bịa trích dẫn, số liệu, văn bản pháp quy; tự sửa nội dung văn bản gốc của người dùng (chỉ báo lỗi).
+- Bộ slide, kèm ngắn gọn: số slide, phương án phong cách, cặp phông; những gì đã tự quyết; lỗi phát hiện trong tài liệu nguồn.
+- Ghi chú diễn giả: nếu công cụ không gắn được vào slide thì đưa thành một danh sách theo số slide để người dùng dán vào phần ghi chú của Google Slides.
+- Cách lấy tệp PowerPoint: mở bằng Google Slides → Tệp → Tải xuống → Microsoft PowerPoint (.pptx). Cần hiệu ứng và Morph thì dùng bản Claude hoặc Gemini CLI của SlideWright.

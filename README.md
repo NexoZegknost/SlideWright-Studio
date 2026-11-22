@@ -47,13 +47,13 @@ pip install -r requirements.txt
 
 Máy cần có Node.js 18+, Python 3, LibreOffice và poppler (`pdftoppm`). Nếu Gemini CLI chưa nạp skill, gõ `/settings`, tìm "Skills" và bật Agent Skills. Cập nhật bằng `gemini extensions update slidewright-studio`. Cách skill chạy trên Gemini được ghi trong `GEMINI.md`.
 
-**Gemini app** (gemini.google.com, ứng dụng Gemini trên Mac và điện thoại; chỉ xuất PowerPoint)
+**Gemini app** (gemini.google.com, ứng dụng Gemini trên Mac và điện thoại; dựng bằng công cụ slide của Gemini)
 
 1. Ở mục Releases, tải hai tệp `slidewright-make-slides-gemini-app-<phiên bản>.zip` và `slidewright-presentation-script-gemini-app-<phiên bản>.zip`.
 2. Trong Gemini, mở trang **Skills** → **Create** → **Upload**, chọn từng tệp .zip.
 3. Lên bản mới: mở skill → **More** → **Replace skill**, chọn tệp .zip mới. Số phiên bản đang dùng ghi ở đầu nội dung skill.
 
-Bản Gemini app dựng PowerPoint bằng Python: có chuyển trang Morph, hiệu ứng theo mạch nói và ghi chú diễn giả; dùng phông có sẵn của Office (Cambria, Calibri), không nhúng phông; chưa có công thức dạng Equation, Canva, Gamma và chuyển PDF giữ nguyên bản gốc.
+Gemini app không nạp skill có kèm mã chạy được, nên bản này chỉ gồm chỉ dẫn và tệp quy tắc: Gemini dựng slide bằng công cụ có sẵn của nó theo đúng ràng buộc trình bày của SlideWright (màu theo lĩnh vực, cỡ chữ theo bối cảnh, bố cục, chống dấu hiệu AI). Tải về PowerPoint qua Google Slides; không có Morph, hiệu ứng theo cú nhấp, Canva, Gamma — cần các phần này thì dùng bản Claude hoặc Gemini CLI. Mẹo: mở đầu câu lệnh bằng "Dùng skill make-slides:".
 
 ## Yêu cầu
 

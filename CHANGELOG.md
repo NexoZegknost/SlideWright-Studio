@@ -2,6 +2,12 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## 2.0.0-beta.3
+- [Gemini app] Gemini app từ chối nạp skill có kèm script ("contains executable code or scripts, which are not supported in Gemini Chat"), nên bản 2.0.0-beta.2 không chạy được. Hai gói nay chỉ còn SKILL.md, tài liệu quy tắc (.md) và dữ liệu (.json); bỏ `dung_slide.py` và các script kiểm tra.
+- [Gemini app] make-slides viết lại cho công cụ tạo slide có sẵn của Gemini: mục "Bắt buộc" (báo phiên bản ở câu đầu, đọc tệp đi kèm trước khi làm, không dùng mẫu mặc định của công cụ), bảng ràng buộc trình bày (mã màu của phương án, cỡ chữ theo bối cảnh, 12 bố cục, ảnh và nguồn ảnh, những điều tránh), danh sách tự kiểm tra thay cho script, cách tải về PowerPoint.
+- [Gemini app] presentation-script viết lại: kịch bản trả về trong hội thoại theo số slide để dán vào ghi chú; tự ước lượng thời gian theo âm tiết và tốc độ nói của bối cảnh.
+- [Gemini app] `tools/build_gemini_app.py` dừng với LỖI khi gói có tệp thực thi (.py, .js, .sh…), mô tả quá 1024 ký tự hoặc còn chỗ `{{…}}` chưa thay.
+
 ## 2.0.0-beta.2
 - [Gemini app] Bản mới cho Gemini app: mỗi skill một tệp .zip đính kèm bản phát hành (`tools/build_gemini_app.py`). make-slides dựng .pptx + .ppsx bằng python-pptx (`gemini-app/make-slides/scripts/dung_slide.py`: 12 loại slide, cảnh Morph xuyên suốt, hiệu ứng mờ dần theo cú nhấp, ghi chú diễn giả, `**cụm nhấn**`, cảnh báo tràn chữ); bảng màu theo lĩnh vực tính sẵn (`assets/phuong-an.json`); phông có sẵn của Office.
 - [Claude] [Gemini CLI] [Gemini app] presentation-script: đọc đúng tiêu đề slide — bỏ qua chữ của cảnh Morph (`!!…`) và số phần, ký hiệu ngắn (trước đây bộ slide có cảnh Morph bị nhận nhầm tiêu đề).

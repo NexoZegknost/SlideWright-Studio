@@ -1,0 +1,62 @@
+---
+name: presentation-script
+description: Viết kịch bản thuyết trình tiếng Việt cho một bộ slide (SlideWright, bản Gemini app) — lời nói đầy đủ từng slide theo thứ tự ý, phân bổ thời gian theo tổng thời lượng và tốc độ nói, câu mở – câu chuyển – từ nhấn, câu hỏi đáp dự kiến kèm gợi ý trả lời, thẻ nhắc. Dùng cho bộ slide Google Slides, .pptx, PDF bài trình chiếu hoặc chỉ có dàn ý. Khi dùng skill này PHẢI đọc toàn bộ chỉ dẫn và các tệp references/ trước khi viết. LUÔN dùng khi người dùng nhắc "presentationScript", "kịch bản thuyết trình", "viết lời thuyết trình", "lời nói cho slide", "viết ghi chú diễn giả", "speaker notes", "lời dẫn cho từng slide", "tập thuyết trình", "chuẩn bị hỏi đáp", "câu hỏi hội đồng có thể hỏi", "thuyết trình trong 10/15/20 phút nói gì" — kể cả khi không nói từ "skill".
+---
+
+# presentationScript — bản Gemini app
+
+Phiên bản: {{VERSION}} · SlideWright - Studio · https://github.com/NexoZegknost/SlideWright-Studio
+
+Mục tiêu: người trình bày cầm kịch bản là **nói được ngay, đúng giờ, khớp từng slide**, không đọc lại slide, không bị bất ngờ khi hỏi đáp. Viết **tiếng Việt chuẩn, đủ dấu, văn nói**.
+
+## Bắt buộc
+1. Câu đầu tiên trả lời người dùng: "Đang dùng presentation-script {{VERSION}}."
+2. Đọc `references/viet-loi-noi.md`, `references/hoi-dap.md`, `references/dinh-dang-kich-ban.md` và `assets/contexts.json` trước khi viết.
+3. Bản Gemini app **không chạy script**. Các tệp `references/` có nhắc tới `doc_slide.py`, `kich_ban.json`, `kiem_tra_kich_ban.py`, `dung_kich_ban.py` của bản Claude: bỏ qua lệnh, dùng quy tắc nội dung; tự đếm và tự kiểm tra theo Bước 5.
+4. Không ghi được ghi chú vào tệp slide: kịch bản trả về trong hội thoại (hoặc tài liệu Google Docs khi người dùng muốn), xếp theo số slide để dán vào phần ghi chú.
+
+## Bước 0 — Đầu vào
+| Có gì | Làm |
+|---|---|
+| Google Slides, .pptx, PDF bài trình chiếu | Đọc chữ và ghi chú cũ từng slide; đếm số ý xuất hiện lần lượt (mỗi ý danh sách, mỗi khối, mỗi con số là một nhịp) |
+| Bộ slide vừa làm bằng make-slides trong cuộc trò chuyện | Dùng luôn bộ slide, bối cảnh, thời lượng đã chốt; không hỏi lại |
+| Chỉ có dàn ý | Viết theo dàn ý; đề nghị làm slide bằng make-slides sau |
+
+Cần biết (hỏi gộp một lượt, tối đa 4 câu, chỉ hỏi cái chưa có): **tổng thời lượng**, **bối cảnh / người nghe**, **người trình bày xưng hô thế nào** (vai, đơn vị), **khách mời** cần chào (hội nghị, lễ). Người dùng nói "làm luôn" → lấy `sec_per_slide` của bối cảnh trong `assets/contexts.json`, ghi rõ ở phần bàn giao những gì đã tự quyết.
+
+## Bước 1 — Lập bảng slide
+Bảng: số slide · tiêu đề · vai (bìa, chia phần, nội dung, kết) · số nhịp · giây đề xuất. Giây đề xuất: chia tổng thời lượng theo số nhịp và lượng chữ; bìa 20–30 giây, slide kết luận và kiến nghị được thêm giờ, slide minh hoạ bớt. **Tổng phải bằng thời lượng mục tiêu.**
+
+## Bước 2 — Khung bài nói
+Theo mục 3 `references/viet-loi-noi.md`: câu mở bài (lời hứa của bài), thông điệp chốt cuối mỗi phần, lời kết + kiến nghị.
+
+## Bước 3 — Lời nói từng slide
+Theo `references/viet-loi-noi.md` và mẫu ở `references/dinh-dang-kich-ban.md`:
+- `[Mở]` 1 câu → các nhịp `[Ý 1]`, `[Ý 2]`… **đúng bằng số nhịp** của slide → `[Nhấn]` 1–3 từ khoá có trên slide → `[Chuyển]` 1 câu mang nội dung.
+- Lượng chữ mỗi slide ≈ giây × tốc độ ÷ 60 âm tiết. Tốc độ (âm tiết/phút) theo bối cảnh: hội nghị, giảng dạy 120; tập huấn 125; học sinh – sinh viên, công sở 130; bảo vệ đồ án, trực tuyến 135; hội thi 145. Mỗi `[Dừng]` tính thêm 2 giây.
+- Văn nói: câu ≤ 25 âm tiết, số liệu đọc được thành lời, không đọc lại câu trên slide, xưng hô đúng bối cảnh, không cụm sáo rỗng; "Kính thưa" chỉ ở phần mở.
+- Giữ đúng số liệu, tên riêng, số hiệu văn bản; thiếu thì ghi `[cần bổ sung]`.
+
+## Bước 4 — Hỏi đáp dự kiến
+Theo `references/hoi-dap.md`: 5–10 câu (bảo vệ, thi: 8–12); trả lời trước – giải thích sau, 30–60 giây mỗi câu, ghi nguồn và slide dùng để trả lời. Câu cần slide dự phòng mà bộ slide chưa có → ghi ở phần bàn giao.
+
+## Bước 5 — Tự kiểm tra (bắt buộc)
+- [ ] Slide nào cũng có lời; số nhịp khớp số ý xuất hiện trên slide.
+- [ ] Ước lượng thời gian (đếm âm tiết ÷ tốc độ) từng slide và cả bài; tổng lệch ≤ 10% thời lượng mục tiêu.
+- [ ] Không câu nào đọc lại nguyên văn slide; câu ≤ 25 âm tiết; mỗi slide có `[Mở]` và `[Chuyển]`.
+- [ ] Từ nhấn có trên slide; số liệu có nguồn; không Markdown, không emoji trong lời nói.
+- [ ] Chính tả, dấu câu, xưng hô đúng vai.
+- [ ] Đọc thầm toàn bài: có tự nhiên như người đó nói không.
+
+## Bước 6 — Bàn giao
+1. **Bảng phân bổ thời gian** (số slide · tiêu đề · giây · cộng dồn).
+2. **Kịch bản theo slide**: tiêu đề "Slide n — <tiêu đề>", rồi lời nói theo mẫu ở Bước 3, sẵn để dán vào ghi chú Google Slides / PowerPoint.
+3. **Hỏi đáp dự kiến**.
+4. **Thẻ nhắc**: mỗi slide một dòng gồm từ khoá và câu chuyển.
+5. Ngắn gọn: tổng thời lượng ước tính so với mục tiêu, tốc độ nói đã dùng; những gì đã tự quyết; chỗ `[cần bổ sung]`; cách dùng: dán vào ghi chú, trình chiếu bằng chế độ Presenter View để thấy ghi chú.
+
+## Những điều tránh
+- Đọc lại nguyên câu trên slide; số nhịp lệch với số ý trên slide.
+- Văn viết, câu dài, chuỗi số liệu liền nhau; "Kính thưa" lặp giữa bài.
+- Bịa số liệu, thành tích, trích dẫn, văn bản; tự thêm cam kết thay người trình bày.
+- Sửa nội dung slide (skill này chỉ viết lời nói — cần sửa slide thì chuyển sang make-slides).
