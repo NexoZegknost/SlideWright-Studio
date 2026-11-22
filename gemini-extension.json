@@ -1,6 +1,6 @@
 {
   "name": "slidewright-studio",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0-beta.3",
   "description": "SlideWright - Studio — Bộ công cụ trình chiếu tiếng Việt cho Gemini CLI: tạo mới, nâng cấp, chuyển PDF thành PowerPoint giữ nguyên bản gốc; xuất .pptx/.ppsx có hiệu ứng, Morph, phông nhúng; viết kịch bản thuyết trình.",
   "contextFileName": "GEMINI.md"
 }

@@ -9,7 +9,7 @@
 
 Plugin cho Claude giúp tạo bài thuyết trình tiếng Việt chuyên nghiệp: dựng mới từ chủ đề hoặc tài liệu, nâng cấp bài có sẵn, và chuyển PDF thành PowerPoint giữ nguyên bản gốc. Gói plugin chứa hai skill: **makeSlides** (dựng slide) và **presentationScript** (kịch bản thuyết trình).
 
-Phiên bản hiện tại: **2.0.0-beta.2** · [Lịch sử thay đổi](CHANGELOG.md)
+Phiên bản hiện tại: **2.0.0-beta.3** · [Lịch sử thay đổi](CHANGELOG.md)
 
 ## Tính năng
 
