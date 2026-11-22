@@ -2,6 +2,14 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## 2.0.0-beta.4
+- [Gemini app] Cỡ chữ tính theo px của Canvas (khung 1280 × 720): bảng px theo bối cảnh, quy đổi px = pt × 1,78. Bản trước để Gemini dùng nguyên số pt làm px nên chữ chỉ còn 13,5–16 pt khi xuất PowerPoint.
+- [Gemini app] Mục "Cấm tuyệt đối": đóng khung chữ (thẻ, hộp, viền, đổ bóng), biểu tượng, nhãn trên tiêu đề, chữ in hoa cả dòng, dấu "•" "·" "|" và gạch nối ý, số phút/thời lượng trên slide, slide nguồn ảnh, phông ngoài cặp của phương án; SKILL.md thắng khi `references/` gợi ý ngược lại.
+- [Gemini app] 11 bố cục không khung (bìa chữ lớn, câu hỏi lớn, chia đôi màu, câu thơ lớn, chữ số lớn, từ khoá lớn, ảnh tràn nửa, dòng chảy, đối lập, bảng gọn, kết); bộ 10 slide dùng ≥ 6 bố cục, ≥ 1/3 slide có yếu tố thị giác lớn.
+- [Gemini app] Thiết kế sẵn cho Morph (khối màu xuyên suốt đổi vị trí, kích thước giữa các slide); bàn giao kèm ghi chú diễn giả, bảng hiệu ứng từng slide và cách bật Morph, hiệu ứng trong PowerPoint.
+- [Gemini app] Tự kiểm tra 10 mục, ghi kết quả từng mục trong câu trả lời trước khi đưa bộ slide.
+- [Gemini app] `references/vi-du.md` đổi sang ví dụ *Trao duyên*: dàn ý 10 bố cục, slide mẫu tính bằng px, bảng hiệu ứng mẫu, bảng sai → đúng lấy từ lần thử Canvas.
+
 ## 2.0.0-beta.3
 - [Gemini app] Gemini app từ chối nạp skill có kèm script ("contains executable code or scripts, which are not supported in Gemini Chat"), nên bản 2.0.0-beta.2 không chạy được. Hai gói nay chỉ còn SKILL.md, tài liệu quy tắc (.md) và dữ liệu (.json); bỏ `dung_slide.py` và các script kiểm tra.
 - [Gemini app] make-slides viết lại cho công cụ tạo slide có sẵn của Gemini: mục "Bắt buộc" (báo phiên bản ở câu đầu, đọc tệp đi kèm trước khi làm, không dùng mẫu mặc định của công cụ), bảng ràng buộc trình bày (mã màu của phương án, cỡ chữ theo bối cảnh, 12 bố cục, ảnh và nguồn ảnh, những điều tránh), danh sách tự kiểm tra thay cho script, cách tải về PowerPoint.

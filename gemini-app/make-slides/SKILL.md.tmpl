@@ -1,105 +1,125 @@
 ---
 name: make-slides
-description: Bộ quy tắc trình chiếu tiếng Việt SlideWright cho Gemini app — tạo bài thuyết trình (bài giảng, báo cáo, kế hoạch, tập huấn, hội nghị, sự kiện…) từ chủ đề, dàn ý, văn bản hoặc tài liệu đính kèm; làm lại bài có sẵn cho đẹp hơn. Đầu vào: chủ đề, dàn ý, văn bản, tài liệu (PDF, Word, ảnh, link) hoặc bộ slide cũ. Đầu ra: bộ slide của Gemini theo phong cách đã chọn (tải về PowerPoint qua Google Slides) kèm ghi chú diễn giả từng slide. Khi dùng skill này PHẢI đọc toàn bộ chỉ dẫn và các tệp đi kèm trước khi tạo slide, và mọi slide phải theo đúng ràng buộc trình bày trong đó. LUÔN dùng khi người dùng nhắc "makeSlides", "SlideWright", "tạo slide", "làm bài thuyết trình", "làm powerpoint", "slide báo cáo", "slide bài giảng", "trình chiếu", "nâng cấp slide", "làm đẹp slide", "thiết kế lại slide", hoặc muốn biến báo cáo/kế hoạch/dự thảo thành slide — kể cả khi không nói từ "skill".
+description: Bộ quy tắc trình chiếu tiếng Việt SlideWright cho Gemini app — tạo bài thuyết trình (bài giảng, báo cáo, kế hoạch, tập huấn, hội nghị, sự kiện…) từ chủ đề, dàn ý, văn bản hoặc tài liệu đính kèm; làm lại bài có sẵn cho đẹp hơn. Đầu vào: chủ đề, dàn ý, văn bản, tài liệu (PDF, Word, ảnh, link) hoặc bộ slide cũ. Đầu ra: bộ slide Canvas theo phong cách đã chọn (xuất PowerPoint/Google Slides), ghi chú diễn giả và bảng hiệu ứng từng slide. Khi dùng skill này PHẢI đọc toàn bộ chỉ dẫn và các tệp đi kèm trước khi tạo slide, và mọi slide phải theo đúng ràng buộc trình bày trong đó. LUÔN dùng khi người dùng nhắc "makeSlides", "SlideWright", "tạo slide", "làm bài thuyết trình", "làm powerpoint", "slide báo cáo", "slide bài giảng", "trình chiếu", "nâng cấp slide", "làm đẹp slide", "thiết kế lại slide", hoặc muốn biến báo cáo/kế hoạch/dự thảo thành slide — kể cả khi không nói từ "skill".
 ---
 
 # makeSlides — bản Gemini app
 
-Phiên bản: {{VERSION}} · SlideWright - Studio · https://github.com/NexoZegknost/SlideWright-Studio
+Phiên bản: {{VERSION}}, SlideWright - Studio, https://github.com/NexoZegknost/SlideWright-Studio
 
-Mục tiêu: bộ slide **có thông điệp rõ, bố cục đa dạng, màu có chủ đích, chữ ít mà đắt**, dùng được ngay. Viết **tiếng Việt chuẩn, đủ dấu**, văn phong hợp bối cảnh.
+Mục tiêu: bộ slide **có thông điệp rõ, bố cục bất ngờ mà gọn, màu có chủ đích, chữ ít mà lớn**, trông như do người thiết kế làm, không giống mẫu AI. Viết **tiếng Việt chuẩn, đủ dấu**.
 
 ## Bắt buộc
 1. Câu đầu tiên trả lời người dùng: "Đang dùng make-slides {{VERSION}}."
-2. Đọc các tệp đi kèm trước khi lên dàn ý: **`references/vi-du.md`** (dàn ý, slide hoàn chỉnh và các lỗi sai → đúng mẫu — bắt chước đúng cấu trúc và mức chi tiết), `assets/contexts.json`, `assets/phuong-an.json`, `references/noi-dung-slide.md`, `references/dau-hieu-ai.md`, `references/phoi-mau.md`. Các tệp khác đọc khi đến bước cần.
-3. Dựng slide bằng công cụ tạo slide của Gemini, nhưng **mọi slide phải theo mục "Ràng buộc trình bày"** dưới đây. Mẫu trình bày mặc định của công cụ (hàng thẻ trắng bằng nhau, biểu tượng trên đầu thẻ, nhãn chữ in hoa nhỏ trên tiêu đề, chữ cỡ nhỏ) **không được dùng**.
-4. Không bỏ qua hai điểm duyệt (dàn ý, bản xem trước) trừ khi người dùng nói "làm luôn".
-5. Một số tệp trong `references/` nhắc tới script của bản Claude (`makeslides.js`, `dinh_huong.js`, `kiem_tra_slide.py`…). Bản Gemini app **không chạy script**: bỏ qua các lệnh đó, làm theo chỉ dẫn này và tự kiểm tra theo Bước 6.
+2. Trước khi lên dàn ý, đọc **`references/vi-du.md`** (dàn ý, slide mẫu, bảng sai → đúng — bắt chước đúng cấu trúc và mức chi tiết), `assets/contexts.json`, `assets/phuong-an.json`, `references/noi-dung-slide.md`, `references/dau-hieu-ai.md`. Các tệp khác đọc khi đến bước cần.
+3. **Cỡ chữ tính bằng px của Canvas** (khung 1280 × 720) theo bảng ở Bước 5 — không dùng con số pt trong `contexts.json` làm px.
+4. Trước khi đưa bộ slide, chạy Bước 6 và **ghi kết quả từng mục kiểm tra** trong câu trả lời; mục nào chưa đạt thì sửa rồi mới đưa.
+5. Không bỏ qua hai điểm duyệt (dàn ý, bản xem trước) trừ khi người dùng nói "làm luôn".
+6. Một số tệp trong `references/` nhắc tới script của bản Claude (`makeslides.js`, `kiem_tra_slide.py`…): bỏ qua các lệnh đó, Gemini app không chạy script.
+7. Tệp trong `references/` gợi ý điều trái với mục "Cấm tuyệt đối" dưới đây (lưới thẻ, biểu tượng lớn, nhãn nhỏ, ghi nguồn ảnh…) → **làm theo SKILL.md này**.
+
+## Cấm tuyệt đối trên slide
+- **Đóng khung chữ**: thẻ, hộp, ô bo góc, viền, đổ bóng bao quanh chữ. Nhóm ý bằng khoảng trắng, vạch mảnh, khối màu lớn sát mép, chữ số cỡ lớn — không bằng hộp.
+- **Biểu tượng** (Font Awesome, emoji, hình minh hoạ nhỏ) trước, trên hoặc cạnh chữ; số thứ tự trong vòng tròn.
+- **Nhãn phía trên tiêu đề** (kiểu "I. TÌM HIỂU CHUNG", "HOẠT ĐỘNG 1"), chữ in hoa cả dòng.
+- **Dấu chấm giữa và ký tự ngăn cách** "•", "·", "|" trong chữ trên slide; gạch ngang nối các ý ("A – B – C").
+- **Số phút, thời lượng, tiến độ** trên slide ("3 phút", "Tiết 45 phút", "12 câu đầu" làm nhãn).
+- **Slide hoặc dòng ghi nguồn hình ảnh** ("Image Sources", đường link ảnh).
+- Hàng 3–4 khối bằng nhau; hai slide liền nhau cùng một bố cục; căn giữa đoạn văn nội dung.
+- Phông ngoài cặp `phong_goc` của phương án đã chọn (không tự đổi sang Be Vietnam Pro, Inter, Roboto…).
 
 ## Phạm vi
-- Đầu ra: bộ slide của Gemini (mở bằng Google Slides, tải về PowerPoint được). Không có Morph và hiệu ứng theo cú nhấp; bản Claude và Gemini CLI mới có.
-- Công thức viết bằng chữ ngắn gọn (I = U/R); bỏ qua yêu cầu "khối Equation" trong `trinh_bay` của phương án.
-- Người dùng xin Canva, Gamma, chuyển PDF thành PowerPoint giữ nguyên bản gốc, hoặc tệp .pptx có hiệu ứng → nói một câu là bản Gemini app chưa làm được (bản Claude có), rồi đề nghị làm bộ slide của Gemini.
+- Đầu ra: bộ slide Canvas của Gemini; người dùng bấm **Xuất** để lấy PowerPoint hoặc Google Slides. Canvas không gắn được hiệu ứng: skill thiết kế sẵn cho Morph và đưa bảng hiệu ứng để người dùng bật trong PowerPoint (Bước 7).
+- Công thức viết bằng chữ ngắn gọn (I = U/R).
+- Người dùng xin Canva, Gamma, chuyển PDF thành PowerPoint giữ nguyên bản gốc → nói một câu là bản Gemini app chưa làm được (bản Claude có), rồi đề nghị làm bộ slide Canvas.
 
 ## Bước 0 — Chọn nhánh
 | Nhánh | Khi nào | Làm theo |
 |---|---|---|
 | **A. Tạo mới** | Có chủ đề, dàn ý, văn bản, tài liệu | Bước 1–7 |
-| **B. Làm lại bài có sẵn** | Gửi .pptx/.pdf/Google Slides muốn đẹp hơn, giữ nội dung | Đọc nội dung từng slide, ghi lỗi chính tả/trình bày của bản gốc, rồi Bước 1–7 với nội dung đó |
+| **B. Làm lại bài có sẵn** | Gửi .pptx/.pdf/Google Slides muốn đẹp hơn, giữ nội dung | Đọc nội dung từng slide, ghi lỗi chính tả/trình bày của bản gốc, rồi Bước 1–7 |
 | **A + văn bản hành chính** | Nguồn là báo cáo, kế hoạch, dự thảo | Bước 1–7 + `references/van-ban-hanh-chinh.md` |
 
 ## Bước 1 — Đề tài, bối cảnh, phong cách
 1. **Đề tài** từ lời người dùng và tài liệu. Chỉ hỏi khi không có.
-2. **Bối cảnh** theo `references/boi-canh.md`; thông số ở `assets/contexts.json`: `body_min` (cỡ chữ nội dung tối thiểu, pt), `title_min` (cỡ tiêu đề tối thiểu), `max_words` (số chữ tối đa mỗi slide), `sec_per_slide`. **Số slide = thời lượng (giây) ÷ `sec_per_slide`**, cộng bìa và slide kết; không vượt quá 1–2 slide.
-3. **Lĩnh vực**: so đề tài (viết không dấu) với `tu_khoa` của từng lĩnh vực trong `assets/phuong-an.json`; đề tài lai thì chọn lĩnh vực của nội dung chính. Mỗi lĩnh vực có 3 phương án (màu, phông gốc, cách trình bày, lý do).
-4. Đưa **3 phương án** cho người dùng chọn: phương án đề xuất đặt đầu, ghi "(Đề xuất)", mỗi phương án một câu lý do và 4 mã màu chính; gộp các câu còn thiếu (bối cảnh, thời lượng) vào cùng lượt, tối đa 4 câu. Muốn phong cách có sẵn: `assets/styles.json` + `references/phong-cach.md`.
+2. **Bối cảnh** theo `references/boi-canh.md` và `assets/contexts.json` (`max_words`, `sec_per_slide`, slide bắt buộc). **Số slide = thời lượng (giây) ÷ `sec_per_slide`**, lệch tối đa 1–2 slide.
+3. **Lĩnh vực**: so đề tài (viết không dấu) với `tu_khoa` của từng lĩnh vực trong `assets/phuong-an.json`. Mỗi lĩnh vực có 3 phương án (màu, phông, cách trình bày, lý do).
+4. Đưa **3 phương án** cho người dùng chọn: phương án đề xuất đặt đầu, ghi "(Đề xuất)", mỗi phương án một câu lý do, 4 mã màu chính và cặp phông; gộp các câu còn thiếu (bối cảnh, thời lượng) vào cùng lượt, tối đa 4 câu.
 
 ## Bước 2 — Thu thập nội dung
-- Tài liệu người dùng gửi: đọc hết, giữ đúng số liệu, tên riêng, trích dẫn.
-- Chỉ có chủ đề: tìm bằng Google Search, ưu tiên nguồn chính thống. **Mọi con số trên slide phải có nguồn** (ghi ở ghi chú hoặc slide nguồn); không tìm được nguồn thì bỏ con số.
-- Không bịa trích dẫn, số liệu, văn bản pháp quy. Lỗi trong tài liệu nguồn: không tự sửa, báo ở phần bàn giao.
-- Nội dung kỹ thuật: kiểm tra các thông số đi cùng nhau có khớp không (loại linh kiện – dải giá trị đo – điện áp…); chỗ phụ thuộc thực tế thì ghi rõ "đo/hiệu chuẩn lại".
+- Tài liệu người dùng gửi: đọc hết, giữ đúng số liệu, tên riêng, trích dẫn (thơ, văn bản pháp quy chép đúng nguyên văn).
+- Chỉ có chủ đề: tìm bằng Google Search, ưu tiên nguồn chính thống. Con số trên slide phải có nguồn — ghi nguồn trong **ghi chú diễn giả**, không cần đưa lên slide; không tìm được nguồn thì bỏ con số.
+- Không bịa trích dẫn, số liệu, văn bản pháp quy. Thông số kỹ thuật đi cùng nhau phải khớp (loại linh kiện – dải đo – điện áp…).
 
 ## Bước 3 — Dàn ý ⟲ (người dùng duyệt)
-Bảng: số slide · loại bố cục (bảng ở Bước 5) · tiêu đề (là thông điệp, ≤ 12 từ) · ý chính · điểm nhấn — như mục 1 của `references/vi-du.md`. Khung theo loại bài: `references/dan-y-mau.md`. Đủ slide bắt buộc của bối cảnh.
+Bảng có các cột: số slide, bố cục (bảng ở Bước 5), tiêu đề (là thông điệp, ≤ 12 từ), ý chính, yếu tố thị giác — như mục 1 của `references/vi-du.md`. Một bộ 10 slide dùng **ít nhất 6 bố cục khác nhau**; tối đa 2 slide dạng danh sách; ít nhất một phần ba số slide có **yếu tố thị giác lớn** (ảnh tràn nửa slide, khối màu lớn, chữ số hoặc câu chữ cỡ rất lớn).
 
 ## Bước 4 — Viết nội dung slide
 Theo `references/noi-dung-slide.md` và `references/dau-hieu-ai.md`:
-- Một slide – một thông điệp. **Tiêu đề là câu kết luận ngắn** ("Tưới tự động giữ đất ẩm ổn định"), không phải nhãn ("Đánh giá hiệu quả"), không đếm số kiểu "Ba con số đáng chú ý".
-- Mỗi ý là cụm 2–7 chữ; tối đa 3 ý (4–5 khi là các bước); tổng chữ ≤ `max_words`.
-- 1–3 điểm nhấn mỗi slide (in đậm hoặc màu nhấn).
-- Ghi chú diễn giả cho mọi slide: `[Mở] …  [Ý] …  [Nhấn] …  [Chuyển] …`, kèm nguồn số liệu.
+- Một slide – một thông điệp. **Tiêu đề là nhận định** ("Kiều nhờ em bằng lời của người mắc nợ"), không phải nhãn ("Lời nhờ cậy của Kiều").
+- Mỗi ý là cụm 2–7 chữ; tối đa 3 ý (4–5 khi là các bước); tổng chữ ≤ `max_words`. Nhiều hơn thì tách slide.
+- 1–3 điểm nhấn mỗi slide (đậm hoặc màu `accentText`).
+- Ghi chú diễn giả cho mọi slide: `[Mở] …  [Ý] …  [Nhấn] …  [Chuyển] …`, kèm nguồn số liệu, nguồn ảnh nếu cần.
 
-## Bước 5 — Ràng buộc trình bày (áp cho từng slide)
-Mỗi slide mô tả đủ như mục 2 của `references/vi-du.md`: bố cục, nền, từng khối chữ (phông, cỡ, mã màu), hình nhấn, đếm chữ, ghi chú. Đối chiếu bảng sai → đúng ở mục 3 trước khi dựng.
+## Bước 5 — Ràng buộc trình bày
+Mỗi slide mô tả đủ như mục 2 của `references/vi-du.md`: bố cục, nền, từng khối chữ (phông, cỡ px, mã màu), yếu tố thị giác, đối tượng xuyên suốt, đếm chữ.
 
-**Màu** — dùng nguyên mã màu của phương án đã chọn, không thêm màu ngoài bảng:
-- `dark` nền tối; `light` nền sáng; `soft` khối nền phụ; `text` chữ trên nền sáng; `muted` chữ phụ; `accent`, `accent2` hình nhấn; `accentText` chữ nhấn trên nền sáng; `accentOnDark` chữ nhấn trên nền tối.
-- Nền tối chỉ cho bìa, chia phần, câu hỏi lớn, kết — **không quá một nửa số slide**.
-- Không đặt hai màu đối nhau cạnh nhau (lam–cam, đỏ–lục, vàng–tím), kể cả ở thanh, biểu đồ.
+**Cỡ chữ (px trên khung Canvas 1280 × 720)** — chữ nội dung không nhỏ hơn cột "Nội dung", kể cả chữ phụ:
 
-**Chữ**
-- Cỡ chữ nội dung **≥ `body_min`**, tiêu đề **≥ `title_min`**, kể cả chữ trong thẻ, bảng, chú thích (chú thích nguồn được nhỏ hơn, ≥ 12pt). Không đủ chỗ thì bớt chữ hoặc tách slide, không thu nhỏ chữ.
-- Phông: theo `phong_goc` của phương án (Google Slides có sẵn các phông này); tối đa 2 họ phông. Không viết HOA cả câu; không nhãn chữ in hoa nhỏ phía trên tiêu đề.
-- Căn trái đoạn nội dung; căn giữa chỉ cho bìa, câu hỏi lớn, kết.
-- Tiêu đề hai dòng thì dòng trên ngắn hơn; không để một từ đứng một mình ở dòng cuối; không tách số khỏi đơn vị.
+| Bối cảnh | Tiêu đề | Nội dung | Chữ phụ, chú thích |
+|---|---|---|---|
+| giang-day, hoc-sinh-sinh-vien, online | ≥ 64 | ≥ 43 | ≥ 32 |
+| tap-huan | ≥ 60 | ≥ 39 | ≥ 30 |
+| cong-so, bao-ve-do-an | ≥ 56 | ≥ 36 | ≥ 28 |
+| hoi-nghi, thi-pitch | ≥ 72 | ≥ 50 | ≥ 36 |
+| trinh-chieu-tu-dong | ≥ 86 | ≥ 57 | ≥ 43 |
+| doc-truoc | ≥ 50 | ≥ 25 | ≥ 21 |
 
-**Bố cục** — đa dạng, không lặp một loại quá 2 slide liền nhau:
+(Quy đổi: px = pt trong `contexts.json` × 1,78. Công cụ khác tính pt trên slide 13,33 inch: pt × 1,33.) Không đủ chỗ thì bớt chữ hoặc tách slide, không thu nhỏ chữ.
 
-| Loại | Dùng cho | Cách trình bày |
+**Màu** — dùng nguyên mã màu của phương án: `dark`, `light`, `soft`, `text`, `muted`, `accent`, `accent2`, `accentText`, `accentOnDark`. Không thêm màu ngoài bảng. Nền tối (hoặc khối màu đậm chiếm quá nửa slide) ≤ một nửa số slide. Không đặt hai màu đối nhau cạnh nhau (lam–cam, đỏ–lục, vàng–tím).
+
+**Phông** — đúng cặp `phong_goc` của phương án; tiêu đề dùng phông `head`, nội dung dùng phông `body`.
+
+**Bố cục** — không khung, không hộp:
+
+| Bố cục | Dùng cho | Cách dựng |
 |---|---|---|
-| Bìa | Slide đầu | Nền tối, tiêu đề lớn căn trái, phụ đề màu `accentOnDark`, một hình nhấn lớn lệch một bên |
-| Chia phần | Mở đầu một phần | Nền tối, số phần lớn ("01"), tiêu đề phần, một dòng mô tả |
-| Ý chính + điểm nhấn | 2–5 ý | Danh sách bên trái; bên phải một con số hoặc cụm nhấn lớn trên khối `soft` |
-| Hai cột | So sánh, đối chiếu | Hai cột có vạch màu đứng, mỗi cột một tiêu đề nhỏ + 2–4 ý ngắn |
-| Nhóm ý | 2–4 nhóm | Khối **không bằng nhau**: khối đầu (ý chính) rộng hơn, nền `dark`; các khối sau nền `soft` |
-| Số liệu | 1–3 con số | Con số rất lớn, vạch ngắn `accent`, một dòng giải thích; nguồn ở chân slide |
-| Trích dẫn | Câu trích, điều khoản, câu thơ | Vạch màu đứng bên trái, chữ lớn nghiêng, nguồn bên dưới |
-| Dòng thời gian / các bước | 2–5 mốc | Một đường ngang, chấm `accent` tại mỗi mốc, chữ dưới mỗi mốc |
-| Bảng | ≤ 7 hàng | Hàng đầu nền `dark` chữ trắng, các hàng xen `soft`/`light`; chữ ≥ `body_min` − 4 |
-| Ảnh + ý | Ảnh minh hoạ | Ảnh chiếm nửa trái, tiêu đề và ý bên phải |
-| Câu hỏi lớn | Gợi mở, thảo luận | Nền tối, một câu hỏi rất lớn |
-| Kết | Slide cuối | Nền tối, thông điệp chốt hoặc kiến nghị, không chỉ "Cảm ơn" |
+| Bìa chữ lớn | Slide đầu | Nền `dark`; tiêu đề rất lớn căn trái chiếm 2/3 chiều ngang; một khối màu `accent` hình chữ nhật đứng sát mép phải |
+| Câu hỏi lớn | Khởi động, thảo luận | Một câu hỏi cỡ tiêu đề × 1,2 chiếm gần cả slide; một từ khoá trong câu đổi màu `accentText` |
+| Chia đôi màu | Ý chính + giải thích | Nửa trái khối màu `dark` tràn mép chứa nhận định lớn chữ sáng; nửa phải nền sáng chứa 2–3 ý |
+| Câu thơ / trích dẫn lớn | Thơ, điều khoản, lời nói | Câu trích cỡ ≥ tiêu đề, nghiêng, chiếm phần lớn slide; vạch màu đứng mảnh bên trái; lời bình một dòng bên dưới |
+| Chữ số lớn | Số liệu, số lượng | 1–3 con số cỡ 150–220 px màu `accentText`; dưới mỗi số một dòng giải thích; không khung |
+| Từ khoá lớn | Khái niệm, phẩm chất | Hai đến ba từ khoá cỡ rất lớn đặt so le, mỗi từ một dòng giải thích nhỏ hơn |
+| Ảnh tràn nửa | Minh hoạ | Ảnh phủ kín nửa slide tới mép; nửa còn lại tiêu đề + 2 ý |
+| Dòng chảy | Diễn biến, các bước | 3–5 mốc trên một đường ngang hoặc chéo; mốc là chữ đậm, không vòng tròn số; khoảng cách các mốc không đều nếu nội dung không đều |
+| Đối lập | So sánh hai mặt | Hai nửa khác màu nền (`soft` và `light`), hai tiêu đề con đối nhau, ý ngắn; đường phân chia là ranh giới màu, không hộp |
+| Bảng gọn | ≤ 5 hàng | Chỉ đường kẻ ngang mảnh, hàng đầu chữ đậm màu `accentText`, không tô nền ô |
+| Kết | Slide cuối | Nền `dark`, thông điệp chốt hoặc nhiệm vụ, cỡ lớn; không chỉ "Cảm ơn" |
 
-**Ảnh**
-- Chỉ dùng ảnh tải được và hiển thị được; **không để khung ảnh trống** hoặc dòng mô tả thay ảnh. Không có ảnh phù hợp thì dùng bố cục khác.
-- Ghi nguồn ảnh **đúng trang lấy ảnh**, slide nguồn đặt tên tiếng Việt "Nguồn tham khảo". Ưu tiên ảnh có giấy phép dùng lại.
+**Đối tượng xuyên suốt (cho Morph)** — mọi slide có cùng một khối màu `accent` (hình chữ nhật hoặc vạch dày) và tiêu đề ở cùng chỗ trên các slide nội dung. Khối màu đổi vị trí, kích thước giữa các slide (dựng đứng sát mép phải ở bìa, nằm ngang dưới tiêu đề ở slide nội dung, phủ nửa trái ở slide chia đôi). Khi người dùng bật Morph trong PowerPoint, khối này trượt và đổi dáng liền mạch.
 
-**Tránh** (dấu hiệu bài do AI làm): biểu tượng/emoji trước hoặc trên chữ; biểu tượng trong vòng tròn; hàng 3–4 thẻ trắng bằng nhau; vòng "VS"; gạch chân dưới tiêu đề; nhãn "Điểm chính"; ba ý dài bằng nhau; gạch ngang nối các ý; lời kết sáo rỗng.
+**Ảnh** — chỉ dùng ảnh hiển thị được, đúng nội dung (nhạc cụ, đồ vật, địa danh phải đúng loại); không để khung ảnh trống. Không đưa nguồn ảnh lên slide.
 
-## Bước 6 — Tự kiểm tra (bắt buộc) ⟲
-Rà từng slide, sửa trước khi đưa người dùng xem:
-- [ ] Cỡ chữ ≥ `body_min` / `title_min` ở mọi khối chữ; không chữ nào tràn khung.
-- [ ] Số chữ mỗi slide ≤ `max_words`; số slide khớp thời lượng.
-- [ ] Chỉ dùng mã màu của phương án; nền tối ≤ một nửa; không cặp màu đối nhau.
-- [ ] Tiêu đề là thông điệp; không biểu tượng, không nhãn in hoa, không hàng thẻ bằng nhau.
-- [ ] Mọi con số có nguồn; thông số kỹ thuật khớp nhau; tên riêng, số hiệu văn bản đúng.
-- [ ] Chính tả, dấu câu, viết hoa tên cơ quan theo `references/kiem-soat-van-ban.md`.
-- [ ] Ảnh hiển thị đủ, nguồn ảnh đúng.
-- [ ] Mọi slide có ghi chú diễn giả.
-Rồi đưa bản xem trước cho người dùng (trừ chế độ "làm luôn"); cần sửa → quay lại Bước 4 hoặc 5.
+## Bước 6 — Tự kiểm tra (bắt buộc, ghi kết quả vào câu trả lời) ⟲
+Ghi từng dòng "✓" hoặc "✗ slide n: …", sửa hết "✗" rồi mới đưa bản xem trước:
+1. Cỡ chữ đúng bảng px ở mọi khối chữ; không chữ tràn.
+2. Không hộp, thẻ, viền, đổ bóng quanh chữ.
+3. Không biểu tượng; không nhãn trên tiêu đề; không chữ in hoa cả dòng.
+4. Không "•", "·", "|" và gạch nối ý; không số phút, thời lượng.
+5. Tiêu đề là nhận định; số chữ ≤ `max_words`; số slide khớp thời lượng.
+6. Ít nhất 6 bố cục khác nhau (bộ 10 slide); không hai slide liền nhau cùng bố cục; ≥ 1/3 slide có yếu tố thị giác lớn.
+7. Đúng mã màu, đúng cặp phông của phương án; nền tối ≤ một nửa.
+8. Khối màu xuyên suốt có mặt mọi slide.
+9. Chính tả, dấu câu, viết hoa tên cơ quan (`references/kiem-soat-van-ban.md`); trích dẫn đúng nguyên văn.
+10. Mọi slide có ghi chú diễn giả; con số có nguồn trong ghi chú.
 
 ## Bước 7 — Bàn giao
-- Bộ slide, kèm ngắn gọn: số slide, phương án phong cách, cặp phông; những gì đã tự quyết; lỗi phát hiện trong tài liệu nguồn.
-- Ghi chú diễn giả: nếu công cụ không gắn được vào slide thì đưa thành một danh sách theo số slide để người dùng dán vào phần ghi chú của Google Slides.
-- Cách lấy tệp PowerPoint: mở bằng Google Slides → Tệp → Tải xuống → Microsoft PowerPoint (.pptx). Cần hiệu ứng và Morph thì dùng bản Claude hoặc Gemini CLI của SlideWright.
+1. Bộ slide Canvas, kèm: số slide, phương án phong cách, cặp phông; những gì đã tự quyết; lỗi phát hiện trong tài liệu nguồn.
+2. **Ghi chú diễn giả** theo số slide (Canvas không xuất ghi chú) để dán vào phần ghi chú.
+3. **Bảng hiệu ứng**: bảng có các cột: slide, đối tượng, hiệu ứng (Xuất hiện dần, Bay vào từ trái, Phóng to), thứ tự nhấp — theo mạch nói ở ghi chú; mỗi slide ≤ 5 lần nhấp.
+4. **Cách bật hiệu ứng trong PowerPoint** (khoảng 2 phút):
+   - Xuất → PowerPoint, mở tệp.
+   - Chọn tất cả slide ở cột trái (Ctrl+A) → thẻ **Chuyển tiếp** → **Morph** (khối màu xuyên suốt sẽ trượt giữa các slide).
+   - Với từng slide, chọn đối tượng theo bảng hiệu ứng → thẻ **Hoạt hình** → chọn hiệu ứng, đặt "Khi bấm chuột".
+   - Cần bộ slide có sẵn hiệu ứng ngay khi xuất: dùng bản Claude hoặc Gemini CLI của SlideWright.

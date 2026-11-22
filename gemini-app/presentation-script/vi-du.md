@@ -19,7 +19,7 @@ Tổng 900 giây, khớp 15 phút.
 
 ## 2. Lời nói một slide
 
-**Slide 4 — Đất khô thì bơm tự bật** · 70 giây · khoảng 135 âm tiết (135 ÷ 125 × 60 ≈ 65 giây, cộng 2 giây `[Dừng]` và thao tác chuyển ý)
+**Slide 4 — Đất khô thì bơm tự bật** (70 giây, khoảng 135 âm tiết: 135 ÷ 125 × 60 ≈ 65 giây, cộng 2 giây `[Dừng]` và thao tác chuyển ý)
 
 [Mở] Thầy cô có thể hình dung cả hệ thống này chỉ làm đúng ba việc, việc này nối việc kia.
 
@@ -35,7 +35,7 @@ Tổng 900 giây, khớp 15 phút.
 
 *Vì sao đạt:* số nhịp `[Ý]` = 3 = số ý xuất hiện trên slide; không đọc lại nguyên câu trên slide mà giải thích thêm; câu ngắn (≤ 25 âm tiết); số liệu đọc thành lời ("ba mươi lăm phần trăm"); câu chuyển mang nội dung của slide sau.
 
-**Slide 1 — Tưới cây tự động bằng Arduino** · 30 giây
+**Slide 1 — Tưới cây tự động bằng Arduino** (30 giây)
 
 [Mở] Kính chào quý thầy cô. Tôi là <họ tên>, giáo viên Công nghệ trường <tên trường>.
 
@@ -51,7 +51,7 @@ Tổng 900 giây, khớp 15 phút.
 
 | Slide | Từ khoá | Câu chuyển |
 |---|---|---|
-| 4 | đo · so ngưỡng · bật bơm | Ngưỡng chỉ đúng khi đã hiệu chuẩn |
+| 4 | đo, so ngưỡng, bật bơm | Ngưỡng chỉ đúng khi đã hiệu chuẩn |
 
 ## 5. Sai → đúng
 

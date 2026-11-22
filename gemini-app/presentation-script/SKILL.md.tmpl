@@ -5,7 +5,7 @@ description: Viết kịch bản thuyết trình tiếng Việt cho một bộ s
 
 # presentationScript — bản Gemini app
 
-Phiên bản: {{VERSION}} · SlideWright - Studio · https://github.com/NexoZegknost/SlideWright-Studio
+Phiên bản: {{VERSION}}, SlideWright - Studio, https://github.com/NexoZegknost/SlideWright-Studio
 
 Mục tiêu: người trình bày cầm kịch bản là **nói được ngay, đúng giờ, khớp từng slide**, không đọc lại slide, không bị bất ngờ khi hỏi đáp. Viết **tiếng Việt chuẩn, đủ dấu, văn nói**.
 
@@ -25,7 +25,7 @@ Mục tiêu: người trình bày cầm kịch bản là **nói được ngay, �
 Cần biết (hỏi gộp một lượt, tối đa 4 câu, chỉ hỏi cái chưa có): **tổng thời lượng**, **bối cảnh / người nghe**, **người trình bày xưng hô thế nào** (vai, đơn vị), **khách mời** cần chào (hội nghị, lễ). Người dùng nói "làm luôn" → lấy `sec_per_slide` của bối cảnh trong `assets/contexts.json`, ghi rõ ở phần bàn giao những gì đã tự quyết.
 
 ## Bước 1 — Lập bảng slide
-Bảng: số slide · tiêu đề · vai (bìa, chia phần, nội dung, kết) · số nhịp · giây đề xuất. Giây đề xuất: chia tổng thời lượng theo số nhịp và lượng chữ; bìa 20–30 giây, slide kết luận và kiến nghị được thêm giờ, slide minh hoạ bớt. **Tổng phải bằng thời lượng mục tiêu.**
+Bảng có các cột: số slide, tiêu đề, vai (bìa, chia phần, nội dung, kết), số nhịp, giây đề xuất. Giây đề xuất: chia tổng thời lượng theo số nhịp và lượng chữ; bìa 20–30 giây, slide kết luận và kiến nghị được thêm giờ, slide minh hoạ bớt. **Tổng phải bằng thời lượng mục tiêu.**
 
 ## Bước 2 — Khung bài nói
 Theo mục 3 `references/viet-loi-noi.md`: câu mở bài (lời hứa của bài), thông điệp chốt cuối mỗi phần, lời kết + kiến nghị.
@@ -49,7 +49,7 @@ Theo `references/hoi-dap.md`: 5–10 câu (bảo vệ, thi: 8–12); trả lời
 - [ ] Đọc thầm toàn bài: có tự nhiên như người đó nói không.
 
 ## Bước 6 — Bàn giao
-1. **Bảng phân bổ thời gian** (số slide · tiêu đề · giây · cộng dồn).
+1. **Bảng phân bổ thời gian** (cột: số slide, tiêu đề, giây, cộng dồn).
 2. **Kịch bản theo slide**: tiêu đề "Slide n — <tiêu đề>", rồi lời nói theo mẫu ở Bước 3, sẵn để dán vào ghi chú Google Slides / PowerPoint.
 3. **Hỏi đáp dự kiến**.
 4. **Thẻ nhắc**: mỗi slide một dòng gồm từ khoá và câu chuyển.
