@@ -2,6 +2,10 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## 2.0.0-beta.1
+- ci(release): publish pre-release tags from their own branch
+- feat(gemini): add Gemini CLI extension with PowerPoint output
+
 ## 1.1.0
 Thêm skill thứ hai: **presentationScript** (`presentation-script`) — viết kịch bản thuyết trình cho bộ slide.
 - Đầu vào: bộ slide do makeSlides tạo, `.pptx` bất kỳ, PDF bài trình chiếu, Canva/Gamma hoặc chỉ dàn ý; dùng chung bối cảnh trong `make-slides/assets/contexts.json`.
