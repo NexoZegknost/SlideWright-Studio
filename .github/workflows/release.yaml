@@ -88,9 +88,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          zip -r "slidewright-studio-$VERSION.plugin" . -x ".git/*" ".github/*" "*.patch" notes.md section.md
+          zip -r "slidewright-studio-$VERSION.plugin" . -x ".git/*" ".github/*" "*.patch" notes.md section.md \
+            "dist/*" "gemini-app/*" "tools/*"
+          # Gói cho Gemini app: mỗi skill một tệp .zip để tải lên (Skills → Create → Upload)
+          python3 tools/build_gemini_app.py --ra dist
           FLAGS=""
           case "$VERSION" in *-*) FLAGS="--prerelease" ;; esac
-          gh release create "v$VERSION" "slidewright-studio-$VERSION.plugin" \
+          gh release create "v$VERSION" "slidewright-studio-$VERSION.plugin" dist/*.zip \
+            --target "$BRANCH" \
             --title "SlideWright - Studio v$VERSION" \
             --notes-file notes.md $FLAGS

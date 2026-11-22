@@ -58,9 +58,16 @@ def tieu_de(slide, cac_chu):
         t = kb.nfc(slide.shapes.title.text_frame.text).strip()
         if t:
             return t
-    # không có placeholder tiêu đề: lấy khối chữ có cỡ lớn nhất, ưu tiên nằm trên
-    tot, diem = "", -1
+    # hộp chữ đặt tên "tieu-de" (quy ước của make-slides bản Gemini app) là tiêu đề
     for shape, t in cac_chu:
+        if (shape.name or "").lower() in ("tieu-de", "title"):
+            return t.replace("\n", " ")
+    # không có placeholder tiêu đề: lấy khối chữ có cỡ lớn nhất, ưu tiên nằm trên;
+    # bỏ cảnh morph (tên "!!…") và con số/ký hiệu ngắn (số phần "01", "×2") vì chúng to nhưng không phải tiêu đề
+    ung_vien = [(sh, t) for sh, t in cac_chu if not (sh.name or "").startswith("!!")]
+    dai = [(sh, t) for sh, t in ung_vien if len(re.sub(r"[\W\d_]", "", t)) >= 4]
+    tot, diem = "", -1
+    for shape, t in (dai or ung_vien):
         if not getattr(shape, "has_text_frame", False):
             continue
         co = 0

@@ -2,6 +2,12 @@
 
 Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử nghiệm: `-beta.N`); số phiên bản cũng nằm trong `.claude-plugin/plugin.json`.
 
+## 2.0.0-beta.2
+- [Gemini app] Bản mới cho Gemini app: mỗi skill một tệp .zip đính kèm bản phát hành (`tools/build_gemini_app.py`). make-slides dựng .pptx + .ppsx bằng python-pptx (`gemini-app/make-slides/scripts/dung_slide.py`: 12 loại slide, cảnh Morph xuyên suốt, hiệu ứng mờ dần theo cú nhấp, ghi chú diễn giả, `**cụm nhấn**`, cảnh báo tràn chữ); bảng màu theo lĩnh vực tính sẵn (`assets/phuong-an.json`); phông có sẵn của Office.
+- [Claude] [Gemini CLI] [Gemini app] presentation-script: đọc đúng tiêu đề slide — bỏ qua chữ của cảnh Morph (`!!…`) và số phần, ký hiệu ngắn (trước đây bộ slide có cảnh Morph bị nhận nhầm tiêu đề).
+- [Gemini app] presentation-script tìm `contexts.json` trong chính skill khi đứng riêng.
+- Phát hành: bản thử đính kèm đúng nhánh (`--target`); tệp `.plugin` không còn chứa phần riêng của Gemini app.
+
 ## 2.0.0-beta.1
 - ci(release): publish pre-release tags from their own branch
 - feat(gemini): add Gemini CLI extension with PowerPoint output

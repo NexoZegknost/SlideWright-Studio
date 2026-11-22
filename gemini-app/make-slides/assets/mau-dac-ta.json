@@ -1,0 +1,29 @@
+{
+  "_ghi_chu": "Mẫu đặc tả cho scripts/dung_slide.py. Màu lấy nguyên một phương án trong assets/phuong-an.json; phông theo trường phong_office của phương án. Cỡ chữ lấy từ assets/contexts.json của bối cảnh.",
+  "ten_tep": "Slide_DinhLuatOhm_22112026",
+  "phong_cach": {
+    "ten": "Khoa học tự nhiên",
+    "mau": {"dark": "012F38", "light": "FFFFFF", "soft": "E8F2F5", "text": "022931", "muted": "446067", "accent": "109D7B", "accent2": "66A3E1", "accentText": "007B60", "accentOnDark": "8DF1B2"},
+    "phong_tieu_de": "Cambria",
+    "phong_noi_dung": "Calibri"
+  },
+  "co_chu": {"body_min": 24, "title_min": 36, "max_words": 30},
+  "morph": true,
+  "slides": [
+    {"loai": "bia", "nhan": "Vật lí 9 · Chương I", "tieu_de": "Định luật Ôm", "phu_de": "Dòng điện chạy qua dây dẫn phụ thuộc vào điều gì?", "thong_tin": "Tổ Vật lí · Năm học 2026–2027",
+     "ghi_chu": "[Nhấp 1] Đặt câu hỏi mở đầu, để học sinh đoán trước khi vào bài."},
+    {"loai": "cau-hoi", "cau_hoi": "Tăng hiệu điện thế lên gấp đôi, dòng điện thay đổi thế nào?", "goi_y": "Dự đoán trước khi làm thí nghiệm",
+     "ghi_chu": "[Nhấp 1] Hiện gợi ý. Cho học sinh 30 giây thảo luận theo cặp."},
+    {"loai": "chia-phan", "so": "01", "tieu_de": "Thí nghiệm khảo sát", "mo_ta": "Giữ nguyên điện trở, thay đổi hiệu điện thế",
+     "ghi_chu": "[Nhấp 1] Giới thiệu mục tiêu thí nghiệm."},
+    {"loai": "y-chinh", "tieu_de": "Dòng điện tăng theo hiệu điện thế", "y": ["Mắc ampe kế **nối tiếp** với điện trở", "Mắc vôn kế song song hai đầu điện trở", "Ghi kết quả sau mỗi lần đổi nguồn"],
+     "diem_nhan": {"so": "×2", "chu": "U tăng gấp đôi thì I cũng tăng gấp đôi"},
+     "ghi_chu": "[Nhấp 1] Cách mắc ampe kế. [Nhấp 2] Cách mắc vôn kế. [Nhấp 3] Ghi số liệu. [Nhấp 4] Kết luận nhanh."},
+    {"loai": "so-lieu", "tieu_de": "Kết quả đo của lớp 9A", "so_lieu": [{"so": "0,3 A", "chu": "khi U = 3 V"}, {"so": "0,6 A", "chu": "khi U = 6 V"}, {"so": "0,9 A", "chu": "khi U = 9 V"}], "nguon": "Phiếu thí nghiệm nhóm 2",
+     "ghi_chu": "[Nhấp 1–3] Lần lượt từng cặp số đo."},
+    {"loai": "trich-dan", "trich": "Cường độ dòng điện chạy qua dây dẫn tỉ lệ thuận với hiệu điện thế và tỉ lệ nghịch với điện trở của dây.", "nguon": "Định luật Ôm — SGK Vật lí 9",
+     "ghi_chu": "[Nhấp 1] Đọc chậm phát biểu, nhấn hai cụm tỉ lệ thuận, tỉ lệ nghịch."},
+    {"loai": "ket", "tieu_de": "Biết U và R là tính được I", "y": ["Bài tập 2, 3 trang 8"],
+     "ghi_chu": "[Nhấp 1] Giao bài tập về nhà."}
+  ]
+}

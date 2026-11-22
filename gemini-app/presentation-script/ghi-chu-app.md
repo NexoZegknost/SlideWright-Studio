@@ -1,0 +1,3 @@
+Phiên bản: {{VERSION}} · bản Gemini app của SlideWright - Studio · https://github.com/NexoZegknost/SlideWright-Studio
+
+**Chạy trong Gemini app:** hỏi người dùng trực tiếp trong hội thoại (gộp tối đa 4 câu, phương án đề xuất đặt đầu); tệp kết quả đưa ra để tải về. Các script cần python-pptx và python-docx; không có LibreOffice thì bỏ bước render ảnh bản Word, tự đọc lại `kich_ban.json` và mở lại tệp .docx bằng python-docx để soát. Script nào không chạy được thì nói rõ và làm thủ công theo đúng quy tắc trong `references/`. Bộ slide do bản Gemini app của make-slides dựng: mỗi ý, mỗi thẻ, mỗi con số là một cú nhấp; các hình `!!vong`, `!!cham`, `!!tien-do` là cảnh Morph, không phải nội dung.

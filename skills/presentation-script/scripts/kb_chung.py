@@ -9,6 +9,8 @@ import unicodedata
 THU_MUC = os.path.dirname(os.path.abspath(__file__))
 GOC_SKILL = os.path.dirname(THU_MUC)
 CONTEXTS = os.path.join(GOC_SKILL, "..", "make-slides", "assets", "contexts.json")
+if not os.path.exists(CONTEXTS):  # gói đứng riêng (Gemini app): bản sao trong assets/ của skill này
+    CONTEXTS = os.path.join(GOC_SKILL, "assets", "contexts.json")
 
 # Tốc độ nói mặc định (âm tiết/phút) theo bối cảnh của make-slides.
 TOC_DO = {
