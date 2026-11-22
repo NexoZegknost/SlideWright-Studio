@@ -6,6 +6,7 @@ Mỗi phiên bản là một commit gắn tag `vMAJOR.MINOR.PATCH` (bản thử 
 - [Gemini app] Gemini app từ chối nạp skill có kèm script ("contains executable code or scripts, which are not supported in Gemini Chat"), nên bản 2.0.0-beta.2 không chạy được. Hai gói nay chỉ còn SKILL.md, tài liệu quy tắc (.md) và dữ liệu (.json); bỏ `dung_slide.py` và các script kiểm tra.
 - [Gemini app] make-slides viết lại cho công cụ tạo slide có sẵn của Gemini: mục "Bắt buộc" (báo phiên bản ở câu đầu, đọc tệp đi kèm trước khi làm, không dùng mẫu mặc định của công cụ), bảng ràng buộc trình bày (mã màu của phương án, cỡ chữ theo bối cảnh, 12 bố cục, ảnh và nguồn ảnh, những điều tránh), danh sách tự kiểm tra thay cho script, cách tải về PowerPoint.
 - [Gemini app] presentation-script viết lại: kịch bản trả về trong hội thoại theo số slide để dán vào ghi chú; tự ước lượng thời gian theo âm tiết và tốc độ nói của bối cảnh.
+- [Gemini app] Ví dụ mẫu (few-shot) `references/vi-du.md` cho cả hai skill: dàn ý, slide hoàn chỉnh (bố cục, phông, cỡ, mã màu, đếm chữ, ghi chú), bảng thời gian, lời nói mẫu, hỏi đáp mẫu và bảng lỗi sai → đúng rút từ lần thử đề tài STEM; mô tả skill ghi rõ đầu vào và đầu ra.
 - [Gemini app] `tools/build_gemini_app.py` dừng với LỖI khi gói có tệp thực thi (.py, .js, .sh…), mô tả quá 1024 ký tự hoặc còn chỗ `{{…}}` chưa thay.
 
 ## 2.0.0-beta.2

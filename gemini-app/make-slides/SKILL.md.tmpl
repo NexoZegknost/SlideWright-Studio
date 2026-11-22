@@ -1,6 +1,6 @@
 ---
 name: make-slides
-description: Bộ quy tắc trình chiếu tiếng Việt SlideWright cho Gemini app — tạo bài thuyết trình (bài giảng, báo cáo, kế hoạch, tập huấn, hội nghị, sự kiện…) từ chủ đề, dàn ý, văn bản hoặc tài liệu đính kèm; làm lại bài có sẵn cho đẹp hơn. Khi dùng skill này PHẢI đọc toàn bộ chỉ dẫn và các tệp đi kèm trước khi tạo slide, và mọi slide phải theo đúng ràng buộc trình bày trong đó. LUÔN dùng khi người dùng nhắc "makeSlides", "SlideWright", "tạo slide", "làm bài thuyết trình", "làm powerpoint", "slide báo cáo", "slide bài giảng", "trình chiếu", "nâng cấp slide", "làm đẹp slide", "thiết kế lại slide", hoặc muốn biến báo cáo/kế hoạch/dự thảo thành slide — kể cả khi không nói từ "skill".
+description: Bộ quy tắc trình chiếu tiếng Việt SlideWright cho Gemini app — tạo bài thuyết trình (bài giảng, báo cáo, kế hoạch, tập huấn, hội nghị, sự kiện…) từ chủ đề, dàn ý, văn bản hoặc tài liệu đính kèm; làm lại bài có sẵn cho đẹp hơn. Đầu vào: chủ đề, dàn ý, văn bản, tài liệu (PDF, Word, ảnh, link) hoặc bộ slide cũ. Đầu ra: bộ slide của Gemini theo phong cách đã chọn (tải về PowerPoint qua Google Slides) kèm ghi chú diễn giả từng slide. Khi dùng skill này PHẢI đọc toàn bộ chỉ dẫn và các tệp đi kèm trước khi tạo slide, và mọi slide phải theo đúng ràng buộc trình bày trong đó. LUÔN dùng khi người dùng nhắc "makeSlides", "SlideWright", "tạo slide", "làm bài thuyết trình", "làm powerpoint", "slide báo cáo", "slide bài giảng", "trình chiếu", "nâng cấp slide", "làm đẹp slide", "thiết kế lại slide", hoặc muốn biến báo cáo/kế hoạch/dự thảo thành slide — kể cả khi không nói từ "skill".
 ---
 
 # makeSlides — bản Gemini app
@@ -11,7 +11,7 @@ Mục tiêu: bộ slide **có thông điệp rõ, bố cục đa dạng, màu c�
 
 ## Bắt buộc
 1. Câu đầu tiên trả lời người dùng: "Đang dùng make-slides {{VERSION}}."
-2. Đọc các tệp đi kèm trước khi lên dàn ý: `assets/contexts.json`, `assets/phuong-an.json`, `references/noi-dung-slide.md`, `references/dau-hieu-ai.md`, `references/phoi-mau.md`. Các tệp khác đọc khi đến bước cần.
+2. Đọc các tệp đi kèm trước khi lên dàn ý: **`references/vi-du.md`** (dàn ý, slide hoàn chỉnh và các lỗi sai → đúng mẫu — bắt chước đúng cấu trúc và mức chi tiết), `assets/contexts.json`, `assets/phuong-an.json`, `references/noi-dung-slide.md`, `references/dau-hieu-ai.md`, `references/phoi-mau.md`. Các tệp khác đọc khi đến bước cần.
 3. Dựng slide bằng công cụ tạo slide của Gemini, nhưng **mọi slide phải theo mục "Ràng buộc trình bày"** dưới đây. Mẫu trình bày mặc định của công cụ (hàng thẻ trắng bằng nhau, biểu tượng trên đầu thẻ, nhãn chữ in hoa nhỏ trên tiêu đề, chữ cỡ nhỏ) **không được dùng**.
 4. Không bỏ qua hai điểm duyệt (dàn ý, bản xem trước) trừ khi người dùng nói "làm luôn".
 5. Một số tệp trong `references/` nhắc tới script của bản Claude (`makeslides.js`, `dinh_huong.js`, `kiem_tra_slide.py`…). Bản Gemini app **không chạy script**: bỏ qua các lệnh đó, làm theo chỉ dẫn này và tự kiểm tra theo Bước 6.
@@ -41,7 +41,7 @@ Mục tiêu: bộ slide **có thông điệp rõ, bố cục đa dạng, màu c�
 - Nội dung kỹ thuật: kiểm tra các thông số đi cùng nhau có khớp không (loại linh kiện – dải giá trị đo – điện áp…); chỗ phụ thuộc thực tế thì ghi rõ "đo/hiệu chuẩn lại".
 
 ## Bước 3 — Dàn ý ⟲ (người dùng duyệt)
-Bảng: số slide · loại bố cục (bảng ở Bước 5) · tiêu đề (là thông điệp, ≤ 12 từ) · ý chính · điểm nhấn. Mẫu: `references/dan-y-mau.md`. Đủ slide bắt buộc của bối cảnh.
+Bảng: số slide · loại bố cục (bảng ở Bước 5) · tiêu đề (là thông điệp, ≤ 12 từ) · ý chính · điểm nhấn — như mục 1 của `references/vi-du.md`. Khung theo loại bài: `references/dan-y-mau.md`. Đủ slide bắt buộc của bối cảnh.
 
 ## Bước 4 — Viết nội dung slide
 Theo `references/noi-dung-slide.md` và `references/dau-hieu-ai.md`:
@@ -51,6 +51,8 @@ Theo `references/noi-dung-slide.md` và `references/dau-hieu-ai.md`:
 - Ghi chú diễn giả cho mọi slide: `[Mở] …  [Ý] …  [Nhấn] …  [Chuyển] …`, kèm nguồn số liệu.
 
 ## Bước 5 — Ràng buộc trình bày (áp cho từng slide)
+Mỗi slide mô tả đủ như mục 2 của `references/vi-du.md`: bố cục, nền, từng khối chữ (phông, cỡ, mã màu), hình nhấn, đếm chữ, ghi chú. Đối chiếu bảng sai → đúng ở mục 3 trước khi dựng.
+
 **Màu** — dùng nguyên mã màu của phương án đã chọn, không thêm màu ngoài bảng:
 - `dark` nền tối; `light` nền sáng; `soft` khối nền phụ; `text` chữ trên nền sáng; `muted` chữ phụ; `accent`, `accent2` hình nhấn; `accentText` chữ nhấn trên nền sáng; `accentOnDark` chữ nhấn trên nền tối.
 - Nền tối chỉ cho bìa, chia phần, câu hỏi lớn, kết — **không quá một nửa số slide**.

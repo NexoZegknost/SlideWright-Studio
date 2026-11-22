@@ -65,6 +65,7 @@ def make_slides(ra, v):
     open(os.path.join(d, "SKILL.md"), "w", encoding="utf-8").write(s.replace("{{VERSION}}", v))
     for f in REF_MAKE_SLIDES:
         chep(os.path.join(MS, "references", f), os.path.join(d, "references", f))
+    chep(os.path.join(APP, "make-slides", "vi-du.md"), os.path.join(d, "references", "vi-du.md"))
     for f in ASSET_MAKE_SLIDES:
         chep(os.path.join(MS, "assets", f), os.path.join(d, "assets", f))
     subprocess.run(["node", os.path.join(GOC, "tools", "phuong_an.js"), os.path.join(d, "assets", "phuong-an.json")],
@@ -79,6 +80,7 @@ def presentation_script(ra, v):
     open(os.path.join(d, "SKILL.md"), "w", encoding="utf-8").write(s.replace("{{VERSION}}", v))
     for f in REF_PRESENTATION_SCRIPT:
         chep(os.path.join(PS, "references", f), os.path.join(d, "references", f))
+    chep(os.path.join(APP, "presentation-script", "vi-du.md"), os.path.join(d, "references", "vi-du.md"))
     chep(os.path.join(MS, "assets", "contexts.json"), os.path.join(d, "assets", "contexts.json"))
     return d
 
