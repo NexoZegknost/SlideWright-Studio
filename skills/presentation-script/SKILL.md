@@ -5,7 +5,7 @@ description: Viết kịch bản thuyết trình tiếng Việt cho một bộ s
 
 # presentationScript — Kịch bản thuyết trình
 
-Mục tiêu: người trình bày cầm kịch bản là **nói được ngay, đúng giờ, khớp từng cú nhấp**, không đọc lại slide, không bị bất ngờ khi hỏi đáp. Viết **tiếng Việt chuẩn, đủ dấu, văn nói**. Đường dẫn `references/`, `scripts/` tính từ thư mục skill này (`${CLAUDE_PLUGIN_ROOT}/skills/presentation-script/`; không có biến thì `find / -path "*presentation-script/scripts/doc_slide.py" 2>/dev/null | head -1`). Bối cảnh và thông số dùng chung với skill `make-slides` (`../make-slides/assets/contexts.json`).
+Mục tiêu: người trình bày cầm kịch bản là **nói được ngay, đúng giờ, khớp từng cú nhấp**, không đọc lại slide, không bị bất ngờ khi hỏi đáp. Viết **tiếng Việt chuẩn, đủ dấu, văn nói**. Đường dẫn `references/`, `scripts/` tính từ thư mục skill này (`${CLAUDE_PLUGIN_ROOT}/skills/presentation-script/`; trên Gemini CLI là `<thư mục extension>/skills/presentation-script/`, xem `GEMINI.md` ở gốc extension; không có biến thì `find / -path "*presentation-script/scripts/doc_slide.py" 2>/dev/null | head -1`). Bối cảnh và thông số dùng chung với skill `make-slides` (`../make-slides/assets/contexts.json`).
 
 Tạo danh sách công việc (task list) theo các bước để người dùng theo dõi.
 

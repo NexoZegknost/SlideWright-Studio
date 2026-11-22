@@ -4,7 +4,7 @@
 - Nếu môi trường có skill `pptx` (`anthropic-skills:pptx` hoặc `pptx`), **đọc SKILL.md của nó trước** và tuân thủ các lưu ý pptxgenjs, kiểm tra, render. Tài liệu này bổ sung, không thay thế.
 - Cài phụ thuộc trong thư mục làm việc: `npm install fonteditor-core jszip mathjax-full@3 mathml2omml sharp opentype.js@1.3.4`; các script kiểm tra: `pip install pyvi pymupdf python-pptx pillow fonttools --break-system-packages` (pyvi tách từ ghép để không xuống dòng giữa từ; fonttools đọc bảng mã phông cho kiểm soát văn bản; pymupdf cho kiểm tra bố cục; python-pptx cho xem trước Morph); cần LibreOffice và pdftoppm để render (pptxgenjs thường có sẵn; thiếu thì `npm install pptxgenjs`). Chạy script với `NODE_PATH=$PWD/node_modules:$(npm root -g)` (react, react-icons, sharp thường cài toàn cục).
 - Thư viện bố cục: `scripts/layouts.js` (xem `bo-cuc.md`) — ưu tiên dùng thay vì tự đặt toạ độ.
-- Thư viện của plugin: `${CLAUDE_PLUGIN_ROOT}/skills/make-slides/scripts/makeslides.js` (`applyEffects`, `embedFonts`, `save`, `installFontsForPreview`). Nếu biến `CLAUDE_PLUGIN_ROOT` không có, tìm tệp bằng `find / -path "*make-slides/scripts/makeslides.js" 2>/dev/null | head -1`.
+- Thư viện của plugin: `${CLAUDE_PLUGIN_ROOT}/skills/make-slides/scripts/makeslides.js` (`applyEffects`, `embedFonts`, `save`, `installFontsForPreview`). Trên Gemini CLI, `${CLAUDE_PLUGIN_ROOT}` là thư mục extension (xem `GEMINI.md`). Nếu không xác định được, tìm tệp bằng `find / -path "*make-slides/scripts/makeslides.js" 2>/dev/null | head -1`.
 
 ## 1. Dựng bằng pptxgenjs (bộ slide có cấu trúc)
 - `pres.layout = "LAYOUT_16x9"` (10" × 5,625") đặt **trước** khi thêm slide.
@@ -41,7 +41,7 @@ await MS.save(buf, "Slide_<ChuDeKhongDau>_<ddmmyyyy>");  // 3. dọn gói (khai 
 
 ## 3. Tự kiểm tra
 1. `markitdown file.pptx` → chính tả, dấu, thứ tự, chữ giữ chỗ còn sót.
-2. `python <skill pptx>/scripts/office/validate.py file.pptx` → phải PASSED.
+2. `python <skill pptx>/scripts/office/validate.py file.pptx` → phải PASSED. Không có skill pptx (Gemini CLI, máy cá nhân): `python3 scripts/kiem_tra_goi.py file.pptx`.
 2. `python3 scripts/kiem_soat_van_ban.py file.pptx --phong-cach <khoá> --boi-canh <khoá> --hien-thi --day-du` → báo cáo chữ toàn diện (phông, mã chữ, chính tả, dấu câu, viết hoa, hiển thị, dựng thử) gộp cả 2a và 2b; xem `kiem-soat-van-ban.md`. Chạy riêng 2a/2b khi chỉ cần một nhóm.
 2a. `python3 scripts/kiem_tra_van_ban.py file.pptx --sua file_sua.pptx` → văn bản (cỡ ≥ 24pt, lượng chữ, giãn dòng, xuống dòng giữ nghĩa, tiêu đề 2 dòng trên ngắn dưới dài, dòng mồ côi); bàn giao bản đã sửa khi hết LỖI.
 2d. `python3 scripts/kiem_tra_hieu_ung.py file.pptx` → hết LỖI (hiệu ứng chạy đúng như PowerPoint, Morph, chuyển trang); `python3 scripts/xem_truoc_morph.py file.pptx --ra xem_morph` để xem Morph.

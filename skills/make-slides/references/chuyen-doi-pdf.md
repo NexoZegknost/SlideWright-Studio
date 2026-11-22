@@ -28,7 +28,7 @@ Script làm gì: nền = trang PDF đã xoá chữ và ảnh rời (giữ khung,
 - Để xem trước đúng phông: trích phông từ PDF (`doc.extract_font(xref)`) vào `~/.fonts`, chạy `fc-cache -f`.
 
 ## 4. Kiểm tra bắt buộc
-1. `validate.py` của skill pptx → PASSED.
+1. `validate.py` của skill pptx (không có thì `scripts/kiem_tra_goi.py`) → PASSED.
 2. Render .pptx → PDF bằng `soffice.py` rồi **so từng trang với PDF gốc**: tính tỉ lệ điểm ảnh khác biệt (PIL `ImageChops.difference`, ngưỡng 40) và ghép ảnh trên/dưới cho các trang lệch nhiều nhất để xem tận mắt. Lỗi hay gặp: ảnh nền đen (SMask), chữ lệch dòng khi khoảng dòng lạ, ký tự thiếu dấu do phông thay thế.
 3. Đếm số cú nhấp mỗi slide và kiểm tra mọi `spid` trong `<p:timing>` đều tồn tại.
 

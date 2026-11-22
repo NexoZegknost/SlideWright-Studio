@@ -27,6 +27,12 @@ jobs:
           jq --arg v "$VERSION" '.version = $v' .claude-plugin/plugin.json > tmp.json
           mv tmp.json .claude-plugin/plugin.json
 
+          # 1b. gemini-extension.json, package.json (bản Gemini CLI)
+          for f in gemini-extension.json package.json; do
+            jq --arg v "$VERSION" '.version = $v' "$f" > tmp.json
+            mv tmp.json "$f"
+          done
+
           # 2. README
           sed -i -E "s/(Phiên bản hiện tại: \*\*)[^*]+(\*\*)/\1$VERSION\2/" README.md
 
@@ -51,7 +57,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .claude-plugin/plugin.json README.md CHANGELOG.md
+          git add .claude-plugin/plugin.json gemini-extension.json package.json README.md CHANGELOG.md
           git diff --cached --quiet || git commit -m "chore(release): $VERSION"
           git push origin HEAD:main
           git tag -f "$TAG"

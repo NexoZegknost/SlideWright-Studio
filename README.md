@@ -36,6 +36,17 @@ Phiên bản hiện tại: **1.1.0** · [Lịch sử thay đổi](CHANGELOG.md)
 
 Sau khi cài, mở một phiên trò chuyện mới để plugin được nạp.
 
+**Gemini CLI** (chỉ xuất PowerPoint, chưa hỗ trợ Canva và Gamma)
+
+```
+gemini extensions install https://github.com/NexoZegknost/SlideWright-Studio
+cd ~/.gemini/extensions/slidewright-studio
+npm install
+pip install -r requirements.txt
+```
+
+Máy cần có Node.js 18+, Python 3, LibreOffice và poppler (`pdftoppm`). Nếu Gemini CLI chưa nạp skill, gõ `/settings`, tìm "Skills" và bật Agent Skills. Cập nhật bằng `gemini extensions update slidewright-studio`. Cách skill chạy trên Gemini được ghi trong `GEMINI.md`.
+
 ## Yêu cầu
 
 - **PowerPoint 2016 trở lên** để xem hiệu ứng; chuyển trang Morph cần PowerPoint 2019 hoặc Microsoft 365.

@@ -251,9 +251,13 @@ async function save(buf, baseName) {
   return [`${baseName}.pptx`, `${baseName}.ppsx`];
 }
 
-// Cài phông vào ~/.fonts để LibreOffice render ảnh kiểm tra đúng phông
+// Cài phông cho người dùng hiện tại để LibreOffice render ảnh kiểm tra đúng phông
+// (Linux: ~/.fonts; macOS: ~/Library/Fonts — LibreOffice trên macOS không đọc ~/.fonts)
 function installFontsForPreview(families) {
-  const dst = path.join(require("os").homedir(), ".fonts", "makeslides");
+  const home = require("os").homedir();
+  const dst = process.platform === "darwin"
+    ? path.join(home, "Library", "Fonts")
+    : path.join(home, ".fonts", "makeslides");
   fs.mkdirSync(dst, { recursive: true });
   for (const fam of families) for (const f of Object.values(FONT_FILES[fam] || {})) fs.copyFileSync(path.resolve(FONT_DIR, f), path.join(dst, path.basename(f)));
   try { require("child_process").execSync("fc-cache -f " + dst); } catch (e) {}
